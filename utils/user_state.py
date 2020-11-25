@@ -1,5 +1,5 @@
 
-
+from utils.filters_api import send_filter
 
 class UserState:
     def __init__(self):
@@ -34,3 +34,7 @@ class UserState:
         except KeyError:
             return None
 
+    # error will handle from main calling func
+    async def send_to_filters(self, user_id):
+        await send_filter(self.filters[user_id])
+        self.filters.pop(user_id, None)

@@ -15,3 +15,6 @@ DB_USER = 'postgres'
 DB_PASSWORD = 'admin'
 DB_DATABASE = 'test'
 DB_HOST = 'localhost'
+
+FILTER_APP_HOST = 'localhost'
+FILTER_APP_PORT = 81

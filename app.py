@@ -4,7 +4,6 @@ import ujson
 ##
 import traceback
 
-
 from aiohttp import web
 from loguru import logger
 
@@ -36,7 +35,7 @@ async def process_answer(user_id, message):
         data = scheme.process_answer(state)(message)
         assert data
         user_state.change_state(user_id, None)
-        filter_process_error = scheme.process_filter(state,
+        filter_process_error = await scheme.process_filter(state,
                                                      user_state,
                                                      user_id,
                                                      data,
@@ -73,7 +72,7 @@ async def handler(request):
             print(f'{callback = }')
             args = [bd_data, page] if page is not None else []
 
-            filter_process_error = scheme.process_filter(callback,
+            filter_process_error = await scheme.process_filter(callback,
                                                          user_state,
                                                          user_id,
                                                          callback_data)

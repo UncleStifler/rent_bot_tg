@@ -100,14 +100,14 @@ def process_answer(state, success=False):
 	else:
 		return direct_answers[state]['type_func']
 
-def process_filter(callback, user_state, user_id, callback_data, from_direct_answer=False):
+async def process_filter(callback, user_state, user_id, callback_data, from_direct_answer=False):
 	try:
 		if callback_data or callback in no_data_callbacks:
 			if callback in filter_scheme:
 				if not from_direct_answer and callback in direct_answers:
 					return False
 				func = filter_scheme[callback]
-				func(user_state, user_id, callback_data)
+				await func(user_state, user_id, callback_data)
 	except AssertionError as err:
 		print(f'Assertion Error: {err}')
 		return True
