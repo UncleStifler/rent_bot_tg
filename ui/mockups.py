@@ -9,9 +9,16 @@ main_menu_text = '''
 Welcome. This is start page.
 '''
 main_menu_keyboard = {'inline_keyboard': [
-	[{'text': 'Add filter', 'callback_data': 'f_start-'}]
+	[{'text': 'Add filter', 'callback_data': 'f_start-'}],
+	[{'text': 'My filters', 'callback_data': 'user_filters-'}]
 	]}
 
+user_filters_text_filled = '''
+Select a filter to show more
+'''
+user_filters_text_none = '''
+You have no filters. Add one in a menu.
+'''
 
 
 

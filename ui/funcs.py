@@ -1,11 +1,40 @@
 
 import ui.mockups as mockups
-from ui.utils import build_keyboard
+from db.asql import get_user_filters
+from db.asql import get_filter_by_ids
+from ui.utils import build_page_keyboard
+from ui.utils import build_common_keyboard
+from ui.utils import filter_to_ui
 
 
-def f_end():
-    return [mockups.f_end_text,
-            mockups.f_end_keyboard]
+async def user_filters(user_id, pool):
+    filters = await get_user_filters(pool, user_id)
+    filters = [[x['name'], x['id']] for x in filters]
+    if filters:
+        return [mockups.user_filters_text_filled,
+                build_common_keyboard(filters,
+                                      'u_select',
+                                      'Back to menu',
+                                      'main_menu')]
+    else:
+        return [mockups.user_filters_text_none,
+                build_common_keyboard(None,
+                                      None,
+                                      'Back to menu',
+                                      'main_menu')]
+
+async def select_filter(bd, user_id, filter_id, pool):
+    filter = await get_filter_by_ids(pool, user_id,
+                                     filter_id)
+    return [filter_to_ui(filter,
+                         bd),
+            build_common_keyboard(None,
+                                  None,
+                                  'Back',
+                                  'user_filters')]
+
+
+
 def main_menu():
     return [mockups.main_menu_text,
             mockups.main_menu_keyboard]
@@ -20,8 +49,8 @@ def f_price():
             mockups.f_price_keyboard]
 def f_district(db, page):
     return [mockups.f_district_text,
-            build_keyboard(db.districts,
-                           page,
+            build_page_keyboard(db.districts,
+                                page,
                            'f_district',
                            'f_price')]
 def f_route_type():
@@ -30,19 +59,19 @@ def f_route_type():
 
 def f_routes_metro(db, page):
     return [mockups.f_routes_metro,
-            build_keyboard(db.metro_routes,
-                           page,
+            build_page_keyboard(db.metro_routes,
+                                page,
                            'f_route',
                            'f_routes_metro',
-                           skip=False)]
+                                skip=False)]
 
 def f_routes_bus(db, page):
     return [mockups.f_routes_bus,
-            build_keyboard(db.bus_routes,
-                           page,
+            build_page_keyboard(db.bus_routes,
+                                page,
                            'f_route',
                            'f_routes_bus',
-                           skip=False)]
+                                skip=False)]
 
 def f_radius():
     return [mockups.f_radius_text,
@@ -63,6 +92,9 @@ def f_owner():
 def f_name():
     return [mockups.f_name_text,
             mockups.f_name_keyboard]
+def f_end():
+    return [mockups.f_end_text,
+            mockups.f_end_keyboard]
 def f_name_type(err=False):
     text = mockups.f_name_type
     if err:

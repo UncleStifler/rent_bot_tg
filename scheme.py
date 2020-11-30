@@ -49,6 +49,17 @@ direct_answers = {
 					'next_func': funcs.f_end}
 }
 
+async_callbacks = {
+	'user_filters': funcs.user_filters,
+	'u_select': funcs.select_filter
+}
+
+# args = bd, user_id, callback_data
+callbacks_agrs_1 = [
+	'u_select'
+]
+
+# each callback calls next menu
 scheme = {
 	'commands': {
 		'/start': funcs.main_menu
@@ -86,13 +97,14 @@ scheme = {
 	}
 }
 
-
+async def async_process_callback(callback, *args):
+	return await async_callbacks[callback](*args)
 
 def process_command(command):
-	return scheme['commands'][command]
+	return scheme['commands'][command]()
 
-def process_callback(callback):
-	return scheme['callbacks'][callback]
+def process_callback(callback, *args):
+	return scheme['callbacks'][callback](*args)
 
 def process_answer(state, success=False):
 	if success:

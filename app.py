@@ -9,12 +9,13 @@ from loguru import logger
 
 import config
 import scheme
-
+import db.asql as asql
 from utils.tg_api import send_message, delete_message
 from utils.user_state import UserState
 from db.data_updater import DataUpdater
-from ui.utils import get_callback
-from ui.utils import get_message
+from utils.callbacks_processing import get_callback
+from utils.callbacks_processing import get_message
+from utils.callbacks_processing import get_args
 
 
 
@@ -42,7 +43,7 @@ async def process_answer(user_id, message):
                                                      from_direct_answer=True)
 
         if filter_process_error:
-            text, keyboard = scheme.process_callback('f_error')()
+            text, keyboard = scheme.process_callback('f_error')
         else:
             text, keyboard = scheme.process_answer(state,
                                                success=True)()
@@ -54,7 +55,7 @@ async def process_answer(user_id, message):
         return response
 
     except AssertionError:
-        text, keyboard = scheme.process_callback(state)(err=True)
+        text, keyboard = scheme.process_callback(state, err=True)
         response, message_id = await send_message(user_id,
                                                   text,
                                                   keyboard,
@@ -63,23 +64,27 @@ async def process_answer(user_id, message):
 
 
 async def handler(request):
+    pool = request.app['pool']
     data = await request.read()
     data = ujson.loads(data)
     # print(data)
     try:
         if 'callback_query' in data:
-            user_id, callback, callback_data, page = get_callback(data)
+
+            user_id, callback, callback_data, args = get_callback(data, bd_data, pool)
             print(f'{callback = }')
-            args = [bd_data, page] if page is not None else []
 
             filter_process_error = await scheme.process_filter(callback,
                                                          user_state,
                                                          user_id,
                                                          callback_data)
             if filter_process_error:
-                text, keyboard = scheme.process_callback('f_error')()
+                text, keyboard = scheme.process_callback('f_error')
             else:
-                text, keyboard = scheme.process_callback(callback)(*args)
+                if callback in scheme.async_callbacks:
+                    text, keyboard = await scheme.async_process_callback(callback, *args)
+                else:
+                    text, keyboard = scheme.process_callback(callback, *args)
                 if callback in scheme.direct_answers:
                     user_state.change_state(user_id, callback)
 
@@ -101,7 +106,7 @@ async def handler(request):
                 return await process_answer(user_id, message)
 
             if message in scheme.scheme['commands']:
-                text, keyboard = scheme.process_command(message)()
+                text, keyboard = scheme.process_command(message)
 
                 response, message_id = await send_message(user_id,
                                                           text,
@@ -121,6 +126,7 @@ async def handler(request):
 
 async def init_app():
     app = web.Application()
+    app['pool'] = await asql.get_pool()
     app.router.add_post('/rent_bot/', handler)
     return app
 
@@ -128,12 +134,14 @@ async def init_app():
 def main():
     loop = asyncio.get_event_loop()
     try:
+        app = loop.run_until_complete(init_app())
+
         global user_state
         user_state = UserState()
         global bd_data
-        bd_data = DataUpdater()
+        bd_data = DataUpdater(app['pool'])
 
-        app = loop.run_until_complete(init_app())
+
         web.run_app(app,
                     host=config.WEBHOOK_LISTEN,
                     port=config.WEBHOOK_PORT)
