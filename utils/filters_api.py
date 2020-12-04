@@ -9,9 +9,11 @@ ENDPOINT = f'http://{config.FILTER_APP_HOST}:{config.FILTER_APP_PORT}'
 
 async def send_filter(data):
     url = ENDPOINT + '/add_filter/'
-    return await _post_req(url,
-                           data)
+    return await _post_req(url, data)
 
+async def delete_filter(data):
+    url = ENDPOINT + '/delete_filter/'
+    return await _post_req(url, data)
 
 async def _post_req(url, data):
     async with aiohttp.ClientSession() as session:

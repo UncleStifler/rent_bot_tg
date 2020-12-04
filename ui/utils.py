@@ -1,6 +1,5 @@
 
 
-
 def _get_slice(data, page, slice=8):
     start = page*slice
     end = start + slice
@@ -42,10 +41,23 @@ def build_page_keyboard(data, page, data_callback, menu_callback, skip=True):
                                              'callback_data': f'{data_callback}-0'}])
     return keyboard
 
-def build_common_keyboard(data, data_callback, back_title, back_callback):
+# [[text, callback_data], ...]
+def build_buttons(data):
+    return [{'text': x[0],
+              'callback_data': x[1]} for x in data]
+
+def build_common_keyboard(data,
+                          data_callback,
+                          buttons=None,
+                          in_row=True):
     keyboard = _get_buttons(data, data_callback)
-    keyboard['inline_keyboard'].append([{'text': back_title,
-                                         'callback_data': f'{back_callback}-'}])
+    if buttons:
+        buttons_ = build_buttons(buttons)
+        if in_row:
+            keyboard['inline_keyboard'].append(buttons_)
+        else:
+            for b in buttons_:
+                keyboard['inline_keyboard'].append([b])
     return keyboard
 
 def _search_bd(q, data):
@@ -57,26 +69,26 @@ def _search_bd(q, data):
 def filter_to_ui(filter, db):
     filter = filter[0]
     type_ = 'flats' if filter['type'] == 0 else 'rooms'
-    city = 'Barcelona'
+    city = '*Barcelona*'
     district = _search_bd(filter['district'], db.districts)
     address = ' in '
     if district:
-        address += f'{district}, {city}'
+        address += f'*{district}*, {city}'
     else:
         address += city
-    text = f'Filter - {filter["name"]}\nSearching {type_}{address}'
+    text = f'Filter - *{filter["name"]}*\nSearching *{type_}*{address}'
 
     if filter['rooms']:
-        rooms = f'{filter["rooms"]} rooms'
+        rooms = f'*{filter["rooms"]} rooms*'
     else:
         rooms = None
 
     if filter['min_price'] and filter['max_price']:
-        price = f'between {filter["min_price"]} and {filter["max_price"]}'
+        price = f'between *{filter["min_price"]}* and *{filter["max_price"]}*'
     elif filter['min_price']:
-        price = f'above {filter["min_price"]}'
+        price = f'above *{filter["min_price"]}*'
     elif filter['max_price']:
-        price = f'under {filter["max_price"]}'
+        price = f'under *{filter["max_price"]}*'
     else:
         price = None
 
@@ -91,6 +103,43 @@ def filter_to_ui(filter, db):
 
     if rooms_price:
         text += f'\n{rooms_price}'
+
+    sex = None
+    if filter['sex']:
+        if filter['sex'] == 0:
+            sex = 'both gender'
+        elif filter['sex'] == 1:
+            sex = 'only male'
+        elif filter['sex'] == 2:
+            sex = 'only female'
+    pets = None
+    if filter['pets']:
+        pets = True
+    smoke = None
+    if filter['smoke']:
+        smoke = True
+    owner = None
+    if filter['owner']:
+        owner = True
+
+    t = f'\nYou a searching property'
+    if sex:
+        t += f' for a *{sex}*'
+    if pets and smoke:
+        t += ' with a *pets* and *smoke* allowed'
+    elif pets:
+        t += ' with a *pets* allowed'
+    elif smoke:
+        t += ' with a *smoke* allowed'
+    if owner:
+        t += ' where landlord is the *owner* of property'
+
+    if sex or pets or smoke or owner:
+        text += t
+
+
+
+
 
     #todo routes
     return text

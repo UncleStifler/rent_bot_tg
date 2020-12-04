@@ -7,7 +7,11 @@ import config
 API_URL = f'https://api.telegram.org/bot{config.TOKEN}/'
 HEADERS = {'Content-Type': 'application/json'}
 
-def _get_message_for_sent(chat_id, text, keyboard, update):
+def _get_message_for_sent(chat_id,
+						  text,
+						  keyboard,
+						  update,
+						  markdown=True):
 	message = {
 		'chat_id': chat_id,
 		'text': text
@@ -16,6 +20,8 @@ def _get_message_for_sent(chat_id, text, keyboard, update):
 		message.update({'reply_markup': keyboard})
 	if update:
 		message.update({'message_id': update})
+	if markdown:
+		message.update({'parse_mode': 'markdown'})
 	return message
 
 def _get_message_for_delete(chat_id, message_id):

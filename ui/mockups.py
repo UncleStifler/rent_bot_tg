@@ -14,7 +14,7 @@ main_menu_keyboard = {'inline_keyboard': [
 	]}
 
 user_filters_text_filled = '''
-Select a filter to show more
+Select a *filter* to show more
 '''
 user_filters_text_none = '''
 You have no filters. Add one in a menu.
@@ -24,7 +24,7 @@ You have no filters. Add one in a menu.
 
 ###########################################################
 f_type_text = '''
-Choose the type of property you are looking for
+Choose the *type* of property you are looking for
 '''
 f_type_keyboard = {'inline_keyboard': [
 	[{'text': 'Flat', 'callback_data': 'f_type-0'},
@@ -32,7 +32,7 @@ f_type_keyboard = {'inline_keyboard': [
 	]}
 ###########################################################
 f_rooms_text = '''
-How many rooms are you looking for?
+How many *rooms* are you looking for?
 '''
 f_rooms_keyboard = {'inline_keyboard': [
 	[{'text': '1', 'callback_data': 'f_rooms-1'},
@@ -43,12 +43,12 @@ f_rooms_keyboard = {'inline_keyboard': [
 	 {'text': "Doesn't matter", 'callback_data': 'f_rooms-0'}]
 	]}
 f_rooms_type = '''
-Type in number of rooms
-Example: 3
+Type in number of *rooms*
+Example: *3*
 '''
 ###########################################################
 f_price_text = '''
-You can choose a price range from below or enter your own. You can also skip this step.
+You can choose a *price* range from below or enter your own. You can also *skip* this step.
 '''
 f_price_keyboard = {'inline_keyboard': [
 	[{'text': '300-500', 'callback_data': 'f_price-300/500'},
@@ -59,16 +59,16 @@ f_price_keyboard = {'inline_keyboard': [
 	 {'text': "Doesn't matter", 'callback_data': 'f_price-0'}]
 	]}
 f_price_type = '''
-Type in your price range
-Example: 500-1000, >500, <500
+Type in your *price* range
+Example: *500-1000*, *>500*, *<500*
 '''
 ###########################################################
 f_district_text = '''
-Select the district where the property is located
+Select the *district* where the property is located
 '''
 ###########################################################
 f_route_type_text = '''
-Our algorithm can select for you properties located near public transport routes. What kind of transport do you need?
+Our algorithm can select for you properties located near public *transport routes*. What kind of transport do you need?
 '''
 f_route_type_keyboard = {'inline_keyboard': [
 	[{'text': 'Metro', 'callback_data': 'f_routes_metro-'},
@@ -77,15 +77,15 @@ f_route_type_keyboard = {'inline_keyboard': [
 	]}
 ###########################################################
 f_routes_bus = '''
-Please select the bus route you need.
+Please select the *bus route* you need.
 '''
 ###########################################################
 f_routes_metro = '''
-Please select the metro line you need.
+Please select the *metro line* you need.
 '''
 ###########################################################
 f_radius_text = '''
-Choose the maximum distance to the stop.
+Choose the maximum *distance* to the stop.
 '''
 f_radius_keyboard = {'inline_keyboard': [
 	[{'text': '300 m', 'callback_data': 'f_radius-0.3'},
@@ -95,7 +95,7 @@ f_radius_keyboard = {'inline_keyboard': [
 	]}
 ###########################################################
 f_sex_text = '''
-Choose the gender your landlord prefers
+Choose the *gender* your landlord prefers
 (it doesn't matter if you looking for a flat)
 '''
 f_sex_keyboard = {'inline_keyboard': [
@@ -106,7 +106,7 @@ f_sex_keyboard = {'inline_keyboard': [
 	]}
 ###########################################################
 f_pets_text = '''
-Is it important to you that the landlord allowed pets?
+Is it important to you that the landlord allowed *pets*?
 (it doesn't matter if you looking for a flat)
 '''
 f_pets_keyboard = {'inline_keyboard': [
@@ -116,7 +116,7 @@ f_pets_keyboard = {'inline_keyboard': [
 	]}
 ###########################################################
 f_smoke_text = '''
-Is it important to you that the landlord allowed smoking?
+Is it important to you that the landlord allowed *smoking*?
 (it doesn't matter if you looking for a flat)
 '''
 f_smoke_keyboard = {'inline_keyboard': [
@@ -126,7 +126,7 @@ f_smoke_keyboard = {'inline_keyboard': [
 	]}
 ###########################################################
 f_owner_text = '''
-Is it important for you that the landlord owns the property?
+Is it important for you that the landlord *owns* the property?
 '''
 f_owner_keyboard = {'inline_keyboard': [
 	[{'text': 'Yes', 'callback_data': 'f_owner-1'},
@@ -135,7 +135,7 @@ f_owner_keyboard = {'inline_keyboard': [
 	]}
 ###########################################################
 f_name_text = '''
-In case you have many filters, please enter a filter name to differentiate between results.
+In case you have many filters, please enter a *filter name* to differentiate between results.
 Otherwise, the name will be default ('Filter').
 '''
 f_name_keyboard = {'inline_keyboard': [
@@ -144,11 +144,11 @@ f_name_keyboard = {'inline_keyboard': [
 	]}
 f_name_type = '''
 The filter name must be in english letters and less than 100 in length.
-Example: Only rooms with price less than 1000 euro.
+Example: *Only rooms with price less than 1000 euro*.
 '''
 ###########################################################
 f_end_text = '''
-The filter was added successfully
+The filter *was added* successfully
 '''
 f_end_keyboard = {'inline_keyboard': [
 	[{'text': 'Main Menu', 'callback_data': 'main_menu-'}]
@@ -158,10 +158,10 @@ f_end_keyboard = {'inline_keyboard': [
 
 
 direct_answer_err = '''
-\nSorry, I can't read this. Please, follow the example above
+\n*Sorry, I can't read this. Please, follow the example above*
 '''
 f_error_text = '''
-Sorry, something went wrong with filter adding. Try again or contact us.
+Sorry, something went wrong. Try again or contact us.
 '''
 f_error_keyboard = {'inline_keyboard': [
 	[{'text': 'Main Menu', 'callback_data': 'main_menu-'}],

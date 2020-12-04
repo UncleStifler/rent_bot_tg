@@ -11,10 +11,15 @@ WEBHOOK_SSL_PRIV = "/home/tg_tink/ssl2/ssl_priv.pem"
 
 DATA_UPDATE_TIME = 60 # sec
 
+# DB_USER = 'postgres'
+# DB_PASSWORD = 'admin'
+# DB_DATABASE = 'test'
+# DB_HOST = 'localhost'
+
 DB_USER = 'postgres'
-DB_PASSWORD = 'admin'
-DB_DATABASE = 'test'
-DB_HOST = 'localhost'
+DB_PASSWORD = 'SF899laxe_'
+DB_DATABASE = 'rent'
+DB_HOST = '34.90.19.13'
 
 FILTER_APP_HOST = 'localhost'
 FILTER_APP_PORT = 81

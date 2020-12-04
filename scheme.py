@@ -51,12 +51,14 @@ direct_answers = {
 
 async_callbacks = {
 	'user_filters': funcs.user_filters,
-	'u_select': funcs.select_filter
+	'u_select': funcs.select_filter,
+	'del_filter': funcs.delete_user_filter
 }
 
 # args = bd, user_id, callback_data
 callbacks_agrs_1 = [
-	'u_select'
+	'u_select',
+	'del_filter'
 ]
 
 # each callback calls next menu
