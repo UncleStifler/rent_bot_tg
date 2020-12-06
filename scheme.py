@@ -52,7 +52,8 @@ direct_answers = {
 async_callbacks = {
 	'user_filters': funcs.user_filters,
 	'u_select': funcs.select_filter,
-	'del_filter': funcs.delete_user_filter
+	'del_filter': funcs.delete_user_filter,
+	'test': funcs.test
 }
 
 # args = bd, user_id, callback_data
@@ -94,8 +95,6 @@ scheme = {
 
 		'main_menu': funcs.main_menu,
 		'f_error': funcs.f_error
-
-
 	}
 }
 

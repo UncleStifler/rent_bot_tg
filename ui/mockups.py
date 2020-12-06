@@ -10,7 +10,8 @@ Welcome. This is start page.
 '''
 main_menu_keyboard = {'inline_keyboard': [
 	[{'text': 'Add filter', 'callback_data': 'f_start-'}],
-	[{'text': 'My filters', 'callback_data': 'user_filters-'}]
+	[{'text': 'My filters', 'callback_data': 'user_filters-'}],
+	[{'text': 'Test', 'callback_data': 'test-'}]
 	]}
 
 user_filters_text_filled = '''

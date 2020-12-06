@@ -1,18 +1,27 @@
 
+import ujson
+
 import scheme
 
-def get_args(bd,
+async def read_request(request):
+    pool = request.app['pool']
+    data = await request.read()
+    data = ujson.loads(data)
+    return pool, data
+
+
+def get_args(db,
              pool,
              user_id,
              callback,
              callback_data,
              page):
     if page is not None:
-        args = [bd, page]
+        args = [db, page]
     elif callback in scheme.callbacks_agrs_1:
-        args = [bd, user_id, callback_data, pool]
+        args = [user_id, pool, db, callback_data]
     elif callback in scheme.async_callbacks:
-        args = [user_id, pool]
+        args = [user_id, pool, db]
     else:
         args = []
     return args

@@ -2,13 +2,26 @@
 import ui.mockups as mockups
 from db.asql import get_user_filters
 from db.asql import get_filter_by_ids
+from db.asql import get_property_item
 from ui.utils import build_page_keyboard
 from ui.utils import build_common_keyboard
-from ui.utils import filter_to_ui
+from mockups.filter import filter_to_ui
+from mockups.item import item_to_ui
 from utils.filters_api import delete_filter
+from utils.filters_api import send_show_more
+
+async def test(user_id, pool, db):
+    res = await get_property_item(pool, 7, 5029)
+    print(res)
+    text = item_to_ui(db, res[0])
+    buttons = [['Back to menu', 'main_menu-']]
+    return [text,
+            build_common_keyboard(None,
+                                  None,
+                                  buttons)]
 
 
-async def user_filters(user_id, pool, err=False):
+async def user_filters(user_id, pool, db, err=False):
     filters = await get_user_filters(pool, user_id)
     filters = [[x['name'], x['id']] for x in filters]
     buttons = [['Back to menu', 'main_menu-']]
@@ -23,27 +36,26 @@ async def user_filters(user_id, pool, err=False):
                                   'u_select',
                                   buttons)]
 
-async def select_filter(bd, user_id, filter_id, pool):
+async def select_filter(user_id, pool, db, filter_id):
     filter = await get_filter_by_ids(pool, user_id,
                                      filter_id)
     buttons = [['Delete filter', f'del_filter-{filter_id}'],
                ['Back', 'user_filters-']]
     return [filter_to_ui(filter,
-                         bd),
+                         db),
             build_common_keyboard(None,
                                   None,
                                   buttons,
                                   in_row=False)]
 
-async def delete_user_filter(bd, user_id, filter_id, pool):
+async def delete_user_filter(user_id, pool, db, filter_id):
     try:
-        filter_id = int(filter_id)
-        data = {'filter_id': filter_id}
-        await delete_filter(data)
-        return await user_filters(user_id, pool)
+        await delete_filter(int(filter_id))
+        return await user_filters(user_id, pool, db)
     except Exception as err:
         print(err)
-        return await user_filters(user_id, pool, err=True)
+        return await user_filters(user_id, pool, db, err=True)
+
 
 def main_menu():
     return [mockups.main_menu_text,

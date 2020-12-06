@@ -11,8 +11,14 @@ async def send_filter(data):
     url = ENDPOINT + '/add_filter/'
     return await _post_req(url, data)
 
-async def delete_filter(data):
+async def delete_filter(filter_id):
+    data = {'filter_id': filter_id}
     url = ENDPOINT + '/delete_filter/'
+    return await _post_req(url, data)
+
+async def send_show_more(filter_id):
+    data = {'user_filter_id': filter_id}
+    url = ENDPOINT + '/show_more/'
     return await _post_req(url, data)
 
 async def _post_req(url, data):

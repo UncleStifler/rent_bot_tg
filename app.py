@@ -1,5 +1,4 @@
 import asyncio
-import ujson
 
 ##
 import traceback
@@ -16,6 +15,9 @@ from db.data_updater import DataUpdater
 from utils.callbacks_processing import get_callback
 from utils.callbacks_processing import get_message
 from utils.callbacks_processing import get_args
+from utils.callbacks_processing import read_request
+from ui.items_sending import process_from_filter_app
+from utils.filters_api import send_show_more
 
 
 
@@ -63,16 +65,18 @@ async def process_answer(user_id, message):
         return response
 
 
-async def handler(request):
-    pool = request.app['pool']
-    data = await request.read()
-    data = ujson.loads(data)
+async def tg_handler(request):
+    pool, data = await read_request(request)
     # print(data)
     try:
         if 'callback_query' in data:
 
-            user_id, callback, callback_data, args = get_callback(data, bd_data, pool)
+            user_id, callback, callback_data, args = get_callback(data, db_data, pool)
             print(f'{callback = }')
+
+            if callback == 'show_more':
+                await send_show_more(callback_data)
+                return web.Response(status=200)
 
             filter_process_error = await scheme.process_filter(callback,
                                                          user_state,
@@ -119,15 +123,21 @@ async def handler(request):
         logger.error(f'\n{err}\n{tb}')
     finally:
 
-        print(user_state.state)
-        print(user_state.filters)
+        # print(user_state.state)
+        # print(user_state.filters)
         return web.Response(status=200)
 
+async def send_results_handler(request):
+    pool, data = await read_request(request)
+    print(data)
+    await process_from_filter_app(data, pool, db_data)
+    return web.Response(status=200)
 
 async def init_app():
     app = web.Application()
     app['pool'] = await asql.get_pool()
-    app.router.add_post('/rent_bot/', handler)
+    app.router.add_post('/rent_bot/', tg_handler)
+    app.router.add_post('/send_results/', send_results_handler)
     return app
 
 @logger.catch
@@ -138,8 +148,8 @@ def main():
 
         global user_state
         user_state = UserState()
-        global bd_data
-        bd_data = DataUpdater(app['pool'])
+        global db_data
+        db_data = DataUpdater(app['pool'])
 
 
         web.run_app(app,

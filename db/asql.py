@@ -29,4 +29,7 @@ async def get_user_filters(pool, user_id):
 async def get_filter_by_ids(pool, user_id, filter_id):
 	return await pool_req(pool, q.get_filter(user_id, filter_id))
 
+async def get_property_item(pool, filter_id, property_id):
+	return await pool_req(pool, q.get_property_item(filter_id, property_id))
+
 
