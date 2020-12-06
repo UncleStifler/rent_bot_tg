@@ -14,8 +14,22 @@ async def get_pool():
 async def pool_req(pool, q):
 	async with pool.acquire() as connection:
 		async with connection.transaction():
-			res = await connection.fetch(q)
-			return res
+			try:
+				res = await connection.fetch(q)
+				return res
+			except Exception as err:
+				print(err)
+				print(q)
+
+# --------------------------------------------------------------------------
+
+async def update_user(pool, user_id, message_id=None, lang=None):
+	return await pool_req(pool, q.update_user(user_id, message_id, lang))
+
+async def get_user(pool, user_id):
+	return await pool_req(pool, q.get_user(user_id))
+
+# --------------------------------------------------------------------------
 
 async def get_districts(pool):
 	return await pool_req(pool, q.districts())

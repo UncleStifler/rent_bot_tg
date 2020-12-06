@@ -13,6 +13,8 @@ async def get_item_from_db(data, pool, db):
         return None, None, None
     user_id = item[0]['user_id']
     url = item[0]['url']
+    lat, lon = item[0]['latitude'], item[0]['longitude']
+    lat_lon = f'map-{lat}|{lon}'
     text = item_to_ui(db, item[0])
     # todo change callback to main menu
     buttons = [['Main menu', 'main_menu-'],
@@ -20,10 +22,11 @@ async def get_item_from_db(data, pool, db):
     keyboard = build_common_keyboard(None,
                                      None,
                                      buttons)
-    if url:
-        keyboard['inline_keyboard'].insert(0,
-                                           [{'text': 'See on website',
-                                             'url': url}])
+    keyboard['inline_keyboard'].insert(0,
+                                       [{'text': 'See on website',
+                                         'url': url},
+                                        {'text': 'See on map',
+                                         'callback_data': lat_lon}])
     return [user_id,
             text,
             keyboard]

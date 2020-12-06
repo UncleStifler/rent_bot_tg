@@ -65,3 +65,24 @@ async def delete_message(chat_id, message_id):
 			except AssertionError:
 				return web.Response(status=500)
 	return web.Response(status=200)
+
+
+async def send_location(chat_id, lat_lon):
+	lat, lon = lat_lon.split('|')
+	url = API_URL+'sendLocation'
+	message = {
+		'chat_id': chat_id,
+		'latitude': float(lat),
+		'longitude': float(lon)
+	}
+	async with aiohttp.ClientSession() as session:
+		async with session.post(url,
+								data=ujson.dumps(message),
+								headers=HEADERS) as resp:
+			try:
+				assert resp.status == 200
+				return web.Response(status=200)
+			except Exception as err:
+				print(err)
+				print(await resp.text())
+				return web.Response(status=500)

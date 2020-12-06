@@ -10,16 +10,6 @@ from mockups.item import item_to_ui
 from utils.filters_api import delete_filter
 from utils.filters_api import send_show_more
 
-async def test(user_id, pool, db):
-    res = await get_property_item(pool, 7, 5029)
-    print(res)
-    text = item_to_ui(db, res[0])
-    buttons = [['Back to menu', 'main_menu-']]
-    return [text,
-            build_common_keyboard(None,
-                                  None,
-                                  buttons)]
-
 
 async def user_filters(user_id, pool, db, err=False):
     filters = await get_user_filters(pool, user_id)
@@ -39,7 +29,8 @@ async def user_filters(user_id, pool, db, err=False):
 async def select_filter(user_id, pool, db, filter_id):
     filter = await get_filter_by_ids(pool, user_id,
                                      filter_id)
-    buttons = [['Delete filter', f'del_filter-{filter_id}'],
+    buttons = [['Show results', f'show_more-{filter_id}'],
+               ['Delete filter', f'del_filter-{filter_id}'],
                ['Back', 'user_filters-']]
     return [filter_to_ui(filter,
                          db),

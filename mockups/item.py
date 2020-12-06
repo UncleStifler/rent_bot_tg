@@ -1,4 +1,5 @@
 
+import ujson
 
 from ui.utils import search_bd
 
@@ -28,19 +29,36 @@ def item_to_ui(db, item, fresh=False):
     else:
         owner = 'Landlord is *not* the *owner*'
 
+    try:
+        data = ujson.loads(item['amenities'])['amenities']
+        amenities = f"Amenities: {', '.join([f'*{x}*' for x in data])}"
+    except KeyError:
+        amenities = ''
+
+    if item['contact_name'] and item['contact_phone']:
+        contacts = f"\nContacts: *{item['contact_name']}* - *{item['contact_phone']}*"
+    else:
+        contacts = ''
+
+    description = item['description'].replace('\\n', '\n')
+
     type = 'Flat' if item['type'] == 0 else 'Room'
     district = search_bd(item['district'], db.districts)
     text = f'''
 {fresh} by filter "*{item['name']}*"
 *{district}*, *Barcelona*
 *{type}*, *{item['price']} €\month*, *{item['rooms']} rooms*
-{demands}{owner}
+{demands}{owner}{contacts}
+{amenities}
 
 *{item['title']}*
-{item['description']}
+{description}
 '''
 
     if item['photo']:
         # text += f'\n<a href="{item["photo"]}">&#8205;</a>'
         text += f'\n[\u200B]({item["photo"]})'
+
+    if '`' in text:
+        text = text.replace('`', "'")
     return text

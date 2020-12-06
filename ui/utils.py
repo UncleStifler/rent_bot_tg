@@ -43,8 +43,7 @@ def build_page_keyboard(data, page, data_callback, menu_callback, skip=True):
 
 # [[text, callback_data], ...]
 def build_buttons(data):
-    return [{'text': x[0],
-              'callback_data': x[1]} for x in data]
+    return [{'text': x[0], 'callback_data': x[1]} for x in data]
 
 def build_common_keyboard(data,
                           data_callback,

@@ -1,5 +1,45 @@
 
 
+
+def _insert_user(user_id, message_id=None, lang=None):
+    columns = '(id, message_id'
+    if not message_id:
+        message_id = 'null'
+    values = f'({user_id}, {message_id}'
+    if lang:
+        columns += ', lang)'
+        values += f", '{lang}')"
+    else:
+        columns += ')'
+        values += ')'
+    return f'''
+    insert into users {columns}
+    values {values}
+    '''
+
+# either one of
+def _update_user(message_id=None, lang=None):
+    if not message_id:
+        message_id = 'null'
+    values = f'message_id = {message_id}'
+    if lang:
+        values += f", lang = '{lang}'"
+    return f'''
+    update set {values}
+    '''
+
+def update_user(user_id, message_id=None, lang=None):
+    return f'''
+    {_insert_user(user_id, message_id, lang)}
+    on conflict on constraint users_pkey do
+    {_update_user(message_id, lang)}
+    '''
+
+def get_user(user_id):
+    return f'select * from users where id = {user_id}'
+
+# --------------------------------------------------------------------------
+
 def districts():
     return 'select * from districts'
 

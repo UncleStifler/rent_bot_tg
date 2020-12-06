@@ -18,6 +18,7 @@ from utils.callbacks_processing import get_args
 from utils.callbacks_processing import read_request
 from ui.items_sending import process_from_filter_app
 from utils.filters_api import send_show_more
+from utils.tg_api import send_location
 
 
 
@@ -34,10 +35,11 @@ logger.add('app.log', format='{time} {level} {message}', level='DEBUG',
 
 async def process_answer(user_id, message):
     state = user_state.get_state(user_id)
+    prev_message_id = await user_state.get_message_id(user_id)
     try:
         data = scheme.process_answer(state)(message)
         assert data
-        user_state.change_state(user_id, None)
+        await user_state.change_state(user_id, None)
         filter_process_error = await scheme.process_filter(state,
                                                      user_state,
                                                      user_id,
@@ -53,7 +55,7 @@ async def process_answer(user_id, message):
         response, message_id = await send_message(user_id,
                                                   text,
                                                   keyboard,
-                                                  user_state.get_message_id(user_id))
+                                                  prev_message_id)
         return response
 
     except AssertionError:
@@ -61,7 +63,7 @@ async def process_answer(user_id, message):
         response, message_id = await send_message(user_id,
                                                   text,
                                                   keyboard,
-                                                  user_state.get_message_id(user_id))
+                                                  prev_message_id)
         return response
 
 
@@ -70,12 +72,23 @@ async def tg_handler(request):
     # print(data)
     try:
         if 'callback_query' in data:
-
             user_id, callback, callback_data, args = get_callback(data, db_data, pool)
             print(f'{callback = }')
 
             if callback == 'show_more':
                 await send_show_more(callback_data)
+                prev_message_id = await user_state.get_message_id(user_id)
+                if prev_message_id:
+                    await delete_message(user_id, prev_message_id)
+                await user_state.change_message_id(user_id, None)
+                return web.Response(status=200)
+
+            if callback == 'map':
+                await send_location(user_id, callback_data)
+                prev_message_id = await user_state.get_message_id(user_id)
+                if prev_message_id:
+                    await delete_message(user_id, prev_message_id)
+                await user_state.change_message_id(user_id, None)
                 return web.Response(status=200)
 
             filter_process_error = await scheme.process_filter(callback,
@@ -90,14 +103,15 @@ async def tg_handler(request):
                 else:
                     text, keyboard = scheme.process_callback(callback, *args)
                 if callback in scheme.direct_answers:
-                    user_state.change_state(user_id, callback)
+                    await user_state.change_state(user_id, callback)
 
+            prev_message_id = await user_state.get_message_id(user_id)
             response, message_id = await send_message(user_id,
                                                       text,
                                                       keyboard,
-                                                      user_state.get_message_id(user_id))
+                                                      prev_message_id)
 
-            user_state.change_message_id(user_id, message_id)
+            await user_state.change_message_id(user_id, message_id)
             return response
 
         elif 'message' in data:
@@ -115,7 +129,7 @@ async def tg_handler(request):
                 response, message_id = await send_message(user_id,
                                                           text,
                                                           keyboard)
-                user_state.change_message_id(user_id, message_id)
+                await user_state.change_message_id(user_id, message_id)
                 return response
 
     except Exception as err:
@@ -123,7 +137,7 @@ async def tg_handler(request):
         logger.error(f'\n{err}\n{tb}')
     finally:
 
-        # print(user_state.state)
+        print(user_state.state)
         # print(user_state.filters)
         return web.Response(status=200)
 
@@ -145,11 +159,10 @@ def main():
     loop = asyncio.get_event_loop()
     try:
         app = loop.run_until_complete(init_app())
-
-        global user_state
-        user_state = UserState()
         global db_data
         db_data = DataUpdater(app['pool'])
+        global user_state
+        user_state = UserState(app['pool'])
 
 
         web.run_app(app,

@@ -10,6 +10,8 @@ WEBHOOK_SSL_PRIV = "/home/tg_tink/ssl2/ssl_priv.pem"
 
 
 DATA_UPDATE_TIME = 60 # sec
+USER_DATA_UPDATE_TIME = 10 # sec
+USER_DATA_OLD_TIME = 20 # sec
 
 # DB_USER = 'postgres'
 # DB_PASSWORD = 'admin'
