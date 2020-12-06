@@ -28,7 +28,6 @@ def item_to_ui(db, item, fresh=False):
     else:
         owner = 'Landlord is *not* the *owner*'
 
-
     type = 'Flat' if item['type'] == 0 else 'Room'
     district = search_bd(item['district'], db.districts)
     text = f'''
@@ -41,4 +40,7 @@ def item_to_ui(db, item, fresh=False):
 {item['description']}
 '''
 
+    if item['photo']:
+        # text += f'\n<a href="{item["photo"]}">&#8205;</a>'
+        text += f'\n[\u200B]({item["photo"]})'
     return text

@@ -22,6 +22,7 @@ def _get_message_for_sent(chat_id,
 		message.update({'message_id': update})
 	if markdown:
 		message.update({'parse_mode': 'markdown'})
+		message.update({'disable_web_page_preview': False})
 	return message
 
 def _get_message_for_delete(chat_id, message_id):

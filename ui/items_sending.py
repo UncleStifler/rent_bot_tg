@@ -12,15 +12,21 @@ async def get_item_from_db(data, pool, db):
     if not item:
         return None, None, None
     user_id = item[0]['user_id']
+    url = item[0]['url']
     text = item_to_ui(db, item[0])
     # todo change callback to main menu
     buttons = [['Main menu', 'main_menu-'],
                ['Show more', f'show_more-{filter_id}']]
+    keyboard = build_common_keyboard(None,
+                                     None,
+                                     buttons)
+    if url:
+        keyboard['inline_keyboard'].insert(0,
+                                           [{'text': 'See on website',
+                                             'url': url}])
     return [user_id,
             text,
-            build_common_keyboard(None,
-                                  None,
-                                  buttons)]
+            keyboard]
 
 async def process_from_filter_app(data, pool, db):
     user_id, text, keyboard = await get_item_from_db(data, pool, db)
