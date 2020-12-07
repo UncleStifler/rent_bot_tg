@@ -58,15 +58,26 @@ class UserState:
             await self.add_user_state(user_id)
             self.state[user_id]['state'] = name
 
+    async def change_lang(self, user_id, lang):
+        try:
+            self.state[user_id]['lang'] = lang
+        except KeyError:
+            await self.add_user_state(user_id)
+            self.state[user_id]['lang'] = lang
+
     async def get_message_id(self, user_id):
         try:
             return self.state[user_id]['message_id']
         except KeyError:
-            try:
-                await self.add_user_state(user_id)
-                return self.state[user_id]['message_id']
-            except KeyError:
-                return None
+            await self.add_user_state(user_id)
+            return self.state[user_id]['message_id']
+
+    async def get_lang(self, user_id):
+        try:
+            return self.state[user_id]['lang']
+        except KeyError:
+            await self.add_user_state(user_id)
+            return self.state[user_id]['lang']
 
     def get_state(self, user_id):
         try:

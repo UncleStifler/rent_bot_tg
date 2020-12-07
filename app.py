@@ -33,7 +33,7 @@ logger.add('app.log', format='{time} {level} {message}', level='DEBUG',
 
 
 
-async def process_answer(user_id, message):
+async def process_answer(user_id, message, lang='en'):
     state = user_state.get_state(user_id)
     prev_message_id = await user_state.get_message_id(user_id)
     try:
@@ -47,10 +47,11 @@ async def process_answer(user_id, message):
                                                      from_direct_answer=True)
 
         if filter_process_error:
-            text, keyboard = scheme.process_callback('f_error')
+            text, keyboard = scheme.process_callback('f_error',
+                                                     lang=lang)
         else:
             text, keyboard = scheme.process_answer(state,
-                                               success=True)()
+                                               success=True)(lang=lang)
 
         response, message_id = await send_message(user_id,
                                                   text,
@@ -59,7 +60,9 @@ async def process_answer(user_id, message):
         return response
 
     except AssertionError:
-        text, keyboard = scheme.process_callback(state, err=True)
+        text, keyboard = scheme.process_callback(state,
+                                                 err=True,
+                                                 lang=lang)
         response, message_id = await send_message(user_id,
                                                   text,
                                                   keyboard,
@@ -73,9 +76,10 @@ async def tg_handler(request):
     try:
         if 'callback_query' in data:
             user_id, callback, callback_data, args = get_callback(data, db_data, pool)
+            lang = await user_state.get_lang(user_id)
             print(f'{callback = }')
-
             if callback == 'show_more':
+                # todo if no results - sends from filter no results with menu
                 await send_show_more(callback_data)
                 prev_message_id = await user_state.get_message_id(user_id)
                 if prev_message_id:
@@ -91,17 +95,26 @@ async def tg_handler(request):
                 await user_state.change_message_id(user_id, None)
                 return web.Response(status=200)
 
+            if callback == 'lang':
+                lang = callback_data
+                await user_state.change_lang(user_id, lang)
+
             filter_process_error = await scheme.process_filter(callback,
                                                          user_state,
                                                          user_id,
                                                          callback_data)
             if filter_process_error:
-                text, keyboard = scheme.process_callback('f_error')
+                text, keyboard = scheme.process_callback('f_error',
+                                                         lang=lang)
             else:
                 if callback in scheme.async_callbacks:
-                    text, keyboard = await scheme.async_process_callback(callback, *args)
+                    text, keyboard = await scheme.async_process_callback(callback,
+                                                                         *args,
+                                                                         lang=lang)
                 else:
-                    text, keyboard = scheme.process_callback(callback, *args)
+                    text, keyboard = scheme.process_callback(callback,
+                                                             *args,
+                                                             lang=lang)
                 if callback in scheme.direct_answers:
                     await user_state.change_state(user_id, callback)
 
@@ -116,14 +129,18 @@ async def tg_handler(request):
 
         elif 'message' in data:
             user_id, message, message_id = get_message(data)
+            lang = await user_state.get_lang(user_id)
             print(f'{message = }')
 
             await delete_message(user_id, message_id)
 
             if user_state.get_state(user_id):
-                return await process_answer(user_id, message)
+                return await process_answer(user_id, message, lang=lang)
 
             if message in scheme.scheme['commands']:
+                # todo lang choice
+                if not lang:
+                    message = '/select_lang'
                 text, keyboard = scheme.process_command(message)
 
                 response, message_id = await send_message(user_id,
@@ -144,7 +161,7 @@ async def tg_handler(request):
 async def send_results_handler(request):
     pool, data = await read_request(request)
     print(data)
-    await process_from_filter_app(data, pool, db_data)
+    await process_from_filter_app(data, pool, db_data, user_state)
     return web.Response(status=200)
 
 async def init_app():

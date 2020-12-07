@@ -64,9 +64,12 @@ callbacks_agrs_1 = [
 # each callback calls next menu
 scheme = {
 	'commands': {
-		'/start': funcs.main_menu
+		'/start': funcs.main_menu,
+		'/select_lang': funcs.lang_select
 	},
 	'callbacks': {
+		'select_lang': funcs.lang_select,
+		'lang': funcs.main_menu,
 		'f_start': funcs.f_type,
 		'f_type': funcs.f_rooms,
 		'f_rooms': funcs.f_price,
@@ -97,14 +100,14 @@ scheme = {
 	}
 }
 
-async def async_process_callback(callback, *args):
-	return await async_callbacks[callback](*args)
+async def async_process_callback(callback, *args, lang='en'):
+	return await async_callbacks[callback](*args, lang=lang)
 
 def process_command(command):
 	return scheme['commands'][command]()
 
-def process_callback(callback, *args):
-	return scheme['callbacks'][callback](*args)
+def process_callback(callback, *args, lang='en'):
+	return scheme['callbacks'][callback](*args, lang=lang)
 
 def process_answer(state, success=False):
 	if success:

@@ -1,4 +1,5 @@
 
+import ui.lang as l
 
 def _get_slice(data, page, slice=8):
     start = page*slice
@@ -22,22 +23,22 @@ def _get_buttons(data, callback, columns=3):
                 break
     return keyboard
 
-def build_page_keyboard(data, page, data_callback, menu_callback, skip=True):
+def build_page_keyboard(data, page, data_callback, menu_callback, lang, skip=True):
     keyboard = _get_buttons(_get_slice(data, page),
                             data_callback)
     control_buttons = []
     if page > 0:
-        back_button = {'text': 'Back',
+        back_button = {'text': l.back[lang],
                        'callback_data': f'{menu_callback}/{page - 1}-'}
         control_buttons.append(back_button)
     next_data = _get_slice(data, page + 1)
     if next_data:
-        next_button = {'text': 'Next',
+        next_button = {'text': l.next[lang],
                        'callback_data': f'{menu_callback}/{page + 1}-'}
         control_buttons.append(next_button)
     keyboard['inline_keyboard'].append(control_buttons)
     if skip:
-        keyboard['inline_keyboard'].append([{'text': "Doesn't matter",
+        keyboard['inline_keyboard'].append([{'text': l.doesnt_matter[lang],
                                              'callback_data': f'{data_callback}-0'}])
     return keyboard
 

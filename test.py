@@ -1,21 +1,19 @@
 
 # second test commit
 
-state = {2452: {}}
+main_menu_text = {'en': 'Welcome. This is start page.',
+				  'es': 'Bienvenido. Esta es la página de inicio.'}
 
-def add_user_state(user_id):
-    state[user_id] = {}
+x = lambda y: y*2
 
-def change_message_id(user_id, id_):
-    def defs(user_id, id_): state[user_id]['message_id'] = id_
+print(x(4))
+
+z = {24: {24, x(5)}}
+print(z)
 
 
-def key_error_handle(func):
-    try:
-        func()
-    except KeyError:
-        add_user_state(user_id)
-        func()
 
-change_message_id(425, 4534)
-print(state)
+x = {'inline_keyboard': [
+	[{'text': 'Add filter', 'callback_data': 'f_start-'}],
+	[{'text': 'My filters', 'callback_data': 'user_filters-'}]
+	]}

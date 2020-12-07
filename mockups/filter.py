@@ -72,9 +72,5 @@ def filter_to_ui(filter, db):
     if sex or pets or smoke or owner:
         text += t
 
-
-
-
-
     #todo routes
     return text
