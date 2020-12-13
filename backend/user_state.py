@@ -91,6 +91,6 @@ class UserState:
         self.filters[user_id] = {}
 
     # errors will handle from main calling func
-    async def send_to_filters(self, user_id):
-        await send_filter(self.filters[user_id])
+    async def send_to_filters(self, user_id, new=True):
+        await send_filter(self.filters[user_id], new=new)
         self.filters.pop(user_id, None)

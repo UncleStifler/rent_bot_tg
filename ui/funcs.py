@@ -6,16 +6,16 @@ from db.asql import get_filter_by_ids
 from db.asql import get_property_item
 from ui.utils import build_page_keyboard
 from ui.utils import build_common_keyboard
-from mockups.filter import filter_to_ui
 import mockups.filter as filter_view
 from mockups.item import item_to_ui
 from utils.filters_api import delete_filter
 from utils.filters_api import send_show_more
+from filters.compose import add_filter
 
 
 
 
-async def user_filters(args, lang='en', err=False):
+async def user_filters(args, lang='en'):
     filters = await get_user_filters(args.pool, args.user_id)
     filters = [[x['name'], x['id']] for x in filters]
     buttons = [[l.main_menu[lang], 'main_menu-']]
@@ -23,8 +23,6 @@ async def user_filters(args, lang='en', err=False):
         text = mockups.user_filters_text_filled(lang)
     else:
         text = mockups.user_filters_text_none(lang)
-    if err:
-        text = f'{mockups.f_error_text}{text}'
     return [text,
             build_common_keyboard(filters,
                                   'u_select',
@@ -34,23 +32,33 @@ async def select_filter(args, lang='en'):
     filter = await get_filter_by_ids(args.pool,
                                      args.user_id,
                                      args.callback_data)
+    await add_filter(args.state,
+                     args.user_id,
+                     filter[0])
     buttons = [[l.show_more_results[lang], f'show_more-{args.callback_data}'],
+               ['Change Filter', f'change_filter-{args.callback_data}'],
                [l.delete_filter[lang], f'del_filter-{args.callback_data}'],
                [l.back[lang], 'user_filters-']]
-    return [filter_to_ui(filter,
-                         args.db),
+    return [filter_view.filter_from_memory(args.state.filters[args.user_id],
+                                           args.db),
             build_common_keyboard(None,
                                   None,
                                   buttons,
                                   in_row=False)]
 
+async def change_user_filter(args, lang='en'):
+    filter = await get_filter_by_ids(args.pool,
+                                     args.user_id,
+                                     args.callback_data)
+    await add_filter(args.state,
+                     args.user_id,
+                     filter[0])
+    return f_view(args,
+                  lang=lang)
+
 async def delete_user_filter(args, lang='en'):
-    try:
-        await delete_filter(int(args.callback_data))
-        return await user_filters(args, lang=lang)
-    except Exception as err:
-        print(err)
-        return await user_filters(args, lang=lang, err=True)
+    await delete_filter(int(args.callback_data))
+    return await user_filters(args, lang=lang)
 
 def lang_select(args=None, lang='en'):
     return [mockups.lang_select_text(lang),
@@ -62,8 +70,9 @@ def main_menu(args=None, lang='en'):
 
 def f_view(args=None, lang='en'):
     filter = args.state.filters[args.user_id]
+    current_filter = filter['id']
     return [filter_view.filter_from_memory(filter, args.db),
-            mockups.f_view_keyboard(lang)]
+            mockups.f_view_keyboard(current_filter, lang)]
 
 def f_loc_m(args=None, lang='en'):
     filter = args.state.filters[args.user_id]

@@ -9,30 +9,57 @@ async def delete_filter(user_state, user_id, data=None):
 
 async def add_filter(user_state, user_id, data=None):
     user_state.add_user_filter(user_id)
-    data = {
-        'user_id': user_id,
-        'name': 'Filter',
-        'f_filter': {
-            'type': None,
-            'city': 1,
-            'district': None,
-            'sex': None,
-            'pets': None,
-            'smoke': None,
-            'owner': None,
-            'rooms': None,
-            'min_price': None,
-            'max_price': None
-        },
-        'g_filter': {
-            'route': None,
-            'radius': 1.0
+    if data:
+        data = {
+            'id': data['id'],
+            'user_id': user_id,
+            'name': data['name'],
+            'f_filter': {
+                'type': data['type'],
+                'city': data['city'],
+                'district': data['district'],
+                'sex': data['sex'],
+                'pets': data['pets'],
+                'smoke': data['smoke'],
+                'owner': data['owner'],
+                'rooms': data['rooms'],
+                'min_price': data['min_price'],
+                'max_price': data['max_price']
+            },
+            'g_filter': {
+                'route': data['route_id'],
+                'radius': data['radius']
+            }
         }
-    }
+    else:
+        data = {
+            'id': None,
+            'user_id': user_id,
+            'name': 'Filter',
+            'f_filter': {
+                'type': None,
+                'city': 1,
+                'district': None,
+                'sex': None,
+                'pets': None,
+                'smoke': None,
+                'owner': None,
+                'rooms': None,
+                'min_price': None,
+                'max_price': None
+            },
+            'g_filter': {
+                'route': None,
+                'radius': 1.0
+            }
+        }
     user_state.filters[user_id] = data
 
 async def end_filter(user_state, user_id, data=None):
     await user_state.send_to_filters(user_id)
+
+async def change_filter(user_state, user_id, data=None):
+    await user_state.send_to_filters(user_id, new=False)
 
 async def type_(user_state, user_id, data):
     data = int(data)

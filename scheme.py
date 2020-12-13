@@ -24,12 +24,14 @@ filter_scheme = {
 	'f_owner': comp.owner,
 	'f_name_type': comp.name, # calls the end_filter also
 	'f_end': comp.end_filter,
+	'f_end_change': comp.change_filter,
 	'f_error': comp.delete_filter
 }
 
 no_data_callbacks = [
 	'f_start',
 	'f_end',
+	'f_end_change',
 	'f_error',
 	'f_rooms_type',
 	'f_price_type',
@@ -48,6 +50,7 @@ direct_answers = {
 async_callbacks = {
 	'user_filters': funcs.user_filters,
 	'u_select': funcs.select_filter,
+	'change_filter': funcs.change_user_filter,
 	'del_filter': funcs.delete_user_filter
 }
 
@@ -108,6 +111,7 @@ scheme = {
 		'f_name_type': funcs.f_name_type,
 
 		'f_end': funcs.main_menu,
+		'f_end_change': funcs.main_menu,
 
 		'f_rooms_type': funcs.f_rooms_type,
 		'f_price_type': funcs.f_price_type,

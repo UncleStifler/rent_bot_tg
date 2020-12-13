@@ -62,15 +62,13 @@ def get_filter(user_id,
         ff.district, ff.sex, ff.pets,
         ff.smoke, ff.owner, ff.rooms,
         ff.min_price, ff.max_price,
-        r.short_name, r.long_name, gf.radius
+        gf.route_id, gf.radius
     from user_filters uf
-        join f_filters ff 
+        join f_filters ff
             on uf.f_filter_id = ff.id
-        left join g_filters gf 
+        left join g_filters gf
             on uf.g_filter_id = gf.id
-        left join routes r 
-            on gf.route_id = r.id
-    where 
+    where
           user_id = {user_id} and uf.id = {filter_id};
     '''
 

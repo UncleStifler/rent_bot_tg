@@ -7,8 +7,11 @@ import config
 ENDPOINT = f'http://{config.FILTER_APP_HOST}:{config.FILTER_APP_PORT}'
 
 
-async def send_filter(data):
-    url = ENDPOINT + '/add_filter/'
+async def send_filter(data, new=True):
+    if new:
+        url = ENDPOINT + '/add_filter/'
+    else:
+        url = ENDPOINT + '/change_filter/'
     return await _post_req(url, data)
 
 async def delete_filter(filter_id):

@@ -26,15 +26,21 @@ def lang_select_keyboard(lang='en'):
 		[{'text': 'Русский', 'callback_data': 'lang-ru'}]
 	]}
 ###########################################################
-def f_view_keyboard(lang='en'):
+def f_view_keyboard(current_filter=None, lang='en'):
+	if current_filter:
+		add = 'f_end_change-'
+		back = f'u_select-{current_filter}'
+	else:
+		add = 'f_end-'
+		back = 'main_menu-'
 	return {'inline_keyboard': [
-	[{'text': 'Run filter', 'callback_data': 'f_end-'}],
+	[{'text': 'Run filter', 'callback_data': add}],
 	[{'text': 'Change filter name', 'callback_data': 'f_name_type-'}],
 	[{'text': 'Property Type', 'callback_data': 'f_type_m-'},
 	 {'text': 'Location', 'callback_data': 'f_loc_m-'}],
 	[{'text': 'Price', 'callback_data': 'f_price-'},
 	 {'text': 'Other', 'callback_data': 'f_other_m-'}],
-	[{'text': l.back[lang], 'callback_data': 'main_menu-'}]
+	[{'text': l.back[lang], 'callback_data': back}]
 	]}
 def f_loc_m_keyboard(lang='en'):
 	return {'inline_keyboard': [
