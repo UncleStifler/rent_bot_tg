@@ -26,12 +26,57 @@ def lang_select_keyboard(lang='en'):
 		[{'text': 'Русский', 'callback_data': 'lang-ru'}]
 	]}
 ###########################################################
+def f_view_keyboard(lang='en'):
+	return {'inline_keyboard': [
+	[{'text': 'Run filter', 'callback_data': 'f_end-'}],
+	[{'text': 'Change filter name', 'callback_data': 'f_name_type-'}],
+	[{'text': 'Property Type', 'callback_data': 'f_type_m-'},
+	 {'text': 'Location', 'callback_data': 'f_loc_m-'}],
+	[{'text': 'Price', 'callback_data': 'f_price-'},
+	 {'text': 'Other', 'callback_data': 'f_other_m-'}],
+	[{'text': l.back[lang], 'callback_data': 'main_menu-'}]
+	]}
+def f_loc_m_keyboard(lang='en'):
+	return {'inline_keyboard': [
+	[{'text': 'District', 'callback_data': 'f_district-'}],
+	[{'text': 'Public Transport', 'callback_data': 'f_route_type-'}],
+	[{'text': 'Distance to stop', 'callback_data': 'f_radius-'}],
+	[{'text': l.back[lang], 'callback_data': 'f_view-'}]
+	]}
+def f_type_m_keyboard(rooms=True, lang='en'):
+	if rooms:
+		return {'inline_keyboard': [
+		[{'text': 'Type', 'callback_data': 'f_type-'}],
+		[{'text': 'Rooms', 'callback_data': 'f_rooms-'}],
+		[{'text': l.back[lang], 'callback_data': 'f_view-'}]
+		]}
+	else:
+		return {'inline_keyboard': [
+			[{'text': 'Type', 'callback_data': 'f_type-'}],
+			[{'text': l.back[lang], 'callback_data': 'f_view-'}]
+		]}
+def f_other_m_keyboard(rooms=True, lang='en'):
+	if rooms:
+		return {'inline_keyboard': [
+		[{'text': 'Gender', 'callback_data': 'f_sex-'},
+		 {'text': 'Pets', 'callback_data': 'f_pets-'}],
+		[{'text': 'Smoke', 'callback_data': 'f_smoke-'},
+		 {'text': 'Owner', 'callback_data': 'f_owner-'}],
+		[{'text': l.back[lang], 'callback_data': 'f_view-'}]
+		]}
+	else:
+		return {'inline_keyboard': [
+			[{'text': 'Owner', 'callback_data': 'f_owner-'}],
+			[{'text': l.back[lang], 'callback_data': 'f_view-'}]
+		]}
+###########################################################
 def f_type_text(lang='en'):
 	return l.f_type_text[lang]
 def f_type_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': l.flat[lang], 'callback_data': 'f_type-0'},
-	 {'text': l.room[lang], 'callback_data': 'f_type-1'}]
+	 {'text': l.room[lang], 'callback_data': 'f_type-1'}],
+	[{'text': l.back[lang], 'callback_data': 'f_type_m-'}]
 	]}
 ###########################################################
 def f_rooms_text(lang='en'):
@@ -43,7 +88,8 @@ def f_rooms_keyboard(lang='en'):
 	{'text': '3', 'callback_data': 'f_rooms-3'},
 	 {'text': '4', 'callback_data': 'f_rooms-4'}],
 	[{'text': l.type_in[lang], 'callback_data': 'f_rooms_type-'},
-	 {'text': l.doesnt_matter[lang], 'callback_data': 'f_rooms-0'}]
+	 {'text': l.doesnt_matter[lang], 'callback_data': 'f_rooms-0'}],
+	[{'text': l.back[lang], 'callback_data': 'f_type_m-'}]
 	]}
 def f_rooms_type(lang='en'):
 	return l.f_rooms_type[lang]
@@ -57,7 +103,8 @@ def f_price_keyboard(lang='en'):
 	[{'text': '700-1000', 'callback_data': 'f_price-700/1000'},
 	{'text': '> 1000', 'callback_data': 'f_price->1000'}],
 	[{'text': l.type_in[lang], 'callback_data': 'f_price_type-'},
-	 {'text': l.doesnt_matter[lang], 'callback_data': 'f_price-0'}]
+	 {'text': l.doesnt_matter[lang], 'callback_data': 'f_price-0'}],
+	[{'text': l.back[lang], 'callback_data': 'f_view-'}]
 	]}
 def f_price_type(lang='en'):
 	return l.f_price_type[lang]
@@ -71,7 +118,7 @@ def f_route_type_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': l.metro[lang], 'callback_data': 'f_routes_metro-'},
 	 {'text': l.bus[lang], 'callback_data': 'f_routes_bus-'}],
-	[{'text': l.skip[lang], 'callback_data': 'f_radius-'}]
+	[{'text': l.back[lang], 'callback_data': 'f_loc_m-'}]
 	]}
 ###########################################################
 def f_routes_bus(lang='en'):
@@ -87,7 +134,8 @@ def f_radius_keyboard(lang='en'):
 	[{'text': '300 m', 'callback_data': 'f_radius-0.3'},
 	 {'text': '500 m', 'callback_data': 'f_radius-0.5'}],
 	[{'text': '1 km', 'callback_data': 'f_radius-1'},
-	 {'text': '2 km', 'callback_data': 'f_radius-2'}]
+	 {'text': '2 km', 'callback_data': 'f_radius-2'}],
+	[{'text': l.back[lang], 'callback_data': 'f_loc_m-'}]
 	]}
 ###########################################################
 def f_sex_text(lang='en'):
@@ -96,8 +144,7 @@ def f_sex_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': l.male[lang], 'callback_data': 'f_sex-1'},
 	 {'text': l.female[lang], 'callback_data': 'f_sex-2'}],
-	[{'text': l.doesnt_matter[lang], 'callback_data': 'f_sex-0'}],
-	[{'text': l.finish_adding_filter[lang], 'callback_data': 'f_name-'}]
+	[{'text': l.back[lang], 'callback_data': 'f_other_m-'}]
 	]}
 ###########################################################
 def f_pets_text(lang='en'):
@@ -106,7 +153,7 @@ def f_pets_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': l.yes[lang], 'callback_data': 'f_pets-1'},
 	 {'text': l.no[lang], 'callback_data': 'f_pets-0'}],
-	[{'text': l.finish_adding_filter[lang], 'callback_data': 'f_name-'}]
+	[{'text': l.back[lang], 'callback_data': 'f_other_m-'}]
 	]}
 ###########################################################
 def f_smoke_text(lang='en'):
@@ -115,7 +162,7 @@ def f_smoke_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': l.yes[lang], 'callback_data': 'f_smoke-1'},
 	 {'text': l.no[lang], 'callback_data': 'f_smoke-0'}],
-	[{'text': l.finish_adding_filter[lang], 'callback_data': 'f_name-'}]
+	[{'text': l.back[lang], 'callback_data': 'f_other_m-'}]
 	]}
 ###########################################################
 def f_owner_text(lang='en'):
@@ -124,7 +171,7 @@ def f_owner_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': l.yes[lang], 'callback_data': 'f_owner-1'},
 	 {'text': l.no[lang], 'callback_data': 'f_owner-0'}],
-	[{'text': l.finish_adding_filter[lang], 'callback_data': 'f_name-'}]
+	[{'text': l.back[lang], 'callback_data': 'f_other_m-'}]
 	]}
 ###########################################################
 def f_name_text(lang='en'):

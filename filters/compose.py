@@ -2,6 +2,7 @@
 from filters.message_processing import price_to_dict
 from filters.message_processing import rooms_to_int
 
+# todo refactor
 
 async def delete_filter(user_state, user_id, data=None):
     user_state.filters.pop(user_id, None)
@@ -23,14 +24,15 @@ async def add_filter(user_state, user_id, data=None):
             'min_price': None,
             'max_price': None
         },
-        'g_filter': None
+        'g_filter': {
+            'route': None,
+            'radius': 1.0
+        }
     }
     user_state.filters[user_id] = data
 
 async def end_filter(user_state, user_id, data=None):
-    print('end filter')
     await user_state.send_to_filters(user_id)
-
 
 async def type_(user_state, user_id, data):
     data = int(data)
@@ -96,4 +98,4 @@ async def owner(user_state, user_id, data):
 async def name(user_state, user_id, data):
     assert isinstance(data, str) and len(data) < 101, f'owner {data = } >> str, len < 100'
     user_state.filters[user_id]['name'] = data
-    await end_filter(user_state, user_id)
+    # await end_filter(user_state, user_id)

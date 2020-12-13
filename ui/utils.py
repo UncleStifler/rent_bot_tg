@@ -23,7 +23,15 @@ def _get_buttons(data, callback, columns=3):
                 break
     return keyboard
 
-def build_page_keyboard(data, page, data_callback, menu_callback, lang, skip=True):
+def build_page_keyboard(data,
+                        page,
+                        data_callback,
+                        menu_callback,
+                        back_callback=None,
+                        none_button=False,
+                        lang=None):
+    if page is None:
+        page = 0
     keyboard = _get_buttons(_get_slice(data, page),
                             data_callback)
     control_buttons = []
@@ -37,9 +45,12 @@ def build_page_keyboard(data, page, data_callback, menu_callback, lang, skip=Tru
                        'callback_data': f'{menu_callback}/{page + 1}-'}
         control_buttons.append(next_button)
     keyboard['inline_keyboard'].append(control_buttons)
-    if skip:
+    if none_button:
         keyboard['inline_keyboard'].append([{'text': l.doesnt_matter[lang],
                                              'callback_data': f'{data_callback}-0'}])
+    if back_callback:
+        keyboard['inline_keyboard'].append([{'text': l.back[lang],
+                                             'callback_data': f'{back_callback}-'}])
     return keyboard
 
 # [[text, callback_data], ...]
@@ -65,5 +76,3 @@ def search_bd(q, data):
         for i in data:
             if i[1] == q:
                 return i[0]
-
-
