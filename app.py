@@ -136,6 +136,7 @@ async def tg_handler(request):
 
         elif 'message' in data:
             user_id, message, message_id = get_message(data)
+            args = get_args(user_state, db_data, pool, user_id)
             lang = await user_state.get_lang(user_id)
             print(f'{message = }')
 
@@ -148,7 +149,9 @@ async def tg_handler(request):
                 # todo lang choice
                 if not lang:
                     message = '/select_lang'
-                text, keyboard = scheme.process_command(message)
+                text, keyboard = scheme.process_command(message,
+                                                        args,
+                                                        lang)
 
                 response, message_id = await send_message(user_id,
                                                           text,

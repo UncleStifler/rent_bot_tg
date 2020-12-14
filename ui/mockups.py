@@ -82,6 +82,7 @@ def f_type_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': l.flat[lang], 'callback_data': 'f_type-0'},
 	 {'text': l.room[lang], 'callback_data': 'f_type-1'}],
+	[{'text': 'Both', 'callback_data': 'f_type-2'}],
 	[{'text': l.back[lang], 'callback_data': 'f_type_m-'}]
 	]}
 ###########################################################

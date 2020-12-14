@@ -31,7 +31,6 @@ def _get_message_for_delete(chat_id, message_id):
 		'message_id': message_id
 	}
 
-
 async def send_message(chat_id, text, keyboard=None, update=None):
 	message = _get_message_for_sent(chat_id, text, keyboard, update)
 	url = API_URL+'sendMessage'
@@ -43,6 +42,8 @@ async def send_message(chat_id, text, keyboard=None, update=None):
 								headers=HEADERS) as resp:
 			try:
 				assert resp.status == 200 or resp.status == 400
+				if resp.status == 400:
+					print(message)
 				response = await resp.text()
 				id_ = ujson.loads(response)['result']['message_id']
 				return [web.Response(status=200), id_]
@@ -50,8 +51,6 @@ async def send_message(chat_id, text, keyboard=None, update=None):
 				print(err)
 				print(await resp.text())
 				return [web.Response(status=500), None]
-
-
 
 async def delete_message(chat_id, message_id):
 	message = _get_message_for_delete(chat_id, message_id)
@@ -65,7 +64,6 @@ async def delete_message(chat_id, message_id):
 			except AssertionError:
 				return web.Response(status=500)
 	return web.Response(status=200)
-
 
 async def send_location(chat_id, lat_lon):
 	lat, lon = lat_lon.split('|')

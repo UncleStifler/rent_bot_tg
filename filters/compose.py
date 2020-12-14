@@ -63,7 +63,9 @@ async def change_filter(user_state, user_id, data=None):
 
 async def type_(user_state, user_id, data):
     data = int(data)
-    assert data in [0, 1], f'type {data = } // [0, 1]'
+    assert data in [0, 1, 2], f'type {data = } // [0, 1, 2]'
+    if data == 2:
+        data = None
     user_state.filters[user_id]['f_filter']['type'] = data
 
 async def rooms(user_state, user_id, data):

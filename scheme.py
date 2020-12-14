@@ -125,8 +125,10 @@ scheme = {
 async def async_process_callback(args, lang='en'):
 	return await async_callbacks[args.callback](args, lang=lang)
 
-def process_command(command):
-	return scheme['commands'][command]()
+def process_command(command, args, lang):
+	if not lang:
+		lang = 'en'
+	return scheme['commands'][command](args, lang=lang)
 
 def process_callback(callback, args=None, lang='en'):
 	try:

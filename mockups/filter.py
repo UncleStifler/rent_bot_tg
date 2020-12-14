@@ -3,7 +3,7 @@ from ui.utils import search_bd
 
 def type_view(type):
     if type is None:
-        return 'None'
+        return 'Both'
     elif type == 0:
         return 'Flat'
     elif type == 1:

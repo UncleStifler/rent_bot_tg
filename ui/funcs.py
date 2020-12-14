@@ -64,9 +64,9 @@ def lang_select(args=None, lang='en'):
     return [mockups.lang_select_text(lang),
             mockups.lang_select_keyboard(lang)]
 def main_menu(args=None, lang='en'):
+    args.state.delete_user_filter(args.user_id)
     return [mockups.main_menu_text(lang),
             mockups.main_menu_keyboard(lang)]
-
 
 def f_view(args=None, lang='en'):
     filter = args.state.filters[args.user_id]

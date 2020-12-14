@@ -90,6 +90,9 @@ class UserState:
     def add_user_filter(self, user_id):
         self.filters[user_id] = {}
 
+    def delete_user_filter(self, user_id):
+        self.filters.pop(user_id, None)
+
     # errors will handle from main calling func
     async def send_to_filters(self, user_id, new=True):
         await send_filter(self.filters[user_id], new=new)
