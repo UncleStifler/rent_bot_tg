@@ -7,6 +7,15 @@ def _isascii(input_string):
     except UnicodeEncodeError:
         return False
 
+def limit_string(message, limit=200):
+    try:
+        assert len(message) < limit, f'message is out of limit {message = }'
+        assert _isascii(message), f'message is not ascii {message = }'
+        return message
+    except AssertionError as err:
+        print(f'error: limit_string, {err}')
+        return None
+
 def price_to_dict(message):
     data = {
         'min_price': None,

@@ -1,7 +1,6 @@
 import asyncio
 
 ##
-import traceback
 
 from aiohttp import web
 from loguru import logger
@@ -11,12 +10,12 @@ import scheme
 import db.asql as asql
 from utils.tg_api import send_message, delete_message
 from backend.user_state import UserState
-from db.data_updater import DataUpdater
+from backend.data_updater import DataUpdater
 from backend.callbacks_processing import get_callback
 from backend.callbacks_processing import get_args
 from backend.callbacks_processing import get_message
 from backend.callbacks_processing import read_request
-from ui.items_sending import process_from_filter_app
+from backend.items_sending import process_from_filter_app
 from utils.filters_api import send_show_more
 from utils.tg_api import send_location
 from utils.utils import log_err

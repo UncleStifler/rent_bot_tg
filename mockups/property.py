@@ -1,72 +1,89 @@
 
 
-# main menu
-title = '''
-Here you can add your own ad.
-Start with typing ad title.
-'''
-###########################################################
-type_text = '''
-Choose the type of property you rent
-'''
-type_keyboard = {'inline_keyboard': [
+# description
+
+def u_title_text(lang='en'):
+	return 'Type in the title of your ad'
+
+def u_description_text(lang='en'):
+	return 'Type in the description of your ad'
+
+def u_contact_text(lang='en'):
+	return 'Type in your name to contact you'
+
+def u_phone_text(lang='en'):
+	return 'Type in the phone number to contact you'
+
+def u_photo_text(lang='en'):
+	return 'Send one good photo of your property'
+
+# to filter
+
+def u_type_text(lang='en'):
+	return 'Choose the type of property you rent'
+def u_type_keyboard(lang='en'):
+	return {'inline_keyboard': [
 	[{'text': 'Flat', 'callback_data': 'u_type-0'},
 	 {'text': 'Room', 'callback_data': 'u_type-1'}]
 	]}
 ###########################################################
-district_text = '''
-Choose the district where you rent
-'''
-###########################################################
-contact_name_text = '''
-Type in a name that will be shown in your ad
-'''
-###########################################################
-contact_phone_text = '''
-Type in a contact phone that will be shown in your ad
-'''
-###########################################################
-owner_text = '''
-Do you own the property you renting?
-'''
-owner_keyboard = {'inline_keyboard': [
-	[{'text': 'Yes', 'callback_data': 'u_owner-1'},
-	 {'text': 'No', 'callback_data': 'u_owner-0'}]
+def u_rooms_text(lang='en'):
+	return 'Type in the number of rooms your property have'
+def u_rooms_keyboard(lang='en'):
+	return {'inline_keyboard': [
+	[{'text': 'Back', 'callback_data': 'f_type_m-'}]
 	]}
 ###########################################################
-price_text = '''
-Type in how much you ask for rent, in euros
-'''
+def u_district_text(lang='en'):
+	return 'Choose the district where is your property located'
 ###########################################################
-rooms_text = '''
-How many rooms does your property have?
-'''
-
-
-
-
-###########################################################
-sex_text = '''
-Choose preferred tenant gender
-'''
-sex_keyboard = {'inline_keyboard': [
-	[{'text': 'Male', 'callback_data': 'u_sex-1'},
-	 {'text': 'Female', 'callback_data': 'u_sex-2'}],
-	[{'text': 'Both', 'callback_data': 'u_sex-0'}]
+def u_price_text(lang='en'):
+	return 'Type in the price'
+def u_price_keyboard(lang='en'):
+	return {'inline_keyboard': [
+	[{'text': 'Back', 'callback_data': 'f_type_m-'}]
 	]}
 ###########################################################
-smoke_text = '''
-Do you allow the tenant to smoke?
-'''
-smoke_keyboard = {'inline_keyboard': [
-	[{'text': 'Yes', 'callback_data': 'u_smoke-1'},
-	 {'text': 'No', 'callback_data': 'u_smoke-0'}]
+def u_sex_text(lang='en'):
+	return 'To what gender do you rent?'
+def u_sex_keyboard(lang='en'):
+	return {'inline_keyboard': [
+	[{'text': 'Male', 'callback_data': 'u_type-0'},
+	 {'text': 'Female', 'callback_data': 'u_type-1'}],
+	[{'text': 'Both', 'callback_data': 'f_type_m-'}],
+	[{'text': 'Back', 'callback_data': 'f_type_m-'}]
 	]}
 ###########################################################
-pets_text = '''
-Do you allow pets in your property?
-'''
-pets_keyboard = {'inline_keyboard': [
-	[{'text': 'Yes', 'callback_data': 'u_pets-1'},
-	 {'text': 'No', 'callback_data': 'u_pets-0'}]
+def u_pets_text(lang='en'):
+	return 'Do you allow pets?'
+def u_pets_keyboard(lang='en'):
+	return {'inline_keyboard': [
+	[{'text': 'Yes', 'callback_data': 'u_type-0'},
+	 {'text': 'No', 'callback_data': 'u_type-1'}],
+	[{'text': 'Back', 'callback_data': 'f_type_m-'}]
 	]}
+###########################################################
+def u_smoke_text(lang='en'):
+	return 'Do you allow smoke?'
+def u_smoke_keyboard(lang='en'):
+	return {'inline_keyboard': [
+	[{'text': 'Yes', 'callback_data': 'u_type-0'},
+	 {'text': 'No', 'callback_data': 'u_type-1'}],
+	[{'text': 'Back', 'callback_data': 'f_type_m-'}]
+	]}
+###########################################################
+def u_owner_text(lang='en'):
+	return 'Do you own the property you rent?'
+def u_owner_keyboard(lang='en'):
+	return {'inline_keyboard': [
+	[{'text': 'Yes', 'callback_data': 'u_type-0'},
+	 {'text': 'No', 'callback_data': 'u_type-1'}],
+	[{'text': 'Back', 'callback_data': 'f_type_m-'}]
+	]}
+###########################################################
+
+# def direct_answer_err(lang='en'):
+# 	return l.direct_answer_err[lang]
+# def f_error_text(lang='en'):
+# 	return l.f_error_text[lang]
+

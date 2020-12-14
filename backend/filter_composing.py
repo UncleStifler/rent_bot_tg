@@ -1,6 +1,6 @@
 
-from filters.message_processing import price_to_dict
-from filters.message_processing import rooms_to_int
+from backend.message_processing import price_to_dict
+from backend.message_processing import rooms_to_int
 
 # todo refactor
 

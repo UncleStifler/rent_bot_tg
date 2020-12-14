@@ -1,10 +1,29 @@
 
-import filters.message_processing as mp
-import filters.compose as comp
+import backend.message_processing as mp
+import backend.filter_composing as comp
+import mockups.property_composing as p_comp
+import mockups.funcs as p_funcs
 import ui.funcs as funcs
 
 from utils.utils import log_err
 
+
+property_scheme = {
+	'u_start': p_comp.add_property,
+	'u_title': p_comp.title,
+	'u_desc': p_comp.description,
+	'u_contact': p_comp.contact_name,
+	'u_phone': p_comp.contact_phone,
+	'u_photo': p_comp.photo,
+	'u_type': p_comp.type_,
+	'u_rooms': p_comp.rooms,
+	'u_district': p_comp.district,
+	'u_price': p_comp.price,
+	'u_sex': p_comp.sex,
+	'u_pets': p_comp.pets,
+	'u_smoke': p_comp.smoke,
+	'u_owner': p_comp.owner
+}
 
 
 
@@ -44,14 +63,40 @@ direct_answers = {
 	'f_price_type': {'type_func': mp.price_to_dict,
 					 'next_func': funcs.f_view},
 	'f_name_type': {'type_func': mp.name_to_str,
-					'next_func': funcs.f_view}
+					'next_func': funcs.f_view},
+	'u_title': {'type_func': mp.limit_string,
+				'next_func': p_funcs.description},
+	'u_desc': {'type_func': mp.limit_string,
+			   'next_func': p_funcs.contact_name},
+	'u_contact': {'type_func': mp.limit_string,
+				  'next_func': p_funcs.contact_phone},
+	'u_phone': {'type_func': mp.limit_string,
+				'next_func': p_funcs.photo},
+	'u_photo': {'type_func': mp.limit_string,
+				'next_func': p_funcs.type_},
+
 }
 
 async_callbacks = {
 	'user_filters': funcs.user_filters,
 	'u_select': funcs.select_filter,
 	'change_filter': funcs.change_user_filter,
-	'del_filter': funcs.delete_user_filter
+	'del_filter': funcs.delete_user_filter,
+
+	'u_start': p_funcs.title,
+	'u_title': p_funcs.description,
+	'u_desc': p_funcs.contact_name,
+	'u_contact': p_funcs.contact_phone,
+	'u_phone': p_funcs.photo,
+	'u_photo': p_funcs.type_,
+	'u_type': p_funcs.rooms,
+	'u_rooms': p_funcs.district,
+	'u_district': p_funcs.price,
+	'u_price': p_funcs.sex,
+	'u_sex': p_funcs.pets,
+	'u_pets': p_funcs.smoke,
+	'u_smoke': p_funcs.owner,
+	'u_owner': p_funcs.owner
 }
 
 back_scheme = {
@@ -121,6 +166,7 @@ scheme = {
 		'f_error': funcs.f_error
 	}
 }
+
 
 async def async_process_callback(args, lang='en'):
 	return await async_callbacks[args.callback](args, lang=lang)

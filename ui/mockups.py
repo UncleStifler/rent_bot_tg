@@ -9,6 +9,7 @@ def main_menu_keyboard(lang='en'):
 	return {'inline_keyboard': [
 		[{'text': l.add_filter[lang], 'callback_data': 'f_start-'}],
 		[{'text': l.my_filters[lang], 'callback_data': 'user_filters-'}],
+		[{'text': 'Add property', 'callback_data': 'u_start-'}],
 		[{'text': l.select_lang[lang], 'callback_data': 'select_lang-'}]
 	]}
 

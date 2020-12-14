@@ -3,14 +3,11 @@ import ui.mockups as mockups
 import ui.lang as l
 from db.asql import get_user_filters
 from db.asql import get_filter_by_ids
-from db.asql import get_property_item
 from ui.utils import build_page_keyboard
 from ui.utils import build_common_keyboard
-import mockups.filter as filter_view
-from mockups.item import item_to_ui
+import ui.filter_view as filter_view
 from utils.filters_api import delete_filter
-from utils.filters_api import send_show_more
-from filters.compose import add_filter
+from backend.filter_composing import add_filter
 
 
 
