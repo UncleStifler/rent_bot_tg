@@ -57,26 +57,26 @@ async def delete_user_filter(args, lang='en'):
     await delete_filter(int(args.callback_data))
     return await user_filters(args, lang=lang)
 
-def lang_select(args=None, lang='en'):
+async def lang_select(args=None, lang='en'):
     return [mockups.lang_select_text(lang),
             mockups.lang_select_keyboard(lang)]
-def main_menu(args=None, lang='en'):
+async def main_menu(args=None, lang='en'):
     args.state.delete_user_filter(args.user_id)
     return [mockups.main_menu_text(lang),
             mockups.main_menu_keyboard(lang)]
 
-def f_view(args=None, lang='en'):
+async def f_view(args=None, lang='en'):
     filter = args.state.filters[args.user_id]
     current_filter = filter['id']
     return [filter_view.filter_from_memory(filter, args.db),
             mockups.f_view_keyboard(current_filter, lang)]
 
-def f_loc_m(args=None, lang='en'):
+async def f_loc_m(args=None, lang='en'):
     filter = args.state.filters[args.user_id]
     return [filter_view.f_loc_from_memory(filter, args.db),
             mockups.f_loc_m_keyboard(lang)]
 
-def f_type_m(args=None, lang='en'):
+async def f_type_m(args=None, lang='en'):
     filter = args.state.filters[args.user_id]
     if filter['f_filter']['type'] == 1:
         rooms = False
@@ -85,7 +85,7 @@ def f_type_m(args=None, lang='en'):
     return [filter_view.f_type_from_memory(filter),
             mockups.f_type_m_keyboard(rooms, lang)]
 
-def f_other_m(args=None, lang='en'):
+async def f_other_m(args=None, lang='en'):
     filter = args.state.filters[args.user_id]
     if filter['f_filter']['type'] == 0:
         rooms = False
@@ -95,16 +95,16 @@ def f_other_m(args=None, lang='en'):
             mockups.f_other_m_keyboard(rooms, lang)]
 
 
-def f_type(args=None, lang='en'):
+async def f_type(args=None, lang='en'):
     return [mockups.f_type_text(lang),
             mockups.f_type_keyboard(lang)]
-def f_rooms(args=None, lang='en'):
+async def f_rooms(args=None, lang='en'):
     return [mockups.f_rooms_text(lang),
             mockups.f_rooms_keyboard(lang)]
-def f_price(args=None, lang='en'):
+async def f_price(args=None, lang='en'):
     return [mockups.f_price_text(lang),
             mockups.f_price_keyboard(lang)]
-def f_district(args, lang='en'):
+async def f_district(args, lang='en'):
     return [mockups.f_district_text(lang),
             build_page_keyboard(args.db.districts,
                                 args.page,
@@ -113,11 +113,11 @@ def f_district(args, lang='en'):
                                 back_callback='f_loc_m',
                                 none_button=True,
                                 lang=lang)]
-def f_route_type(args=None, lang='en'):
+async def f_route_type(args=None, lang='en'):
     return [mockups.f_route_type_text(lang),
             mockups.f_route_type_keyboard(lang)]
 
-def f_routes_metro(args, lang='en'):
+async def f_routes_metro(args, lang='en'):
     return [mockups.f_routes_metro(lang),
             build_page_keyboard(args.db.metro_routes,
                                 args.page,
@@ -127,7 +127,7 @@ def f_routes_metro(args, lang='en'):
                                 none_button=True,
                                 lang=lang)]
 
-def f_routes_bus(args, lang='en'):
+async def f_routes_bus(args, lang='en'):
     return [mockups.f_routes_bus(lang),
             build_page_keyboard(args.db.bus_routes,
                                 args.page,
@@ -137,47 +137,50 @@ def f_routes_bus(args, lang='en'):
                                 none_button=True,
                                 lang=lang)]
 
-def f_radius(args=None, lang='en'):
+async def f_radius(args=None, lang='en'):
     return [mockups.f_radius_text(lang),
             mockups.f_radius_keyboard(lang)]
 
-def f_sex(args=None, lang='en'):
+async def f_sex(args=None, lang='en'):
     return [mockups.f_sex_text(lang),
             mockups.f_sex_keyboard(lang)]
-def f_pets(args=None, lang='en'):
+async def f_pets(args=None, lang='en'):
     return [mockups.f_pets_text(lang),
             mockups.f_pets_keyboard(lang)]
-def f_smoke(args=None, lang='en'):
+async def f_smoke(args=None, lang='en'):
     return [mockups.f_smoke_text(lang),
             mockups.f_smoke_keyboard(lang)]
-def f_owner(args=None, lang='en'):
+async def f_owner(args=None, lang='en'):
     return [mockups.f_owner_text(lang),
             mockups.f_owner_keyboard(lang)]
-def f_name(args=None, lang='en'):
+async def f_name(args=None, lang='en'):
     return [mockups.f_name_text(lang),
             mockups.f_name_keyboard(lang)]
 # todo
-def f_end(args=None, lang='en'):
+async def f_end(args=None, lang='en'):
     return [mockups.f_end_text(lang),
             mockups.back_menu_keyboard(lang)]
-def f_name_type(args=None, lang='en'):
+async def f_name_type(args=None, lang='en'):
+    await args.state.change_state(args.user_id, 'f_name_type')
     text = mockups.f_name_type(lang)
     if args.callback_data is False:
         text += mockups.direct_answer_err(lang)
     return [text,
             None]
-def f_rooms_type(args=None, lang='en'):
+async def f_rooms_type(args=None, lang='en'):
+    await args.state.change_state(args.user_id, 'f_rooms_type')
     text = mockups.f_rooms_type(lang)
     if args.callback_data is False:
         text += mockups.direct_answer_err(lang)
     return [text,
             None]
-def f_price_type(args=None, lang='en'):
+async def f_price_type(args=None, lang='en'):
+    await args.state.change_state(args.user_id, 'f_price_type')
     text = mockups.f_price_type(lang)
     if args.callback_data is False:
         text += mockups.direct_answer_err(lang)
     return [text,
             None]
-def f_error(args=None, lang='en'):
+async def f_error(args=None, lang='en'):
     return [mockups.f_error_text(lang),
             mockups.back_menu_keyboard(lang)]

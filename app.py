@@ -48,11 +48,11 @@ async def process_answer(user_id, message, pool, lang='en'):
                                                          from_direct_answer=True)
 
         if filter_process_error:
-            text, keyboard = scheme.process_callback('f_error',
+            text, keyboard = await scheme.process_callback('f_error',
                                                      args,
                                                      lang=lang)
         else:
-            text, keyboard = scheme.process_answer(state,
+            text, keyboard = await scheme.process_answer(state,
                                                    success=True)(args,
                                                                  lang=lang)
 
@@ -64,7 +64,7 @@ async def process_answer(user_id, message, pool, lang='en'):
 
     except AssertionError:
         args.callback_data = False
-        text, keyboard = scheme.process_callback(state,
+        text, keyboard = await scheme.process_callback(state,
                                                  args,
                                                  lang=lang)
         response, message_id = await send_message(user_id,
@@ -111,18 +111,16 @@ async def tg_handler(request):
                                                                user_id,
                                                                callback_data)
             if filter_process_error:
-                text, keyboard = scheme.process_callback('f_error',
+                text, keyboard = await scheme.process_callback('f_error',
                                                          lang=lang)
             else:
                 if callback in scheme.async_callbacks:
                     text, keyboard = await scheme.async_process_callback(args,
                                                                          lang=lang)
                 else:
-                    text, keyboard = scheme.process_callback(args.callback,
+                    text, keyboard = await scheme.process_callback(args.callback,
                                                              args,
                                                              lang=lang)
-                if callback in scheme.direct_answers:
-                    await user_state.change_state(user_id, callback)
 
             prev_message_id = await user_state.get_message_id(user_id)
             response, message_id = await send_message(user_id,
@@ -148,7 +146,7 @@ async def tg_handler(request):
                 # todo lang choice
                 if not lang:
                     message = '/select_lang'
-                text, keyboard = scheme.process_command(message,
+                text, keyboard = await scheme.process_command(message,
                                                         args,
                                                         lang)
 

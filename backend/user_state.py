@@ -16,6 +16,7 @@ class UserState:
         self.filters = {}
         asyncio.ensure_future(self.init_cycle())
 
+    # todo user.state for direct answers
     async def init_cycle(self):
         while True:
             if self.state:
