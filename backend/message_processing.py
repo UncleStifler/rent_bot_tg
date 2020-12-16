@@ -49,7 +49,7 @@ def price_to_dict(message):
         print(f'error: price_to_dict, {err}')
         return None
 
-def rooms_to_int(message):
+def to_int(message):
     try:
         assert len(message) < 4, f'len {message = }'
         assert message.isdigit(), f'digits {message = }'

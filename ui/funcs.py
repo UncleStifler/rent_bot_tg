@@ -50,7 +50,7 @@ async def change_user_filter(args, lang='en'):
     await add_filter(args.state,
                      args.user_id,
                      filter[0])
-    return f_view(args,
+    return await f_view(args,
                   lang=lang)
 
 async def delete_user_filter(args, lang='en'):
@@ -156,28 +156,28 @@ async def f_owner(args=None, lang='en'):
 async def f_name(args=None, lang='en'):
     return [mockups.f_name_text(lang),
             mockups.f_name_keyboard(lang)]
-# todo
+# todo sending menu after ending
 async def f_end(args=None, lang='en'):
     return [mockups.f_end_text(lang),
             mockups.back_menu_keyboard(lang)]
 async def f_name_type(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'f_name_type')
     text = mockups.f_name_type(lang)
-    if args.callback_data is False:
+    if args.error:
         text += mockups.direct_answer_err(lang)
     return [text,
             None]
 async def f_rooms_type(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'f_rooms_type')
     text = mockups.f_rooms_type(lang)
-    if args.callback_data is False:
+    if args.error:
         text += mockups.direct_answer_err(lang)
     return [text,
             None]
 async def f_price_type(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'f_price_type')
     text = mockups.f_price_type(lang)
-    if args.callback_data is False:
+    if args.error:
         text += mockups.direct_answer_err(lang)
     return [text,
             None]

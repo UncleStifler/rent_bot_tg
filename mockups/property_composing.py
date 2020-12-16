@@ -1,8 +1,7 @@
 
 from backend.message_processing import price_to_dict
-from backend.message_processing import rooms_to_int
+from backend.message_processing import to_int
 
-# todo refactor
 
 async def delete_property(user_state, user_id, data=None):
     user_state.filters.pop(user_id, None)
@@ -20,8 +19,7 @@ async def add_property(user_state, user_id, data=None):
             'smoke': None,
             'owner': None,
             'rooms': None,
-            'min_price': None,
-            'max_price': None
+            'price': None
         },
         'description': {
             'title': None,
@@ -42,7 +40,7 @@ async def type_(user_state, user_id, data):
 
 async def rooms(user_state, user_id, data):
     if isinstance(data, str):
-        data = rooms_to_int(data)
+        data = to_int(data)
     assert isinstance(data, int), f'rooms {data = } >> int'
     if data == 0:
         data = None
@@ -50,10 +48,10 @@ async def rooms(user_state, user_id, data):
 
 async def price(user_state, user_id, data):
     if isinstance(data, str):
-        data = price_to_dict(data)
-    assert isinstance(data, dict), f' price {data = } >> dict'
-    user_state.filters[user_id]['property']['min_price'] = data['min_price']
-    user_state.filters[user_id]['property']['max_price'] = data['max_price']
+        data = to_int(data)
+    assert isinstance(data, int), f'price {data = } >> int'
+    assert data > 0, f'price {data = } <= 0'
+    user_state.filters[user_id]['property']['price'] = data
 
 async def district(user_state, user_id, data):
     data = int(data)

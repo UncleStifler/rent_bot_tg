@@ -26,6 +26,7 @@ class _DataArgs:
         self.callback = callback
         self.callback_data = callback_data
         self.page = page
+        self.error = False
 
 
 # def get_message(data, db, pool, state):

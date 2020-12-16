@@ -1,8 +1,6 @@
 
 from backend.message_processing import price_to_dict
-from backend.message_processing import rooms_to_int
-
-# todo refactor
+from backend.message_processing import to_int
 
 async def delete_filter(user_state, user_id, data=None):
     user_state.filters.pop(user_id, None)
@@ -70,7 +68,7 @@ async def type_(user_state, user_id, data):
 
 async def rooms(user_state, user_id, data):
     if isinstance(data, str):
-        data = rooms_to_int(data)
+        data = to_int(data)
     assert isinstance(data, int), f'rooms {data = } >> int'
     if data == 0:
         data = None

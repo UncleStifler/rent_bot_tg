@@ -1,7 +1,4 @@
 import asyncio
-
-##
-
 from aiohttp import web
 from loguru import logger
 
@@ -21,18 +18,13 @@ from utils.tg_api import send_location
 from utils.utils import log_err
 
 
-
-
-
 logger.add('app.log', format='{time} {level} {message}', level='DEBUG',
 	enqueue=True)
 
 # context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
 # context.load_cert_chain(config.WEBHOOK_SSL_CERT, config.WEBHOOK_SSL_PRIV)
 
-
-
-
+# todo errors handle, skip one callback in property
 async def process_answer(user_id, message, pool, lang='en'):
     state = user_state.get_state(user_id)
     prev_message_id = await user_state.get_message_id(user_id)
@@ -63,10 +55,10 @@ async def process_answer(user_id, message, pool, lang='en'):
         return response
 
     except AssertionError:
-        args.callback_data = False
-        text, keyboard = await scheme.process_callback(state,
-                                                 args,
-                                                 lang=lang)
+        args.error = True
+        text, keyboard = await scheme.process_answer(state,
+                                                     error=True)(args,
+                                                                 lang=lang)
         response, message_id = await send_message(user_id,
                                                   text,
                                                   keyboard,
@@ -114,13 +106,9 @@ async def tg_handler(request):
                 text, keyboard = await scheme.process_callback('f_error',
                                                          lang=lang)
             else:
-                if callback in scheme.async_callbacks:
-                    text, keyboard = await scheme.async_process_callback(args,
-                                                                         lang=lang)
-                else:
-                    text, keyboard = await scheme.process_callback(args.callback,
-                                                             args,
-                                                             lang=lang)
+                text, keyboard = await scheme.process_callback(args.callback,
+                                                               args,
+                                                               lang=lang)
 
             prev_message_id = await user_state.get_message_id(user_id)
             response, message_id = await send_message(user_id,
@@ -139,22 +127,23 @@ async def tg_handler(request):
 
             await delete_message(user_id, message_id)
 
-            if user_state.get_state(user_id):
-                return await process_answer(user_id, message, pool, lang=lang)
-
-            if message in scheme.scheme['commands']:
-                # todo lang choice
-                if not lang:
-                    message = '/select_lang'
+            if not lang:
+                message = '/select_lang'
+            try:
                 text, keyboard = await scheme.process_command(message,
-                                                        args,
-                                                        lang)
+                                                              args,
+                                                              lang)
+
 
                 response, message_id = await send_message(user_id,
                                                           text,
                                                           keyboard)
                 await user_state.change_message_id(user_id, message_id)
                 return response
+            except Exception as err:
+                print(err)
+                if user_state.get_state(user_id):
+                    return await process_answer(user_id, message, pool, lang=lang)
 
     except Exception as err:
         log_err(err)

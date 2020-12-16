@@ -23,7 +23,7 @@ class UserState:
                 state_dict = self.state.copy()
                 for user, values in state_dict.items():
                     if is_old(self.state[user]['last_update'],
-                              config.USER_DATA_OLD_TIME):
+                              config.USER_DATA_OLD_TIME) and not self.get_state(user):
                         await update_user(self.pool,
                                           user,
                                           values['message_id'],

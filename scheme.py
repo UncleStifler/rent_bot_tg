@@ -58,52 +58,36 @@ no_data_callbacks = [
 ]
 
 direct_answers = {
-	'f_rooms_type': {'type_func': mp.rooms_to_int,
-					'next_func': funcs.f_type_m},
+	'f_rooms_type': {'type_func': mp.to_int,
+					'next_func': funcs.f_type_m,
+					 'core_func': funcs.f_rooms_type},
 	'f_price_type': {'type_func': mp.price_to_dict,
-					 'next_func': funcs.f_view},
+					 'next_func': funcs.f_view,
+					 'core_func': funcs.f_price_type},
 	'f_name_type': {'type_func': mp.name_to_str,
-					'next_func': funcs.f_view},
+					'next_func': funcs.f_view,
+					'core_func': funcs.f_name_type},
 	'u_title': {'type_func': mp.limit_string,
-				'next_func': p_funcs.description},
+				'next_func': p_funcs.description,
+				'core_func': p_funcs.title},
 	'u_desc': {'type_func': mp.limit_string,
-			   'next_func': p_funcs.contact_name},
+			   'next_func': p_funcs.contact_name,
+			   'core_func': p_funcs.description},
 	'u_contact': {'type_func': mp.limit_string,
-				  'next_func': p_funcs.contact_phone},
+				  'next_func': p_funcs.contact_phone,
+				  'core_func': p_funcs.contact_name},
 	'u_phone': {'type_func': mp.limit_string,
-				'next_func': p_funcs.photo},
+				'next_func': p_funcs.photo,
+				'core_func': p_funcs.contact_phone},
 	'u_photo': {'type_func': mp.limit_string,
-				'next_func': p_funcs.type_},
-	'u_rooms': {'type_func': mp.rooms_to_int,
-				'next_func': p_funcs.district},
-	'u_price': {'type_func': mp.rooms_to_int,
-				'next_func': p_funcs.sex}
-}
-
-async_callbacks = {
-	'user_filters': funcs.user_filters,
-	'u_select': funcs.select_filter,
-	'change_filter': funcs.change_user_filter,
-	'del_filter': funcs.delete_user_filter,
-
-	'f_name_type': funcs.f_name_type,
-	'f_rooms_type': funcs.f_rooms_type,
-	'f_price_type': funcs.f_price_type,
-
-	'u_start': p_funcs.title,
-	'u_title': p_funcs.description,
-	'u_desc': p_funcs.contact_name,
-	'u_contact': p_funcs.contact_phone,
-	'u_phone': p_funcs.photo,
-	'u_photo': p_funcs.type_,
-	'u_type': p_funcs.rooms,
-	'u_rooms': p_funcs.district,
-	'u_district': p_funcs.price,
-	'u_price': p_funcs.sex,
-	'u_sex': p_funcs.pets,
-	'u_pets': p_funcs.smoke,
-	'u_smoke': p_funcs.owner,
-	'u_owner': p_funcs.owner
+				'next_func': p_funcs.type_,
+				'core_func': p_funcs.photo},
+	'u_rooms': {'type_func': mp.to_int,
+				'next_func': p_funcs.district,
+				'core_func': p_funcs.rooms},
+	'u_price': {'type_func': mp.to_int,
+				'next_func': p_funcs.sex,
+				'core_func': p_funcs.price}
 }
 
 back_scheme = {
@@ -160,23 +144,40 @@ scheme = {
 		'f_pets': funcs.f_pets,
 		'f_smoke': funcs.f_smoke,
 		'f_owner': funcs.f_owner,
-		'f_name_type': funcs.f_name_type,
-
 		'f_end': funcs.main_menu,
 		'f_end_change': funcs.main_menu,
 
+
+		'main_menu': funcs.main_menu,
+		'f_error': funcs.f_error,
+
+
+		'user_filters': funcs.user_filters,
+		'u_select': funcs.select_filter,
+		'change_filter': funcs.change_user_filter,
+		'del_filter': funcs.delete_user_filter,
+
+		'f_name_type': funcs.f_name_type,
 		'f_rooms_type': funcs.f_rooms_type,
 		'f_price_type': funcs.f_price_type,
 
-
-		'main_menu': funcs.main_menu,
-		'f_error': funcs.f_error
+		'u_start': p_funcs.title,
+		'u_title': p_funcs.description,
+		'u_desc': p_funcs.contact_name,
+		'u_contact': p_funcs.contact_phone,
+		'u_phone': p_funcs.photo,
+		'u_photo': p_funcs.type_,
+		'u_type': p_funcs.rooms,
+		'u_rooms': p_funcs.district,
+		'u_district': p_funcs.price,
+		'u_price': p_funcs.sex,
+		'u_sex': p_funcs.pets,
+		'u_pets': p_funcs.smoke,
+		'u_smoke': p_funcs.owner,
+		'u_owner': p_funcs.owner
 	}
 }
 
-
-async def async_process_callback(args, lang='en'):
-	return await async_callbacks[args.callback](args, lang=lang)
 
 async def process_command(command, args, lang):
 	if not lang:
@@ -185,7 +186,7 @@ async def process_command(command, args, lang):
 
 async def process_callback(callback, args=None, lang='en'):
 	try:
-		if args.callback_data:
+		if args.callback_data and callback in back_scheme:
 			return await back_scheme[callback](args, lang=lang)
 		else:
 			return await scheme['callbacks'][callback](args, lang=lang)
@@ -195,7 +196,9 @@ async def process_callback(callback, args=None, lang='en'):
 		return await scheme['callbacks']['f_error'](args, lang=lang)
 
 
-def process_answer(state, success=False):
+def process_answer(state, success=False, error=False):
+	if error:
+		return direct_answers[state]['core_func']
 	if success:
 		return direct_answers[state]['next_func']
 	else:
