@@ -286,9 +286,9 @@ f_end_text = {
     'ru': 'Фильтр был *успешно добавлен*.'
 }
 direct_answer_err = {
-    'en': "\n*Sorry, I can't read this. Please, follow the example above.*",
-    'es': '\n*Lo siento, no puedo leer esto. Por favor, siga el ejemplo anterior*',
-    'ru': '\n*Извините, я не могу прочитать это. Пожалуйста, следуйте примеру выше.*'
+    'en': "*Sorry, I can't read this. Please, follow the example above.*",
+    'es': '*Lo siento, no puedo leer esto. Por favor, siga el ejemplo anterior*',
+    'ru': '*Извините, я не могу прочитать это. Пожалуйста, следуйте примеру выше.*'
 }
 f_error_text = {
     'en': '*Sorry, something went wrong. Try again or contact us.*',

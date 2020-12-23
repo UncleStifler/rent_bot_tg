@@ -1,8 +1,7 @@
 import asyncio
 
 import config
-from db.asql import get_districts
-from db.asql import get_routes
+import db.asql as asql
 
 # ((title, id), ..., ())
 class DataUpdater:
@@ -15,7 +14,16 @@ class DataUpdater:
 
     async def init_cycle(self):
         while True:
-            self.districts = tuple(tuple((x['name'], x['id'])) for x in await get_districts(self.pool))
-            self.metro_routes = tuple(tuple((x['short_name'], x['id'])) for x in await get_routes(self.pool, 1))
-            self.bus_routes = tuple(tuple((x['short_name'], x['id'])) for x in await get_routes(self.pool, 3))
+            self.cities = tuple(tuple((x['name'],
+                                       x['id'])) for x in await asql.get_cities(self.pool))
+            self.districts = tuple(tuple((x['name'],
+                                          x['id'],
+                                          x['city_id'])) for x in await asql.get_districts(self.pool))
+            self.metro_routes = tuple(tuple((x['short_name'],
+                                             x['id'])) for x in await asql.get_routes(self.pool, 1))
+            self.bus_routes = tuple(tuple((x['short_name'],
+                                           x['id'])) for x in await asql.get_routes(self.pool, 3))
             await asyncio.sleep(config.DATA_UPDATE_TIME)
+
+    def get_districts(self, city_id):
+        return tuple(x for x in self.districts if x[2] == city_id)

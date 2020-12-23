@@ -40,6 +40,9 @@ def get_user(user_id):
 
 # --------------------------------------------------------------------------
 
+def cities():
+    return 'select * from cities'
+
 def districts():
     return 'select * from districts'
 
@@ -82,4 +85,12 @@ def get_property_item(filter_id, property_id):
            p.*, d.* from property p
         join description d on p.description_id = d.id
     where p.id = {property_id};
+    '''
+
+def insert_user_ad(property):
+    return f'''
+    insert into user_ads
+        (title, description, url, photo, contact_name, contact_phone, amenities, demands, type, city, district, sex, pets, smoke, owner, rooms, price, latitude, longitude)
+    values
+        {property.get_tuple()}
     '''

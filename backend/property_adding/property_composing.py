@@ -1,10 +1,9 @@
 
-from backend.message_processing import price_to_dict
 from backend.message_processing import to_int
 
 
-async def delete_property(user_state, user_id, data=None):
-    user_state.filters.pop(user_id, None)
+async def send_property(user_state, user_id, data=None):
+    await user_state.send_property(user_id)
 
 async def add_property(user_state, user_id, data=None):
     user_state.add_user_filter(user_id)
@@ -12,7 +11,7 @@ async def add_property(user_state, user_id, data=None):
         'user_id': user_id,
         'property': {
             'type': None,
-            'city': 1,
+            'city': None,
             'district': None,
             'sex': None,
             'pets': None,
@@ -33,9 +32,7 @@ async def add_property(user_state, user_id, data=None):
 
 async def type_(user_state, user_id, data):
     data = int(data)
-    assert data in [0, 1, 2], f'type {data = } // [0, 1, 2]'
-    if data == 2:
-        data = None
+    assert data in [0, 1], f'type {data = } // [0, 1]'
     user_state.filters[user_id]['property']['type'] = data
 
 async def rooms(user_state, user_id, data):
@@ -52,6 +49,13 @@ async def price(user_state, user_id, data):
     assert isinstance(data, int), f'price {data = } >> int'
     assert data > 0, f'price {data = } <= 0'
     user_state.filters[user_id]['property']['price'] = data
+
+async def city(user_state, user_id, data):
+    data = int(data)
+    assert isinstance(data, int), f'city {data = } >> int'
+    if data == 0:
+        data = None
+    user_state.filters[user_id]['property']['city'] = data
 
 async def district(user_state, user_id, data):
     data = int(data)

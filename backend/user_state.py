@@ -4,6 +4,8 @@ import asyncio
 import config
 from db.asql import get_user
 from db.asql import update_user
+from db.asql import insert_user_ad
+from backend.property_adding.utils import Property
 from utils.filters_api import send_filter
 from utils.utils import get_current_timestamp
 from utils.utils import is_old
@@ -98,3 +100,9 @@ class UserState:
     async def send_to_filters(self, user_id, new=True):
         await send_filter(self.filters[user_id], new=new)
         self.filters.pop(user_id, None)
+
+    async def send_property(self, user_id):
+        property = Property(self.filters[user_id])
+        await insert_user_ad(self.pool, property)
+        self.filters.pop(user_id, None)
+

@@ -1,5 +1,6 @@
 
 import ui.lang as l
+from utils.utils import get_last_sec
 # main menu
 
 def main_menu_text(lang='en'):
@@ -9,7 +10,7 @@ def main_menu_keyboard(lang='en'):
 	return {'inline_keyboard': [
 		[{'text': l.add_filter[lang], 'callback_data': 'f_start-'}],
 		[{'text': l.my_filters[lang], 'callback_data': 'user_filters-'}],
-		[{'text': 'Add property', 'callback_data': 'u_start-'}],
+		[{'text': 'Add property', 'callback_data': 'u_start_page-'}],
 		[{'text': l.select_lang[lang], 'callback_data': 'select_lang-'}]
 	]}
 
@@ -43,25 +44,24 @@ def f_view_keyboard(current_filter=None, lang='en'):
 	 {'text': 'Other', 'callback_data': 'f_other_m-'}],
 	[{'text': l.back[lang], 'callback_data': back}]
 	]}
-def f_loc_m_keyboard(lang='en'):
-	return {'inline_keyboard': [
-	[{'text': 'District', 'callback_data': 'f_district-'}],
+def f_loc_m_keyboard(districts, lang='en'):
+	keyboard = {'inline_keyboard': [
+	[{'text': 'City', 'callback_data': 'f_city-'}],
 	[{'text': 'Public Transport', 'callback_data': 'f_route_type-'}],
 	[{'text': 'Distance to stop', 'callback_data': 'f_radius-'}],
 	[{'text': l.back[lang], 'callback_data': 'f_view-'}]
 	]}
-def f_type_m_keyboard(rooms=True, lang='en'):
-	if rooms:
-		return {'inline_keyboard': [
-		[{'text': 'Type', 'callback_data': 'f_type-'}],
-		[{'text': 'Rooms', 'callback_data': 'f_rooms-'}],
-		[{'text': l.back[lang], 'callback_data': 'f_view-'}]
-		]}
-	else:
-		return {'inline_keyboard': [
+	if districts:
+		keyboard['inline_keyboard'].insert(1, [{'text': 'District', 'callback_data': 'f_district-'}])
+	return keyboard
+def f_type_m_keyboard(rooms, lang='en'):
+	keyboard = {'inline_keyboard': [
 			[{'text': 'Type', 'callback_data': 'f_type-'}],
 			[{'text': l.back[lang], 'callback_data': 'f_view-'}]
-		]}
+	]}
+	if rooms:
+		keyboard['inline_keyboard'].insert(1, [{'text': 'Rooms', 'callback_data': 'f_rooms-'}])
+	return keyboard
 def f_other_m_keyboard(rooms=True, lang='en'):
 	if rooms:
 		return {'inline_keyboard': [
@@ -117,6 +117,9 @@ def f_price_keyboard(lang='en'):
 def f_price_type(lang='en'):
 	return l.f_price_type[lang]
 ###########################################################
+def f_city_text(lang='en'):
+	return 'City choice'
+###########################################################
 def f_district_text(lang='en'):
 	return l.f_district_text[lang]
 ###########################################################
@@ -152,6 +155,7 @@ def f_sex_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': l.male[lang], 'callback_data': 'f_sex-1'},
 	 {'text': l.female[lang], 'callback_data': 'f_sex-2'}],
+	[{'text': 'Couple', 'callback_data': 'f_sex-3'}],
 	[{'text': l.back[lang], 'callback_data': 'f_other_m-'}]
 	]}
 ###########################################################
@@ -196,7 +200,7 @@ def f_end_text(lang='en'):
 	return l.f_end_text[lang]
 
 def direct_answer_err(lang='en'):
-	return l.direct_answer_err[lang]
+	return f'\n{l.direct_answer_err[lang]} ({get_last_sec()})'
 def f_error_text(lang='en'):
 	return l.f_error_text[lang]
 def back_menu_keyboard(lang='en'):

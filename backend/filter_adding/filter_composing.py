@@ -36,7 +36,7 @@ async def add_filter(user_state, user_id, data=None):
             'name': 'Filter',
             'f_filter': {
                 'type': None,
-                'city': 1,
+                'city': None,
                 'district': None,
                 'sex': None,
                 'pets': None,
@@ -81,6 +81,14 @@ async def price(user_state, user_id, data):
     user_state.filters[user_id]['f_filter']['min_price'] = data['min_price']
     user_state.filters[user_id]['f_filter']['max_price'] = data['max_price']
 
+async def city(user_state, user_id, data):
+    data = int(data)
+    assert isinstance(data, int), f'city {data = } >> int'
+    if data == 0:
+        data = None
+        user_state.filters[user_id]['f_filter']['district'] = None
+    user_state.filters[user_id]['f_filter']['city'] = data
+
 async def district(user_state, user_id, data):
     data = int(data)
     assert isinstance(data, int), f'district {data = } >> int'
@@ -104,7 +112,7 @@ async def radius(user_state, user_id, data):
 
 async def sex(user_state, user_id, data):
     data = int(data)
-    assert data in [0, 1, 2], f'sex {data = } // [0, 1, 2]'
+    assert data in [0, 1, 2, 3], f'sex {data = } // [0, 1, 2, 3]'
     user_state.filters[user_id]['f_filter']['sex'] = data
 
 async def pets(user_state, user_id, data):

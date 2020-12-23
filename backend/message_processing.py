@@ -1,4 +1,5 @@
 
+import config
 
 def _isascii(input_string):
     try:
@@ -7,6 +8,13 @@ def _isascii(input_string):
     except UnicodeEncodeError:
         return False
 
+def photo_check(message):
+    try:
+        assert message.startswith('local/'), f'message is not photo {message = }'
+        return message
+    except AssertionError as err:
+        print(f'error: photo, {err}')
+
 def limit_string(message, limit=200):
     try:
         assert len(message) < limit, f'message is out of limit {message = }'
@@ -14,7 +22,6 @@ def limit_string(message, limit=200):
         return message
     except AssertionError as err:
         print(f'error: limit_string, {err}')
-        return None
 
 def price_to_dict(message):
     data = {
@@ -47,7 +54,6 @@ def price_to_dict(message):
         return data
     except (ValueError, AssertionError) as err:
         print(f'error: price_to_dict, {err}')
-        return None
 
 def to_int(message):
     try:
@@ -56,7 +62,14 @@ def to_int(message):
         return int(message)
     except (ValueError, AssertionError) as err:
         print(f'error: rooms_to_int, {err}')
-        return None
+
+def price_to_int(message):
+    try:
+        assert len(message) < 7, f'len {message = }'
+        assert message.isdigit(), f'digits {message = }'
+        return int(message)
+    except (ValueError, AssertionError) as err:
+        print(f'error: price_to_int, {err}')
 
 def name_to_str(message):
     try:
@@ -65,4 +78,10 @@ def name_to_str(message):
         return message
     except (ValueError, AssertionError) as err:
         print(f'error: name_to_str, {err}')
-        return None
+
+def auth_(message):
+    try:
+        assert message == config.ADMIN_PASSWORD, f'password invalid {message = }'
+        return True
+    except AssertionError as err:
+        print(f'error: auth_, {err}')

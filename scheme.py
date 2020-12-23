@@ -1,9 +1,10 @@
 
 import backend.message_processing as mp
-import backend.filter_composing as comp
-import mockups.property_composing as p_comp
-import mockups.funcs as p_funcs
-import ui.funcs as funcs
+import backend.filter_adding.filter_composing as comp
+import backend.property_adding.property_composing as p_comp
+import backend.property_adding.funcs as p_funcs
+import backend.filter_adding.funcs as funcs
+import backend.admin.funcs as adm
 
 from utils.utils import log_err
 
@@ -17,6 +18,7 @@ filter_scheme = {
 	'f_rooms_type': comp.rooms,
 	'f_price': comp.price,
 	'f_price_type': comp.price,
+	'f_city': comp.city,
 	'f_district': comp.district,
 	'f_route': comp.route,
 	'f_radius': comp.radius,
@@ -38,12 +40,14 @@ filter_scheme = {
 	'u_photo': p_comp.photo,
 	'u_type': p_comp.type_,
 	'u_rooms': p_comp.rooms,
+	'u_city': p_comp.city,
 	'u_district': p_comp.district,
 	'u_price': p_comp.price,
 	'u_sex': p_comp.sex,
 	'u_pets': p_comp.pets,
 	'u_smoke': p_comp.smoke,
-	'u_owner': p_comp.owner
+	'u_owner': p_comp.owner,
+	'u_end': p_comp.send_property
 }
 
 no_data_callbacks = [
@@ -54,7 +58,9 @@ no_data_callbacks = [
 	'f_rooms_type',
 	'f_price_type',
 	'f_name_type',
-	'u_start'
+	'u_start_page',
+	'u_start',
+	'u_end'
 ]
 
 direct_answers = {
@@ -79,15 +85,18 @@ direct_answers = {
 	'u_phone': {'type_func': mp.limit_string,
 				'next_func': p_funcs.photo,
 				'core_func': p_funcs.contact_phone},
-	'u_photo': {'type_func': mp.limit_string,
+	'u_photo': {'type_func': mp.photo_check,
 				'next_func': p_funcs.type_,
 				'core_func': p_funcs.photo},
 	'u_rooms': {'type_func': mp.to_int,
-				'next_func': p_funcs.district,
+				'next_func': p_funcs.city,
 				'core_func': p_funcs.rooms},
-	'u_price': {'type_func': mp.to_int,
+	'u_price': {'type_func': mp.price_to_int,
 				'next_func': p_funcs.sex,
-				'core_func': p_funcs.price}
+				'core_func': p_funcs.price},
+	'a_auth': {'type_func': mp.auth_,
+				'next_func': adm.admin,
+				'core_func': adm.admin_auth}
 }
 
 back_scheme = {
@@ -100,6 +109,7 @@ back_scheme = {
 	'f_price': funcs.f_view,
 
 	# loc
+	'f_city': funcs.f_loc_m,
 	'f_district': funcs.f_loc_m,
 	'f_route': funcs.f_loc_m,
 	'f_radius': funcs.f_loc_m,
@@ -117,7 +127,8 @@ back_scheme = {
 scheme = {
 	'commands': {
 		'/start': funcs.main_menu,
-		'/select_lang': funcs.lang_select
+		'/select_lang': funcs.lang_select,
+		'/admin': adm.admin_auth
 	},
 	'callbacks': {
 		'select_lang': funcs.lang_select,
@@ -132,6 +143,7 @@ scheme = {
 		'f_type': funcs.f_type,
 		'f_rooms': funcs.f_rooms,
 		'f_price': funcs.f_price,
+		'f_city': funcs.f_city,
 		'f_district': funcs.f_district,
 
 		'f_route_type': funcs.f_route_type,
@@ -161,6 +173,7 @@ scheme = {
 		'f_rooms_type': funcs.f_rooms_type,
 		'f_price_type': funcs.f_price_type,
 
+		'u_start_page': p_funcs.start_page,
 		'u_start': p_funcs.title,
 		'u_title': p_funcs.description,
 		'u_desc': p_funcs.contact_name,
@@ -168,13 +181,17 @@ scheme = {
 		'u_phone': p_funcs.photo,
 		'u_photo': p_funcs.type_,
 		'u_type': p_funcs.rooms,
-		'u_rooms': p_funcs.district,
+		'u_rooms': p_funcs.city,
+		'u_city': p_funcs.district,
 		'u_district': p_funcs.price,
 		'u_price': p_funcs.sex,
 		'u_sex': p_funcs.pets,
 		'u_pets': p_funcs.smoke,
 		'u_smoke': p_funcs.owner,
-		'u_owner': p_funcs.owner
+		'u_owner': p_funcs.end,
+		'u_end': funcs.main_menu,
+
+		'a_show': funcs.main_menu
 	}
 }
 

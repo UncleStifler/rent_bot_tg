@@ -36,7 +36,8 @@ def item_to_ui(db, item, fresh=False):
         amenities = ''
 
     if item['contact_name'] and item['contact_phone']:
-        contacts = f"\nContacts: *{item['contact_name']}* - *{item['contact_phone']}*"
+        contact_name = item['contact_name'].replace('\t', '')
+        contacts = f"\nContacts: *{contact_name}* - *{item['contact_phone']}*"
     else:
         contacts = ''
 

@@ -3,6 +3,7 @@ import ujson
 from aiohttp import web
 
 import config
+from utils.utils import log_err
 
 API_URL = f'https://api.telegram.org/bot{config.TOKEN}/'
 HEADERS = {'Content-Type': 'application/json'}
@@ -48,22 +49,14 @@ async def send_message(chat_id, text, keyboard=None, update=None):
 				id_ = ujson.loads(response)['result']['message_id']
 				return [web.Response(status=200), id_]
 			except Exception as err:
-				print(err)
+				log_err(err)
 				print(await resp.text())
 				return [web.Response(status=500), None]
 
 async def delete_message(chat_id, message_id):
 	message = _get_message_for_delete(chat_id, message_id)
 	url = API_URL+'deleteMessage'
-	async with aiohttp.ClientSession() as session:
-		async with session.post(url,
-								data=ujson.dumps(message),
-								headers=HEADERS) as resp:
-			try:
-				assert resp.status == 200
-			except AssertionError:
-				return web.Response(status=500)
-	return web.Response(status=200)
+	return (await _post_req(url, message, HEADERS))[0]
 
 async def send_location(chat_id, lat_lon):
 	lat, lon = lat_lon.split('|')
@@ -73,14 +66,44 @@ async def send_location(chat_id, lat_lon):
 		'latitude': float(lat),
 		'longitude': float(lon)
 	}
+	return (await _post_req(url, message, HEADERS))[0]
+
+async def get_file_path(file_id):
+	url = f'{API_URL}getFile?file_id={file_id}'
+	return (await _post_req(url, None, HEADERS, json_loads=True))[1]
+
+async def download_file(file_path):
+	url = f'https://api.telegram.org/file/bot{config.TOKEN}/{file_path}'
+	return (await _get_req(url, HEADERS))[1]
+
+
+async def _post_req(url, data, headers, json_loads=False):
 	async with aiohttp.ClientSession() as session:
 		async with session.post(url,
-								data=ujson.dumps(message),
-								headers=HEADERS) as resp:
+								data=ujson.dumps(data),
+								headers=headers) as resp:
 			try:
 				assert resp.status == 200
-				return web.Response(status=200)
+				response = await resp.read()
+				if json_loads:
+					response = ujson.loads(response)
+				return [web.Response(status=200), response]
 			except Exception as err:
-				print(err)
+				log_err(err)
 				print(await resp.text())
-				return web.Response(status=500)
+				return [web.Response(status=500), None]
+
+async def _get_req(url, headers, json_loads=False):
+	async with aiohttp.ClientSession() as session:
+		async with session.get(url,
+							   headers=headers) as resp:
+			try:
+				assert resp.status == 200
+				response = await resp.read()
+				if json_loads:
+					response = ujson.loads(response)
+				return [web.Response(status=200), response]
+			except Exception as err:
+				log_err(err)
+				print(await resp.text())
+				return [web.Response(status=500), None]

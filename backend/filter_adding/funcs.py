@@ -1,13 +1,13 @@
 
-import ui.mockups as mockups
+import backend.filter_adding.mockups as mockups
 import ui.lang as l
 from db.asql import get_user_filters
 from db.asql import get_filter_by_ids
 from ui.utils import build_page_keyboard
 from ui.utils import build_common_keyboard
-import ui.filter_view as filter_view
+import backend.filter_adding.view as filter_view
 from utils.filters_api import delete_filter
-from backend.filter_composing import add_filter
+from backend.filter_adding.filter_composing import add_filter
 
 
 
@@ -57,6 +57,7 @@ async def delete_user_filter(args, lang='en'):
     await delete_filter(int(args.callback_data))
     return await user_filters(args, lang=lang)
 
+# todo move
 async def lang_select(args=None, lang='en'):
     return [mockups.lang_select_text(lang),
             mockups.lang_select_keyboard(lang)]
@@ -71,17 +72,17 @@ async def f_view(args=None, lang='en'):
     return [filter_view.filter_from_memory(filter, args.db),
             mockups.f_view_keyboard(current_filter, lang)]
 
-async def f_loc_m(args=None, lang='en'):
+async def f_loc_m(args=None, lang='en', districts=False):
     filter = args.state.filters[args.user_id]
+    if filter['f_filter']['city']:
+        districts = True
     return [filter_view.f_loc_from_memory(filter, args.db),
-            mockups.f_loc_m_keyboard(lang)]
+            mockups.f_loc_m_keyboard(districts, lang)]
 
-async def f_type_m(args=None, lang='en'):
+async def f_type_m(args=None, lang='en', rooms=True):
     filter = args.state.filters[args.user_id]
     if filter['f_filter']['type'] == 1:
         rooms = False
-    else:
-        rooms = True
     return [filter_view.f_type_from_memory(filter),
             mockups.f_type_m_keyboard(rooms, lang)]
 
@@ -104,9 +105,19 @@ async def f_rooms(args=None, lang='en'):
 async def f_price(args=None, lang='en'):
     return [mockups.f_price_text(lang),
             mockups.f_price_keyboard(lang)]
+async def f_city(args, lang='en'):
+    return [mockups.f_city_text(lang),
+            build_page_keyboard(args.db.cities,
+                                args.page,
+                               'f_city',
+                               'f_city',
+                                back_callback='f_loc_m',
+                                none_button=True,
+                                lang=lang)]
 async def f_district(args, lang='en'):
+    city = args.state.filters[args.user_id]['f_filter']['city']
     return [mockups.f_district_text(lang),
-            build_page_keyboard(args.db.districts,
+            build_page_keyboard(args.db.get_districts(city),
                                 args.page,
                                'f_district',
                                'f_district',

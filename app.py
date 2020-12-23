@@ -6,6 +6,8 @@ import config
 import scheme
 import db.asql as asql
 from utils.tg_api import send_message, delete_message
+from backend.photos import photos_handler
+from backend.photos import process_file
 from backend.user_state import UserState
 from backend.data_updater import DataUpdater
 from backend.callbacks_processing import get_callback
@@ -24,7 +26,7 @@ logger.add('app.log', format='{time} {level} {message}', level='DEBUG',
 # context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
 # context.load_cert_chain(config.WEBHOOK_SSL_CERT, config.WEBHOOK_SSL_PRIV)
 
-# todo errors handle, skip one callback in property
+
 async def process_answer(user_id, message, pool, lang='en'):
     state = user_state.get_state(user_id)
     prev_message_id = await user_state.get_message_id(user_id)
@@ -34,10 +36,10 @@ async def process_answer(user_id, message, pool, lang='en'):
         assert data
         await user_state.change_state(user_id, None)
         filter_process_error = await scheme.process_filter(state,
-                                                         user_state,
-                                                         user_id,
-                                                         data,
-                                                         from_direct_answer=True)
+                                                           user_state,
+                                                           user_id,
+                                                           data,
+                                                           from_direct_answer=True)
 
         if filter_process_error:
             text, keyboard = await scheme.process_callback('f_error',
@@ -120,15 +122,23 @@ async def tg_handler(request):
             return response
 
         elif 'message' in data:
-            user_id, message, message_id = get_message(data)
+            user_id, message, message_id, file_id = get_message(data)
             args = get_args(user_state, db_data, pool, user_id)
             lang = await user_state.get_lang(user_id)
             print(f'{message = }')
 
             await delete_message(user_id, message_id)
 
+            if file_id:
+                if user_state.get_state(user_id) == 'u_photo':
+                    message = await process_file(file_id)
+
+            if not message:
+                return web.Response(status=200)
+
             if not lang:
                 message = '/select_lang'
+
             try:
                 text, keyboard = await scheme.process_command(message,
                                                               args,
@@ -140,8 +150,7 @@ async def tg_handler(request):
                                                           keyboard)
                 await user_state.change_message_id(user_id, message_id)
                 return response
-            except Exception as err:
-                print(err)
+            except KeyError:
                 if user_state.get_state(user_id):
                     return await process_answer(user_id, message, pool, lang=lang)
 
@@ -159,11 +168,14 @@ async def send_results_handler(request):
     await process_from_filter_app(data, pool, db_data, user_state)
     return web.Response(status=200)
 
+
+
 async def init_app():
     app = web.Application()
     app['pool'] = await asql.get_pool()
     app.router.add_post('/rent_bot/', tg_handler)
     app.router.add_post('/send_results/', send_results_handler)
+    app.router.add_get('/photos/{photo_id}', photos_handler)
     return app
 
 @logger.catch
