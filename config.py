@@ -11,13 +11,8 @@ WEBHOOK_SSL_PRIV = "/home/tg_tink/ssl2/ssl_priv.pem"
 IMAGE_FOLDER = 'photos'
 
 DATA_UPDATE_TIME = 600 # sec
-USER_DATA_UPDATE_TIME = 10 # sec
-USER_DATA_OLD_TIME = 20 # sec
-
-# DB_USER = 'postgres'
-# DB_PASSWORD = 'admin'
-# DB_DATABASE = 'test'
-# DB_HOST = 'localhost'
+USER_DATA_UPDATE_TIME = 30 # sec
+USER_DATA_OLD_TIME = 60 # sec
 
 DB_USER = 'postgres'
 DB_PASSWORD = 'SF899laxe_'

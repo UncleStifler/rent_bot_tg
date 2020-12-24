@@ -26,7 +26,7 @@ filter_scheme = {
 	'f_pets': comp.pets,
 	'f_smoke': comp.smoke,
 	'f_owner': comp.owner,
-	'f_name_type': comp.name, # calls the end_filter also
+	'f_name_type': comp.name,
 	'f_end': comp.end_filter,
 	'f_end_change': comp.change_filter,
 	'f_error': comp.delete_filter,
@@ -123,7 +123,6 @@ back_scheme = {
 	'lang': funcs.main_menu
 }
 
-# each callback calls next menu
 scheme = {
 	'commands': {
 		'/start': funcs.main_menu,

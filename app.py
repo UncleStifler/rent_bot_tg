@@ -67,6 +67,11 @@ async def process_answer(user_id, message, pool, lang='en'):
                                                   prev_message_id)
         return response
 
+async def delete_bot_message(user_id):
+    prev_message_id = await user_state.get_message_id(user_id)
+    if prev_message_id:
+        await delete_message(user_id, prev_message_id)
+        await user_state.change_message_id(user_id, None)
 
 async def tg_handler(request):
     pool, data = await read_request(request)
@@ -79,21 +84,15 @@ async def tg_handler(request):
                                                                   pool)
             lang = await user_state.get_lang(args.user_id)
             print(f'{callback = }')
+
             if callback == 'show_more':
-                # todo if no results - sends from filter no results with menu
                 await send_show_more(callback_data)
-                prev_message_id = await user_state.get_message_id(user_id)
-                if prev_message_id:
-                    await delete_message(user_id, prev_message_id)
-                await user_state.change_message_id(user_id, None)
+                await delete_bot_message(user_id)
                 return web.Response(status=200)
 
             if callback == 'map':
                 await send_location(user_id, callback_data)
-                prev_message_id = await user_state.get_message_id(user_id)
-                if prev_message_id:
-                    await delete_message(user_id, prev_message_id)
-                await user_state.change_message_id(user_id, None)
+                await delete_bot_message(user_id)
                 return web.Response(status=200)
 
             if callback == 'lang':
@@ -106,11 +105,15 @@ async def tg_handler(request):
                                                                callback_data)
             if filter_process_error:
                 text, keyboard = await scheme.process_callback('f_error',
-                                                         lang=lang)
+                                                               lang=lang)
             else:
                 text, keyboard = await scheme.process_callback(args.callback,
                                                                args,
                                                                lang=lang)
+
+            if callback in ['f_end_change', 'f_end']:
+                await delete_bot_message(user_id)
+                return web.Response(status=200)
 
             prev_message_id = await user_state.get_message_id(user_id)
             response, message_id = await send_message(user_id,
@@ -157,18 +160,12 @@ async def tg_handler(request):
     except Exception as err:
         log_err(err)
     finally:
-
-        print(user_state.state)
-        print(user_state.filters)
         return web.Response(status=200)
 
 async def send_results_handler(request):
     pool, data = await read_request(request)
-    print(data)
     await process_from_filter_app(data, pool, db_data, user_state)
     return web.Response(status=200)
-
-
 
 async def init_app():
     app = web.Application()

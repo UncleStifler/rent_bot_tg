@@ -86,8 +86,8 @@ async def city(user_state, user_id, data):
     assert isinstance(data, int), f'city {data = } >> int'
     if data == 0:
         data = None
-        user_state.filters[user_id]['f_filter']['district'] = None
     user_state.filters[user_id]['f_filter']['city'] = data
+    user_state.filters[user_id]['f_filter']['district'] = None
 
 async def district(user_state, user_id, data):
     data = int(data)
@@ -133,4 +133,3 @@ async def owner(user_state, user_id, data):
 async def name(user_state, user_id, data):
     assert isinstance(data, str) and len(data) < 101, f'owner {data = } >> str, len < 100'
     user_state.filters[user_id]['name'] = data
-    # await end_filter(user_state, user_id)

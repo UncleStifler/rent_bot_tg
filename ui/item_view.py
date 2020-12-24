@@ -13,8 +13,10 @@ def item_to_ui(db, item, fresh=False):
         sex = '*Both* gender'
     elif item['sex'] == 1:
         sex = '*Male* only'
-    else:
+    elif item['sex'] == 2:
         sex = '*Female* only'
+    else:
+        sex = '*Couple allowed*'
     if item['pets']:
         pets = '*Pets* allowed'
     else:
@@ -44,10 +46,11 @@ def item_to_ui(db, item, fresh=False):
     description = item['description'].replace('\\n', '\n')
 
     type = 'Flat' if item['type'] == 0 else 'Room'
+    city = search_bd(item['city'], db.cities)
     district = search_bd(item['district'], db.districts)
     text = f'''
 {fresh} by filter "*{item['name']}*"
-*{district}*, *Barcelona*
+*{district}*, *{city}*
 *{type}*, *{item['price']} €\month*, *{item['rooms']} rooms*
 {demands}{owner}{contacts}
 {amenities}

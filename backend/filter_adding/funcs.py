@@ -65,6 +65,11 @@ async def main_menu(args=None, lang='en'):
     args.state.delete_user_filter(args.user_id)
     return [mockups.main_menu_text(lang),
             mockups.main_menu_keyboard(lang)]
+async def empty_result(args=None, lang='en'):
+    return [mockups.empty_result(lang),
+            mockups.back_menu_keyboard(lang)]
+
+
 
 async def f_view(args=None, lang='en'):
     filter = args.state.filters[args.user_id]

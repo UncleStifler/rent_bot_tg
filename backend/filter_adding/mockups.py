@@ -14,6 +14,9 @@ def main_menu_keyboard(lang='en'):
 		[{'text': l.select_lang[lang], 'callback_data': 'select_lang-'}]
 	]}
 
+def empty_result(lang='en'):
+	return 'Sorry, there are no results for your search. Change your filter and try again'
+
 def user_filters_text_filled(lang='en'):
 	return l.user_filters_text_filled[lang]
 def user_filters_text_none(lang='en'):
@@ -156,6 +159,7 @@ def f_sex_keyboard(lang='en'):
 	[{'text': l.male[lang], 'callback_data': 'f_sex-1'},
 	 {'text': l.female[lang], 'callback_data': 'f_sex-2'}],
 	[{'text': 'Couple', 'callback_data': 'f_sex-3'}],
+	[{'text': l.doesnt_matter[lang], 'callback_data': 'f_sex-0'}],
 	[{'text': l.back[lang], 'callback_data': 'f_other_m-'}]
 	]}
 ###########################################################

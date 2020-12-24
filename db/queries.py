@@ -76,16 +76,19 @@ def get_filter(user_id,
     '''
 
 def get_property_item(filter_id, property_id):
-    return f'''
-    with filter as (select *
-        from user_filters where id = {filter_id}
-    )
-    select (select user_id from filter),
-           (select name from filter),
-           p.*, d.* from property p
-        join description d on p.description_id = d.id
-    where p.id = {property_id};
-    '''
+    if property_id:
+        return f'''
+        with filter as (select *
+            from user_filters where id = {filter_id}
+        )
+        select (select user_id from filter),
+               (select name from filter),
+               p.*, d.* from property p
+            join description d on p.description_id = d.id
+        where p.id = {property_id}
+        '''
+    else:
+        return f'select user_id, name from user_filters where id = {filter_id}'
 
 def insert_user_ad(property):
     return f'''
