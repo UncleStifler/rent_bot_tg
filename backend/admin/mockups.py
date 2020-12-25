@@ -1,7 +1,7 @@
 
-import ui.lang as l
+
 from utils.utils import get_last_sec
-# main menu
+
 
 def admin_text(lang='en'):
 	return 'This is admin menu'

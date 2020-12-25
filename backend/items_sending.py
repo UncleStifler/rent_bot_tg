@@ -1,6 +1,6 @@
 
 
-import ui.lang as l
+import ui.lang_buttons as lb
 from db.asql import get_property_item
 from ui.item_view import item_to_ui
 from ui.utils import build_common_keyboard
@@ -21,15 +21,15 @@ async def _get_item_from_db(data, pool, db, lang):
     lat, lon = item[0]['latitude'], item[0]['longitude']
     lat_lon = f'map-{lat}|{lon}'
     text = item_to_ui(db, item[0], fresh=data['fresh'])
-    buttons = [[l.main_menu[lang], 'main_menu-'],
-               [l.show_more_results[lang], f'show_more-{filter_id}']]
+    buttons = [[lb.main_menu[lang], 'main_menu-'],
+               [lb.show_more_results[lang], f'show_more-{filter_id}']]
     keyboard = build_common_keyboard(None,
                                      None,
                                      buttons)
     keyboard['inline_keyboard'].insert(0,
-                                       [{'text': l.see_website[lang],
+                                       [{'text': lb.see_website[lang],
                                          'url': url},
-                                        {'text': l.see_map[lang],
+                                        {'text': lb.see_map[lang],
                                          'callback_data': lat_lon}])
     return [user_id, text, keyboard]
 

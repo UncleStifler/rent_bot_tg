@@ -1,6 +1,7 @@
 
 import backend.filter_adding.mockups as mockups
-import ui.lang as l
+
+import ui.lang_buttons as lb
 from db.asql import get_user_filters
 from db.asql import get_filter_by_ids
 from ui.utils import build_page_keyboard
@@ -15,7 +16,7 @@ from backend.filter_adding.filter_composing import add_filter
 async def user_filters(args, lang='en'):
     filters = await get_user_filters(args.pool, args.user_id)
     filters = [[x['name'], x['id']] for x in filters]
-    buttons = [[l.main_menu[lang], 'main_menu-']]
+    buttons = [[lb.main_menu[lang], 'main_menu-']]
     if filters:
         text = mockups.user_filters_text_filled(lang)
     else:
@@ -32,12 +33,12 @@ async def select_filter(args, lang='en'):
     await add_filter(args.state,
                      args.user_id,
                      filter[0])
-    buttons = [[l.show_more_results[lang], f'show_more-{args.callback_data}'],
-               ['Change Filter', f'change_filter-{args.callback_data}'],
-               [l.delete_filter[lang], f'del_filter-{args.callback_data}'],
-               [l.back[lang], 'user_filters-']]
+    buttons = [[lb.show_more_results[lang], f'show_more-{args.callback_data}'],
+               [lb.change_filter[lang], f'change_filter-{args.callback_data}'],
+               [lb.delete_filter[lang], f'del_filter-{args.callback_data}'],
+               [lb.back[lang], 'user_filters-']]
     return [filter_view.filter_from_memory(args.state.filters[args.user_id],
-                                           args.db),
+                                           args.db, lang),
             build_common_keyboard(None,
                                   None,
                                   buttons,
@@ -74,21 +75,21 @@ async def empty_result(args=None, lang='en'):
 async def f_view(args=None, lang='en'):
     filter = args.state.filters[args.user_id]
     current_filter = filter['id']
-    return [filter_view.filter_from_memory(filter, args.db),
+    return [filter_view.filter_from_memory(filter, args.db, lang),
             mockups.f_view_keyboard(current_filter, lang)]
 
 async def f_loc_m(args=None, lang='en', districts=False):
     filter = args.state.filters[args.user_id]
     if filter['f_filter']['city']:
         districts = True
-    return [filter_view.f_loc_from_memory(filter, args.db),
+    return [filter_view.f_loc_from_memory(filter, args.db, lang),
             mockups.f_loc_m_keyboard(districts, lang)]
 
 async def f_type_m(args=None, lang='en', rooms=True):
     filter = args.state.filters[args.user_id]
     if filter['f_filter']['type'] == 1:
         rooms = False
-    return [filter_view.f_type_from_memory(filter),
+    return [filter_view.f_type_from_memory(filter, lang),
             mockups.f_type_m_keyboard(rooms, lang)]
 
 async def f_other_m(args=None, lang='en'):
@@ -97,7 +98,7 @@ async def f_other_m(args=None, lang='en'):
         rooms = False
     else:
         rooms = True
-    return [filter_view.f_other_from_memory(filter),
+    return [filter_view.f_other_from_memory(filter, lang),
             mockups.f_other_m_keyboard(rooms, lang)]
 
 
