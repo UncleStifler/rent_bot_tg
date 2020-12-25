@@ -1,4 +1,5 @@
 import asyncio
+import ssl
 from aiohttp import web
 from loguru import logger
 
@@ -23,8 +24,8 @@ from utils.utils import log_err
 logger.add('app.log', format='{time} {level} {message}', level='DEBUG',
 	enqueue=True)
 
-# context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-# context.load_cert_chain(config.WEBHOOK_SSL_CERT, config.WEBHOOK_SSL_PRIV)
+context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+context.load_cert_chain(config.WEBHOOK_SSL_CERT, config.WEBHOOK_SSL_PRIV)
 
 
 async def process_answer(user_id, message, pool, lang='en'):
@@ -186,15 +187,15 @@ def main():
         user_state = UserState(app['pool'])
 
 
-        web.run_app(app,
-                    host=config.WEBHOOK_LISTEN,
-                    port=config.WEBHOOK_PORT)
-
-        # todo before deploy change ssl
         # web.run_app(app,
         #             host=config.WEBHOOK_LISTEN,
-        #             port=config.WEBHOOK_PORT,
-        #             ssl_context=context)
+        #             port=config.WEBHOOK_PORT)
+
+        # todo before deploy change ssl
+        web.run_app(app,
+                    host=config.WEBHOOK_LISTEN,
+                    port=config.WEBHOOK_PORT,
+                    ssl_context=context)
     except Exception as e:
         print(f'Error create server: {e}')
     finally:
