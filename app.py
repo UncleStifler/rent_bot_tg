@@ -84,7 +84,7 @@ async def tg_handler(request):
                                                                   db_data,
                                                                   pool)
             lang = await user_state.get_lang(args.user_id)
-            print(f'{callback = }')
+            # print(f'{callback = }')
 
             if callback == 'show_more':
                 await send_show_more(callback_data)
@@ -129,7 +129,7 @@ async def tg_handler(request):
             user_id, message, message_id, file_id = get_message(data)
             args = get_args(user_state, db_data, pool, user_id)
             lang = await user_state.get_lang(user_id)
-            print(f'{message = }')
+            # print(f'{message = }')
 
             await delete_message(user_id, message_id)
 
