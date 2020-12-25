@@ -12,7 +12,7 @@ ADMIN_PASSWORD = 'admin'
 # main bot
 TOKEN = '1490631920:AAEw5BTuUsRElSGpDAaYbmS8BK1aOmmR0vo'
 
-WEBHOOK_LISTEN = "localhost"
+WEBHOOK_LISTEN = INT_IP
 WEBHOOK_PORT = 80
 
 WEBHOOK_SSL_CERT = "/home/rent_b/ssl/ssl.pem"
@@ -27,7 +27,7 @@ USER_DATA_OLD_TIME = 60 # sec
 DB_USER = 'postgres'
 DB_PASSWORD = 'SF899laxe_'
 DB_DATABASE = 'rent'
-DB_HOST = 'localhost'
+DB_HOST = INT_IP
 
-FILTER_APP_HOST = 'localhost'
+FILTER_APP_HOST = INT_IP
 FILTER_APP_PORT = 82
