@@ -78,6 +78,7 @@ async def _post_req(url, data, headers, json_loads=False):
 					response = ujson.loads(response)
 				return [web.Response(status=200), response]
 			except Exception as err:
+				print(await resp.read())
 				log_err(err)
 				return [web.Response(status=500), None]
 
@@ -92,5 +93,6 @@ async def _get_req(url, headers, json_loads=False):
 					response = ujson.loads(response)
 				return [web.Response(status=200), response]
 			except Exception as err:
+				print(await resp.read())
 				log_err(err)
 				return [web.Response(status=500), None]
