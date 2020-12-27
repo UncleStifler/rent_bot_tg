@@ -13,6 +13,7 @@ def is_old(last_update, time_update):
 def get_last_sec():
     return str(int(time.time()))[-2:]
 
-def log_err(err):
+def log_err(err, message=''):
     tb = '\n'.join(traceback.format_tb(err.__traceback__))
-    logger.error(f'\n{err}\n{tb}')
+    text = f'\n{err}\n{message}\n{tb}'
+    logger.error(text)
