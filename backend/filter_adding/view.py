@@ -28,7 +28,7 @@ def route_view(route, db, lang):
     if not route:
         return lb.none_[lang]
     else:
-        return (search_bd(route, db.metro_routes) or (search_bd(route, db.bus_routes)))
+        return (search_bd(route, db.metro_routes) or search_bd(route, db.bus_routes) or search_bd(route, db.trains))
 
 def price_view(min_price, max_price, lang):
     if min_price and max_price:
@@ -94,7 +94,12 @@ def owner_view(owner, lang):
     else:
         return lb.no[lang]
 
-def filter_from_memory(filter, db, lang):
+def filter_from_memory(filter, db, run_filter, lang):
+    if run_filter:
+        run_filter = ''
+    else:
+        run_filter = f'\n\n{lb.run_search_constr[lang]}'
+
     return f'''
 {lb.filter[lang]} - "*{filter['name']}*"
 {f_type_from_memory(filter, lang, main_view=True)}
@@ -105,7 +110,7 @@ def filter_from_memory(filter, db, lang):
 
 {f_loc_from_memory(filter, db, lang, main_view=True)}
 
-{f_other_from_memory(filter, lang, main_view=True)}'''
+{f_other_from_memory(filter, lang, main_view=True)}{run_filter}'''
 
 def f_loc_from_memory(filter, db, lang, main_view=False):
     up = '' if main_view else f'{lb.current_settings[lang]}\n'

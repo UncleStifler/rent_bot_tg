@@ -32,15 +32,14 @@ def lang_select_keyboard(lang='en'):
 		[{'text': 'Русский', 'callback_data': 'lang-ru'}]
 	]}
 ###########################################################
-def f_view_keyboard(current_filter=None, lang='en'):
+def f_view_keyboard(current_filter=None, run_filter=False, lang='en'):
 	if current_filter:
 		add = 'f_end_change-'
 		back = f'u_select-{current_filter}'
 	else:
 		add = 'f_end-'
 		back = 'main_menu-'
-	return {'inline_keyboard': [
-	[{'text': lb.finish_adding_filter[lang], 'callback_data': add}],
+	keyboard = {'inline_keyboard': [
 	[{'text': lb.change_filter_name[lang], 'callback_data': 'f_name_type-'}],
 	[{'text': lb.property_type[lang], 'callback_data': 'f_type_m-'},
 	 {'text': lb.location[lang], 'callback_data': 'f_loc_m-'}],
@@ -48,12 +47,15 @@ def f_view_keyboard(current_filter=None, lang='en'):
 	 {'text': lb.other[lang], 'callback_data': 'f_other_m-'}],
 	[{'text': lb.back[lang], 'callback_data': back}]
 	]}
+	if run_filter:
+		keyboard['inline_keyboard'].insert(0, [{'text': lb.finish_adding_filter[lang], 'callback_data': add}])
+	return keyboard
 def f_loc_m_keyboard(districts, lang='en'):
 	keyboard = {'inline_keyboard': [
 	[{'text': lb.city[lang], 'callback_data': 'f_city-'}],
 	[{'text': lb.public_transport[lang], 'callback_data': 'f_route_type-'}],
 	[{'text': lb.distance_to_stop[lang], 'callback_data': 'f_radius-'}],
-	[{'text': lb.back[lang], 'callback_data': 'f_view-'}]
+	[{'text': lb.done[lang], 'callback_data': 'f_view-'}]
 	]}
 	if districts:
 		keyboard['inline_keyboard'].insert(1, [{'text': lb.district[lang], 'callback_data': 'f_district-'}])
@@ -61,7 +63,7 @@ def f_loc_m_keyboard(districts, lang='en'):
 def f_type_m_keyboard(rooms, lang='en'):
 	keyboard = {'inline_keyboard': [
 			[{'text': lb.type_[lang], 'callback_data': 'f_type-'}],
-			[{'text': lb.back[lang], 'callback_data': 'f_view-'}]
+			[{'text': lb.done[lang], 'callback_data': 'f_view-'}]
 	]}
 	if rooms:
 		keyboard['inline_keyboard'].insert(1, [{'text': lb.rooms[lang], 'callback_data': 'f_rooms-'}])
@@ -73,12 +75,12 @@ def f_other_m_keyboard(rooms=True, lang='en'):
 		 {'text': lb.pets[lang], 'callback_data': 'f_pets-'}],
 		[{'text': lb.smoking[lang], 'callback_data': 'f_smoke-'},
 		 {'text': lb.landlord[lang], 'callback_data': 'f_owner-'}],
-		[{'text': lb.back[lang], 'callback_data': 'f_view-'}]
+		[{'text': lb.done[lang], 'callback_data': 'f_view-'}]
 		]}
 	else:
 		return {'inline_keyboard': [
 			[{'text': lb.landlord[lang], 'callback_data': 'f_owner-'}],
-			[{'text': lb.back[lang], 'callback_data': 'f_view-'}]
+			[{'text': lb.done[lang], 'callback_data': 'f_view-'}]
 		]}
 ###########################################################
 def f_type_text(lang='en'):
@@ -133,6 +135,7 @@ def f_route_type_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': lb.metro[lang], 'callback_data': 'f_routes_metro-'},
 	 {'text': lb.bus[lang], 'callback_data': 'f_routes_bus-'}],
+	[{'text': lb.trains[lang], 'callback_data': 'f_routes_trains-'}],
 	[{'text': lb.back[lang], 'callback_data': 'f_loc_m-'}]
 	]}
 ###########################################################

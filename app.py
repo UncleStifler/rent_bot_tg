@@ -24,10 +24,6 @@ from utils.utils import log_err
 logger.add('app.log', format='{time} {level} {message}', level='DEBUG',
 	enqueue=True)
 
-context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-context.load_cert_chain(config.WEBHOOK_SSL_CERT, config.WEBHOOK_SSL_PRIV)
-
-
 async def process_answer(user_id, message, pool, lang='en'):
     state = user_state.get_state(user_id)
     prev_message_id = await user_state.get_message_id(user_id)
@@ -161,6 +157,9 @@ async def tg_handler(request):
     except Exception as err:
         log_err(err)
     finally:
+        if config.branch == 'dev':
+            print(user_state.state)
+            print(user_state.filters)
         return web.Response(status=200)
 
 async def send_results_handler(request):
@@ -187,15 +186,17 @@ def main():
         user_state = UserState(app['pool'])
 
 
-        # web.run_app(app,
-        #             host=config.WEBHOOK_LISTEN,
-        #             port=config.WEBHOOK_PORT)
-
-        # todo before deploy change ssl
-        web.run_app(app,
-                    host=config.WEBHOOK_LISTEN,
-                    port=config.WEBHOOK_PORT,
-                    ssl_context=context)
+        if config.branch == 'dev':
+            web.run_app(app,
+                        host=config.WEBHOOK_LISTEN,
+                        port=config.WEBHOOK_PORT)
+        else:
+            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+            context.load_cert_chain(config.WEBHOOK_SSL_CERT, config.WEBHOOK_SSL_PRIV)
+            web.run_app(app,
+                        host=config.WEBHOOK_LISTEN,
+                        port=config.WEBHOOK_PORT,
+                        ssl_context=context)
     except Exception as e:
         print(f'Error create server: {e}')
     finally:

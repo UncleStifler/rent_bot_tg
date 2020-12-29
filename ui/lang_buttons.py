@@ -1,18 +1,18 @@
 
 
 add_filter = {
-    'en': 'Add filter',
-    'es': 'Añadir filtro',
-    'ru': 'Добавить фильтр'
+    'en': 'Add search',
+    'es': 'Añadir la búsqueda',
+    'ru': 'Добавить поиск'
 }
 my_filters = {
-    'en': 'My filters',
-    'es': 'Mis filtros',
-    'ru': 'Мои фильтры'
+    'en': 'Show my search',
+    'es': 'Mostrar mis búsquedas',
+    'ru': 'Показать мои поиски'
 }
 # ----------------------------------------
 main_menu = {
-    'en': 'Main Menu',
+    'en': 'Main menu',
     'es': 'Menú principal',
     'ru': 'Главное меню'
 }
@@ -22,19 +22,19 @@ select_lang = {
     'ru': 'Выбрать язык'
 }
 delete_filter = {
-    'en': 'Delete filter',
-    'es': 'Eliminar filtro',
-    'ru': 'Удалить фильтр'
-}
-add_property = {
-    'en': 'Add property',
-    'es': 'Para agregar un anuncio',
-    'ru': 'Добавить объявление'
+    'en': 'Delete search',
+    'es': 'Eliminar la búsqueda',
+    'ru': 'Удалить поиск'
 }
 show_more_results = {
     'en': 'Show results',
     'es': 'Mostrar resultados',
     'ru': 'Показать результаты'
+}
+add_property = {
+    'en': 'Place my ad',
+    'es': 'Poner mi anuncio',
+    'ru': 'Добавить моё объявление'
 }
 see_website = {
     'en': 'See on website',
@@ -57,14 +57,19 @@ room = {
     'ru': 'Комната'
 }
 metro = {
-    'en': 'Metro',
-    'es': 'Metro',
-    'ru': 'Метро'
+    'en': '🚉 Metro',
+    'es': '🚉 Metro',
+    'ru': '🚉 Метро'
 }
 bus = {
-    'en': 'Bus',
-    'es': 'Autobús',
-    'ru': 'Автобусы'
+    'en': '🚍 Bus',
+    'es': '🚍 Autobús',
+    'ru': '🚍 Автобусы'
+}
+trains = {
+    'en': 'Trains',
+    'es': 'Trains',
+    'ru': 'Поезда'
 }
 type_in = {
     'en': 'Type in',
@@ -82,19 +87,19 @@ skip = {
     'ru': 'Пропустить'
 }
 male = {
-    'en': 'Male',
-    'es': 'Hombre',
-    'ru': 'Мужской'
+    'en': '🧔 Male',
+    'es': '🧔 Hombre',
+    'ru': '🧔 Мужской'
 }
 female = {
-    'en': 'Female',
-    'es': 'Mujer',
-    'ru': 'Женский'
+    'en': '👩 Female',
+    'es': '👩 Mujer',
+    'ru': '👩 Женский'
 }
 finish_adding_filter = {
-    'en': 'Run a search',
-    'es': 'Ejecutar el filtro',
-    'ru': 'Запустить поиск'
+    'en': '▶ Run a search',
+    'es': '▶ Buscar',
+    'ru': '▶ Запустить поиск'
 }
 leave_default = {
     'en': 'Leave default',
@@ -132,49 +137,49 @@ property_type = {
     'ru': 'Тип недвижимости'
 }
 location = {
-    'en': 'Location',
-    'es': 'Ubicación',
-    'ru': 'Расположение'
+    'en': '📍 Location',
+    'es': '📍 Ubicación',
+    'ru': '📍 Расположение'
 }
 price = {
-    'en': 'Price',
-    'es': 'Precio',
-    'ru': 'Цена'
+    'en': '💰 Price',
+    'es': '💰 Precio',
+    'ru': '💰 Цена'
 }
 other = {
-    'en': 'Other',
-    'es': 'Otro',
-    'ru': 'Другое'
+    'en': '🎛 Other',
+    'es': '🎛 Otros',
+    'ru': '🎛 Прочее'
 }
 city = {
-    'en': 'City',
-    'es': 'Ciudad',
-    'ru': 'Город'
+    'en': '🏙 City',
+    'es': '🏙 Ciudad',
+    'ru': '🏙 Город'
 }
 district = {
-    'en': 'District',
-    'es': 'Distrito',
-    'ru': 'Район'
+    'en': '🏘 City district',
+    'es': '🏘 Distrito de la ciudad',
+    'ru': '🏘 Район города'
 }
 public_transport = {
-    'en': 'Public Transport',
-    'es': 'Transporte público',
-    'ru': 'Общественный транспорт'
+    'en': '🌈 Public Transport',
+    'es': '🌈 Transporte público',
+    'ru': '🌈 Общественный транспорт'
 }
 distance_to_stop = {
-    'en': 'Distance to stop',
-    'es': 'Distancia para parar',
-    'ru': 'Расстояние до остановки'
+    'en': '📏 Distance to stop',
+    'es': '📏 Distancia de parada',
+    'ru': '📏 Расстояние до остановки'
 }
 type_ = {
-    'en': 'Type',
-    'es': 'Tipo',
-    'ru': 'Тип'
+    'en': '🚪 House, flat or room',
+    'es': '🚪 Casa, apartamento o habitación',
+    'ru': '🚪 Дом/квартира/комната'
 }
 rooms = {
-    'en': 'Number of rooms',
-    'es': 'Número de habitaciones',
-    'ru': 'Количество комнат'
+    'en': '🔢 Number of rooms',
+    'es': '🔢 Número de habitaciones',
+    'ru': '🔢 Количество комнат'
 }
 gender = {
     'en': 'Gender',
@@ -182,14 +187,14 @@ gender = {
     'ru': 'Пол'
 }
 pets = {
-    'en': 'Pets',
-    'es': 'Mascotas',
-    'ru': 'Домашние питомцы'
+    'en': '🦆 Pets',
+    'es': '🦆 Mascotas',
+    'ru': '🦆 Домашние питомцы'
 }
 smoking = {
-    'en': 'Smoking',
-    'es': 'De fumar',
-    'ru': 'Курение'
+    'en': '🚬 Smoking',
+    'es': '🚬 De fumar',
+    'ru': '🚬 Курение'
 }
 landlord = {
     'en': 'Landlord',
@@ -222,9 +227,9 @@ to_ = {
     'ru': 'До'
 }
 couple = {
-    'en': 'Couples',
-    'es': 'Parejas',
-    'ru': 'Пары'
+    'en': '👯 Couples',
+    'es': '👯 Parejas',
+    'ru': '👯 Пары'
 }
 change_filter = {
     'en': 'Change filter',
@@ -260,4 +265,14 @@ current_settings = {
     'en': 'Current settings',
     'es': 'Configuraciones actuales',
     'ru': 'Текущие настройки'
+}
+done = {
+    'en': 'Done',
+    'es': 'Hecho',
+    'ru': 'Готово'
+}
+run_search_constr = {
+    'en': 'To *run a search* select a *city* or a *price*',
+    'es': 'Para *realizar una búsqueda* seleccione una *ciudad* o un *precio*',
+    'ru': 'Чтобы *запустить поиск*, выберете *город* или укажите *цену*'
 }

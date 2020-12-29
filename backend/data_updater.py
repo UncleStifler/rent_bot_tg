@@ -23,6 +23,8 @@ class DataUpdater:
                                              x['id'])) for x in await asql.get_routes(self.pool, 1))
             self.bus_routes = tuple(tuple((x['short_name'],
                                            x['id'])) for x in await asql.get_routes(self.pool, 3))
+            self.trains = tuple(tuple((x['short_name'],
+                                           x['id'])) for x in await asql.get_routes(self.pool, 2))
             await asyncio.sleep(config.DATA_UPDATE_TIME)
 
     def get_districts(self, city_id):

@@ -148,6 +148,7 @@ scheme = {
 		'f_route_type': funcs.f_route_type,
 		'f_routes_metro': funcs.f_routes_metro,
 		'f_routes_bus': funcs.f_routes_bus,
+		'f_routes_trains': funcs.f_routes_trains,
 		'f_radius': funcs.f_radius,
 		
 		

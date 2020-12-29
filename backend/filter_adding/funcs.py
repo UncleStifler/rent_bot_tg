@@ -75,8 +75,9 @@ async def empty_result(args=None, lang='en'):
 async def f_view(args=None, lang='en'):
     filter = args.state.filters[args.user_id]
     current_filter = filter['id']
-    return [filter_view.filter_from_memory(filter, args.db, lang),
-            mockups.f_view_keyboard(current_filter, lang)]
+    run_filter = filter['f_filter']['city'] or filter['f_filter']['min_price'] or filter['f_filter']['max_price']
+    return [filter_view.filter_from_memory(filter, args.db, run_filter, lang),
+            mockups.f_view_keyboard(current_filter, run_filter, lang)]
 
 async def f_loc_m(args=None, lang='en', districts=False):
     filter = args.state.filters[args.user_id]
@@ -150,6 +151,16 @@ async def f_routes_bus(args, lang='en'):
                                 args.page,
                                'f_route',
                                'f_routes_bus',
+                                back_callback='f_route_type',
+                                none_button=True,
+                                lang=lang)]
+
+async def f_routes_trains(args, lang='en'):
+    return [mockups.f_routes_bus(lang),
+            build_page_keyboard(args.db.trains,
+                                args.page,
+                               'f_route',
+                               'f_routes_trains',
                                 back_callback='f_route_type',
                                 none_button=True,
                                 lang=lang)]

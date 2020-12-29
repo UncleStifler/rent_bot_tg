@@ -1,29 +1,38 @@
 main_menu_text = {
-    'en': '''Hi! My name is *PisoTio* and I am your personal assistant. I can help you find a flat in Barcelona province.
-I'll do a search on rental sites and as soon as I find a suitable apartment, I'll send you a message.
-To get started, set up a filter below. There can be many filters. I wish you find a cool place )))''',
-    'es': '''¡Hola! Me llamo *PisoTio* y soy su asistente personal. Puedo ayudarte a encontrar un apartamento en la provincia de Barcelona.
-Haré una búsqueda de sitios de alquiler y tan pronto como encuentre algo adecuado, le enviaré un mensaje.
-Para empezar, configura un filtro abajo. Puede haber muchos filtros. Desearía que encontraras un lugar genial para vivir)))''',
-    'ru': '''Привет! Меня зовут *PisoTio* и я твой персональный помощник. Я могу помочь тебе найти квартиру в провинции Барселона.
+    'en': '''Hi, my name is PisoTio and I am your personal assistant. 
+I can help you find a flat in Barcelona province.
+I'll do a search on rental sites and when I find a suitable apartment I'll send you a message.
+To get started, set up your search below. There can be multiple search options. 
+You will be able to configure each search option separately.
+Good luck with your search )))''',
+    'es': '''Hola, me llamo PisoTio y soy su asistente personal. 
+Puedo ayudarte a encontrar una vivienda en Barcelona.
+Haré una búsqueda en sitios de alquiler y cuando encuentre una vivienda adecuada, te enviaré un mensaje.
+Para empezar, configura tu búsqueda a continuación. Puedes tener varias opciones de búsqueda. 
+Puedes personalizar cada opción de búsqueda individualmente.
+Buena suerte )))''',
+    'ru': '''Привет! Меня зовут PisoTio и я твой персональный помощник. 
+Я могу помочь тебе найти квартиру в провинции Барселона.
 Я сделаю поиск по сайтам аренды и как только появится подходящий вариант - я сброшу его тебе сообщением.
-Чтобы начать, настрой фильтр внизу. Фильтров может быть много. Желаю тебе найти классное жильё )))'''
+Чтобы начать, настрой поиск внизу. Вариантов поиска может быть несколько. 
+Каждый вариант поиска ты можещь настроить отдельно.
+Желаю тебе найти классное жильё )))'''
 }
 
 lang_select = {
-    'en': 'Choose *language*',
-    'es': 'Elejir *idioma*',
-    'ru': 'Выбери *язык*'
+    'en': 'Choose the *language* of our friendship 😁',
+    'es': 'Elige el *idioma* de nuestra amistad 😁',
+    'ru': 'Выбери *язык* нашей дружбы 😁'
 }
 user_filters_text_filled = {
-    'en': 'Select a *filter* to show more',
-    'es': 'Seleccione un *filtro* para mostrar más',
-    'ru': 'Выберете *фильтр*, чтобы показать больше'
+    'en': 'This is a list of the *searches* you have set up. Select any one to change',
+    'es': 'Esta es una lista de las *búsquedas* que has creado. Elige cualquiera para cambiar',
+    'ru': 'Это список *поисков* которые ты настроил. Выбери любой чтобы изменить'
 }
 user_filters_text_none = {
-    'en': 'You have *no filters*. Add one in a *menu*',
-    'es': 'No tienes *filtros*. Añade un filtro al menú',
-    'ru': 'У тебя пока *нет фильтров*. Ты можешь добавить его в *меню*'
+    'en': "You don't have a single *search* set up yet. You can add one in the *Main menu*. It's very simple, you'll see",
+    'es': 'No tienes ninguna *búsqueda* establecida todavía. Puedes añadir una en el *Menú principal*. Es muy simple, ya verás',
+    'ru': 'У тебя пока нет *фильтров*. Ты можешь добавить его в *меню*'
 }
 f_type_text = {
     'en': 'Choose the *type* of property you are looking for',
@@ -57,15 +66,24 @@ f_price_text = {
 f_price_type = {
     'en': '''
 Type in your *price* range
-Example: *500-1000*, *>500*, *<500*
+Example: 
+*500-1000*
+*>500*
+*<500*
 ''',
     'es': '''
 Introduzca un rango de *precio* 
-Ejemplo: *500-1000*, *>500*, *<500*
+Ejemplo: 
+*500-1000*
+*>500*
+*<500*
 ''',
     'ru': '''
 Введи диапазон *стоимости*
-Пример: *500-1000*, *>500*, *<500*
+Пример:
+*500-1000*
+*>500*
+*<500*
 '''
 }
 f_city_text = {
@@ -165,9 +183,9 @@ Ejemplo: *Habitaciones por menos de 500 euros*
 '''
 }
 f_end_text = {
-    'en': 'The filter has been *successfully added*',
-    'es': 'Filtro * agregado con éxito*',
-    'ru': 'Фильтр *успешно добавлен*'
+    'en': 'Search *successfully added*',
+    'es': 'Búsqueda *añadida con éxito*',
+    'ru': 'Поиск *успешно добавлен*'
 }
 direct_answer_err = {
     'en': "*Sorry, I can't read this. Please follow the example above*",
@@ -183,4 +201,64 @@ empty_results = {
     'en': 'Sorry, there are *no results* for your search. *Change your filter* and try again.',
     'es': 'Lo sentimos, no hay resultados para tu búsqueda. Cambia tu filtro y vuelve a intentarlo.',
     'ru': 'Извините, ваш запрос не дал результатов. *Измените фильтр* и попробуйте еще раз'
+}
+
+# new
+
+f_stop_text = {
+    'en': '''
+The search has been stopped.
+Please tell me why?
+''',
+    'es': '''
+La búsqueda se ha detenido.
+Por favor, díme por qué.
+''',
+    'ru': '''
+Поиск остановлен.
+Пожалуйста, расскажи, почему?
+'''
+}
+f_goodbye_type = {
+    'en': '''
+OK, when you need me - I'm always happy to help you 🙂
+
+If I've been useful to you, please introduce me to your friends by clicking *Tell bot to friends* about bot to friends.
+
+Robots need resources for iron and regular updates. It would be great if you could help me (button below)
+
+I'd love to hear about your experiences with me. If you have a minute, post a few words here -> @PisoTio
+''',
+    'es': '''
+Ok, cuando me necesites - siempre estoy feliz de ayudarte 🙂
+
+Si te he ayudado, preséntame a tus amigos haciendo clic en *Decírselo a tus amigos* sobre el bot a los amigos.
+
+Los robots necesitan recursos para hierro y actualizaciones regulares. Sería genial si pudieras ayudarme (botón de abajo)
+
+Me encantaría escuchar tus experiencias conmigo. Si tienes un minuto, publica unas palabras aquí -> @PisoTio
+''',
+    'ru': '''
+Хорошо, когда понадоблюсь - я всегда рад тебе помочь 🙂
+
+Если я был тебе полезен, пожалуйста, познакомь меня с друзьями, нажав *Рассказать про бота друзьям* про бота друзьям.
+
+Роботам нужны ресурсы на железо и регулярные обновления. Будет очень приятно, если ты поможешь мне (кнопка внизу)
+
+Буду рад послушать о твоих впечатлениях от общения со мной. Если есть минутка, напиши пару слов сюда -> @PisoTio
+'''
+}
+f_information_text = {
+    'en': '''
+The search has been stopped.
+Please tell me why?
+''',
+    'es': '''
+La búsqueda se ha detenido.
+Por favor, díme por qué.
+''',
+    'ru': '''
+Мой сайт - http://pisotio.tilda.ws
+По любым вопросам можно обратиться в поддержку @PisoTio
+'''
 }
