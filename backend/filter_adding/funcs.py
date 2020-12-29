@@ -33,12 +33,13 @@ async def select_filter(args, lang='en'):
     await add_filter(args.state,
                      args.user_id,
                      filter[0])
+    run_filter = filter['f_filter']['city'] or filter['f_filter']['min_price'] or filter['f_filter']['max_price']
     buttons = [[lb.show_more_results[lang], f'show_more-{args.callback_data}'],
                [lb.change_filter[lang], f'change_filter-{args.callback_data}'],
                [lb.delete_filter[lang], f'del_filter-{args.callback_data}'],
                [lb.back[lang], 'user_filters-']]
     return [filter_view.filter_from_memory(args.state.filters[args.user_id],
-                                           args.db, lang),
+                                           args.db, run_filter, lang),
             build_common_keyboard(None,
                                   None,
                                   buttons,
