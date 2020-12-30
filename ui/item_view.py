@@ -33,36 +33,40 @@ def item_to_ui(db, item, fresh=False):
 
     try:
         data = ujson.loads(item['amenities'])['amenities']
-        amenities = f"Amenities: {', '.join([f'*{x}*' for x in data])}"
+        amenities = f"Amenities: {', '.join([f'*{x}*' for x in data])}".replace('/', '\\')
     except KeyError:
         amenities = ''
 
     if item['contact_name'] and item['contact_phone']:
-        contact_name = item['contact_name'].replace('\t', '')
-        contacts = f"\nContacts: *{contact_name}* - *{item['contact_phone']}*"
+        contact_name = item['contact_name'].replace('\\t', '')
+        contacts = f"\nContacts: *{contact_name}* - *{item['contact_phone']}*".replace('/', '\\')
     else:
         contacts = ''
 
-    description = item['description'].replace('\\n', '\n')
+    title = item['title'].replace('/', '\\')
+    description = item['description'].replace('\\n', '\n').replace('/m', '').replace('/', '\\')
 
     type = 'Flat' if item['type'] == 0 else 'Room'
     city = search_bd(item['city'], db.cities)
     district = search_bd(item['district'], db.districts)
+    if item['url']:
+        url = f'\n[Link]({item["url"]})'
+    else:
+        url = ''
+    if item['photo']:
+        # text += f'\n<a href="{item["photo"]}">&#8205;</a>'
+        photo = f'[\u200B]({item["photo"]})'
+    else:
+        photo = ''
     text = f'''
-{fresh} by filter "*{item['name']}*"
+{photo}{fresh} by filter "*{item['name']}*"
 *{district}*, *{city}*
 *{type}*, *{item['price']} €\month*, *{item['rooms']} rooms*
 {demands}{owner}{contacts}
-{amenities}
+{amenities}{url}
 
-*{item['title']}*
-{description}
+*{title}*
+_{description}_
 '''
-
-    if item['photo']:
-        # text += f'\n<a href="{item["photo"]}">&#8205;</a>'
-        text += f'\n[\u200B]({item["photo"]})'
-
-    if '`' in text:
-        text = text.replace('`', "'")
+    text = text.replace('`', "'")
     return text
