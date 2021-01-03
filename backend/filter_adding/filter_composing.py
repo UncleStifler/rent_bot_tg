@@ -42,7 +42,7 @@ async def add_filter(user_state, user_id, data=None):
                 'pets': None,
                 'smoke': None,
                 'owner': None,
-                'rooms_number': None,
+                'rooms': None,
                 'min_price': None,
                 'max_price': None
             },
