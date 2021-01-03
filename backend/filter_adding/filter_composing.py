@@ -20,7 +20,7 @@ async def add_filter(user_state, user_id, data=None):
                 'pets': data['pets'],
                 'smoke': data['smoke'],
                 'owner': data['owner'],
-                'rooms_number': data['rooms_number'],
+                'rooms': data['rooms'],
                 'min_price': data['min_price'],
                 'max_price': data['max_price']
             },
