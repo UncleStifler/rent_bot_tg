@@ -43,7 +43,7 @@ def price_view(min_price, max_price, lang):
 def rooms_view(filter, lang):
     if filter['f_filter']['type'] == 1:
         return lb.flats_constr[lang]
-    rooms = filter['f_filter']['rooms_number']
+    rooms = filter['f_filter']['rooms']
     if rooms:
         return str(rooms)
     else:
