@@ -61,3 +61,6 @@ async def delete_user_ad(pool, ad_id):
 async def insert_user_ad_to_db(pool, ad_id):
 	timestamp = int(time.time())
 	return await pool_req(pool, q.insert_ad_in_db(ad_id, timestamp))
+
+async def get_geo(pool, lat, lon):
+	return await pool_req(pool, q.get_city_and_district_by_geo(lat, lon))

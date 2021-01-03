@@ -137,3 +137,13 @@ select 0, 0, {timestamp}, p_id
 from ins_p
 returning id
 '''
+
+def get_city_and_district_by_geo(lat, lon, radius=0.5):
+    return f'''
+select p.district, d.city_id, count(p.id)
+from property p
+join districts d on p.district = d.id
+where (point(longitude,latitude) <@> point({lon},{lat}) < {radius}*0.621371)
+group by p.district, d.city_id
+order by count desc
+limit 1'''

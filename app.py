@@ -29,7 +29,10 @@ async def process_answer(user_id, message, pool, lang='en'):
     prev_message_id = await user_state.get_message_id(user_id)
     args = get_args(user_state, db_data, pool, user_id)
     try:
-        data = scheme.process_answer(state)(message)
+        if state == 'u_geo':
+            data = await scheme.process_answer(state)(message, args)
+        else:
+            data = scheme.process_answer(state)(message)
         assert data
         await user_state.change_state(user_id, None)
         filter_process_error = await scheme.process_filter(state,

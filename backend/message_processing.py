@@ -1,5 +1,28 @@
 
+import unicodedata
+
+
 import config
+from db.asql import get_geo
+
+async def valid_geo(message, args):
+    try:
+        if isinstance(message, dict):
+            lat, lon = message['latitude'], message['longitude']
+        else:
+            message = message.replace(' ', '').split('-')
+            assert len(message) == 2, f'geo wrong {message = }'
+            lat = float(message[0])
+            lon = float(message[1])
+        db_geo = await get_geo(args.pool, lat, lon)
+        try:
+            city_id = db_geo[0]['city_id']
+            district_id = db_geo[0]['district']
+            return [city_id, district_id, lat, lon]
+        except IndexError:
+            print(f'error: valid_geo - no match {message = }')
+    except (ValueError, AssertionError) as err:
+        print(f'error: valid_geo, {err}')
 
 def _isascii(input_string):
     try:
@@ -8,6 +31,13 @@ def _isascii(input_string):
     except UnicodeEncodeError:
         return False
 
+def toascii(input_string):
+    try:
+        return unicodedata.normalize('NFD', input_string).encode('ascii', 'ignore').decode('utf8')
+    except Exception as err:
+        print(err)
+        return input_string
+
 def photo_check(message):
     try:
         assert message.startswith('local/'), f'message is not photo {message = }'
@@ -15,13 +45,20 @@ def photo_check(message):
     except AssertionError as err:
         print(f'error: photo, {err}')
 
-def limit_string(message, limit=200):
+def limit_string(message, limit=190):
     try:
         assert len(message) < limit, f'message is out of limit {message = }'
+        message = toascii(message)
         assert _isascii(message), f'message is not ascii {message = }'
         return message
     except AssertionError as err:
         print(f'error: limit_string, {err}')
+
+def limit_string_2000(message):
+    return limit_string(message, limit=1900)
+
+def limit_string_100(message):
+    return limit_string(message, limit=95)
 
 def price_to_dict(message):
     data = {
@@ -63,19 +100,6 @@ def to_int(message):
     except (ValueError, AssertionError) as err:
         print(f'error: rooms_to_int, {err}')
 
-def valid_geo(message):
-    try:
-        if isinstance(message, dict):
-            return [message['latitude'], message['longitude']]
-        else:
-            message = message.replace(' ', '').split('-')
-            assert len(message) == 2, f'geo wrong {message = }'
-            lat = float(message[0])
-            lon = float(message[1])
-            return [lat, lon]
-    except (ValueError, AssertionError) as err:
-        print(f'error: valid_geo, {err}')
-
 def price_to_int(message):
     try:
         assert len(message) < 7, f'len {message = }'
@@ -83,14 +107,6 @@ def price_to_int(message):
         return int(message)
     except (ValueError, AssertionError) as err:
         print(f'error: price_to_int, {err}')
-
-def name_to_str(message):
-    try:
-        assert len(message) < 101, f'len {message = }'
-        assert _isascii(message), f'not ascii {message = }'
-        return message
-    except (ValueError, AssertionError) as err:
-        print(f'error: name_to_str, {err}')
 
 def auth_(message):
     try:

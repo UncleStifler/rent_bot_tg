@@ -259,87 +259,299 @@ Me encantaría escuchar tus experiencias conmigo. Si tienes un minuto, publica u
 }
 f_information_text = {
     'en': '''
-My website is http://pisotio.tilda.ws/
+My website is http://pisotio.tilda.ws
 If you have any questions, please contact support @PisoTio
 ''',
     'es': '''
-Mi sitio web es http://pisotio.tilda.ws/
+Mi sitio web es http://pisotio.tilda.ws
 Si tienes alguna pregunta, por favor contacte con el soporte de @PisoTio
 ''',
     'ru': '''
-Мой сайт - http://pisotio.tilda.ws/
+Мой сайт - http://pisotio.tilda.ws
 По любым вопросам можно обратиться в поддержку @PisoTio
 '''
 }
-
 fresh = {
-    'en': 'Found a *new ad* for you',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'en': 'I found *new ads* for you',
+    'es': 'Encontré *nuevos anuncios* para ti',
+    'ru': 'Я нашел *новые объвления* для тебя'
 }
 not_fresh = {
     'en': 'This is an *old ad*',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'es': 'Este anuncio es *viejo*',
+    'ru': 'Это *старое* объявление'
 }
 both_gender = {
     'en': '*Both* gender',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'es': '*Ambos* géneros',
+    'ru': 'Пол *любой*'
 }
 male_only = {
     'en': '*Male* only',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'es': '*Hombre* sólo',
+    'ru': 'Пол *мужской*'
 }
 female_only = {
     'en': '*Female* only',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'es': '*Mujer* sólo',
+    'ru': 'Пол *дженский*'
 }
 couple_allowed = {
     'en': '*Couple allowed*',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'es': '*Pareja permitida*',
+    'ru': '*Доступно для пар*'
 }
 
 pets_allowed = {
     'en': '*Pets* allowed',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'es': '*Mascotas* permitidas',
+    'ru': '*Животные* разрешены'
 }
 no_pets_allowed = {
     'en': '*No pets* allowed',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'es': '*No se permiten mascotas*',
+    'ru': '*Животные* запрещены'
 }
 smoke_allowed = {
     'en': '*Smoke* allowed',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'es': '*Fumar* permitido',
+    'ru': '*Курение* разрешено'
 }
 no_smoke_allowed = {
     'en': '*No smoke* allowed',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'es': '*No se permite fumar*',
+    'ru': '*Курение* запрещено'
 }
 owner = {
     'en': 'Landlord is the *owner*',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
+    'es': 'El arrendador es el *particular*',
+    'ru': 'Арендодатель *частное лицо*'
 }
 not_owner = {
-    'en': 'Landlord is the *owner*',
-    'es': 'Búsqueda *añadida con éxito*',
-    'ru': 'Поиск *успешно добавлен*'
-}
-f_routes_train = {
-    'en': 'Choose the *train route* 🚇',
-    'es': 'Elige *la línea de metro* 🚇',
-    'ru': 'Выбери *маршрут поезда* 🚇'
+    'en': 'The landlord is *agent*',
+    'es': 'El propietario es *agente*',
+    'ru': 'Арендодатель *агент*'
 }
 geo_err = {
     'en': "*Sorry, I can’t find the city and district by such coordinates in my database*",
     'es': '',
     'ru': '*Извини, я не могу найти город и район по таким координатам в моей базе данных*'
+}
+f_routes_train = {
+    'en': 'Choose the *train route* 🚆',
+    'es': 'Elige *la línea de tren* 🚆',
+    'ru': 'Выбери *маршрут поезда* 🚆'
+}
+
+# --- user ads
+
+ad_start = {
+    'en': '''
+Great 👍 I always enjoy new listings 📣
+
+To add your ad correctly, you will need to answer all the questions.
+I will send you questions one at a time and you can always go back ⬅️ and correct the previous step ✏️
+Your ad will be active for 30 days. 
+Shall we begin? 🚀
+''',
+    'es': '''
+Genial 👍 Siempre agradezco los nuevos listados 📣
+
+Tendrás que responder a todas las preguntas para añadir el anuncio correctamente.
+Te enviaré preguntas de una en una, y siempre puedes volver atrás ⬅️ y corregir el paso anterior ✏️
+Tu anuncio estará activo durante 30 días. 
+¿Empezamos? 🚀 
+''',
+    'ru': '''
+Отлично 👍 я всегда рад новым объявлениям 📣 
+
+Чтобы добавить объявление правильно, тебе нужно будет ответить на все вопросы.
+Вопросы я буду отправлять тебе по очереди, и ты всегда сможешь вернуться обратно ⬅️ и исправить предыдущий шаг ✏️
+Твое объявление будет активно 30 дней. 
+
+Начинаем? 🚀
+'''
+}
+
+# limit 200
+ad_title = {
+    'en': '''
+Name your ad 📣
+
+Example: Flat for rent in La Pineda
+''',
+    'es': '''
+Nombre su anuncio 📣
+
+Ejemplo: Apartamento de alquiler en La Pineda
+''',
+    'ru': '''
+Назови свое объявление 📣
+
+Пример: Flat for rent in La Pineda
+'''
+}
+# limit 2000
+ad_description = {
+    'en': '''
+Now send me a description of your property 📝
+Example description on top 👆
+''',
+    'es': '''
+Ahora envíame una descripción de tu propiedad 📝
+Ejemplo de la descripción está arriba 👆
+''',
+    'ru': '''
+Теперь отправь мне описание твоей недвижимости 📝
+Пример описания вверху 👆
+'''
+}
+# limit 200
+ad_contact_name = {
+    'en': '''
+Type in your name to contact you
+''',
+    'es': '''
+Type in your name to contact you
+''',
+    'ru': '''
+Type in your name to contact you
+'''
+}
+# limit 200
+ad_contact_phone = {
+    'en': '''
+Type in the phone number to contact you
+''',
+    'es': '''
+Type in the phone number to contact you
+''',
+    'ru': '''
+Type in the phone number to contact you
+'''
+}
+ad_photo = {
+    'en': '''
+There's not much left 🤏! You're doing great 😀
+Send me some cool real estate photos 📷
+''',
+    'es': '''
+¡No queda mucho 🤏! Lo estás haciendo muy bien 😀
+Envíame algunas fotos geniales de vivienda 📷
+''',
+    'ru': '''
+Уже осталось немного 🤏! У тебя все получается 😀
+Отправь мне классные фото недвижимости 📷
+'''
+}
+ad_type = {
+    'en': '''
+What will you rent out?
+''',
+    'es': '''
+¿Qué vas a alquilar?
+''',
+    'ru': '''
+Что ты будешь сдавать?
+'''
+}
+ad_rooms = {
+    'en': '''
+Type in the number of rooms number your property have
+''',
+    'es': '''
+Type in the number of rooms number your property have
+''',
+    'ru': '''
+Type in the number of rooms number your property have
+'''
+}
+ad_geo = {
+    'en': '''
+Great, now let's pinpoint the location 📍  of your property!
+To do this, share the geolocation of the property with me.
+Example in the photo above 👆
+''',
+    'es': '''
+¡Genial 😀, ahora vamos a señalar la ubicación 📍 de tu propiedad!
+Para eso, comparte la localización de la propiedad conmigo.
+Ejemplo en la foto de arriba 👆
+''',
+    'ru': '''
+Отлично😀, давай теперь укажем место 📍 нахождения твоей недвижимости!
+Для этого поделись со мной геолокацией недвижимости📲
+Пример на фото выше 👆
+'''
+}
+ad_price = {
+    'en': '''
+💰 What is the price?
+''',
+    'es': '''
+💰 Envíame un mensaje de texto con el precio?
+''',
+    'ru': '''
+💰 Напиши мне цену 
+'''
+}
+ad_sex = {
+    'en': '''
+Choose who you want to rent to
+''',
+    'es': '''
+Elige a quién quieres alquilar
+''',
+    'ru': '''
+Выбери кому ты хочешь сдать жилье
+'''
+}
+ad_pets = {
+    'en': '''
+Do you allow pets?
+''',
+    'es': '''
+Do you allow pets?
+''',
+    'ru': '''
+Do you allow pets?
+'''
+}
+ad_smoke = {
+    'en': '''
+Do you allow smoke?
+''',
+    'es': '''
+Do you allow smoke?
+''',
+    'ru': '''
+Do you allow smoke?
+'''
+}
+ad_owner = {
+    'en': '''
+Do you own the property you rent?
+''',
+    'es': '''
+Do you own the property you rent?
+''',
+    'ru': '''
+Do you own the property you rent?
+'''
+}
+ad_end = {
+    'en': '''
+Great. You're doing great 😀 We have passed all the stages 🔡
+Your listing will go to the moderation 🧑‍🔧 desk and very soon I will tell all my friends about your property 🤳
+Thank you! 🙏
+''',
+    'es': '''
+Eso es genial. Lo hiciste muy bien 😀Hemos pasado por todos los pasos 🔡
+Su anuncio irá al servicio de moderación 🧑‍🔧 y muy pronto diré a todos mis amigos sobre tu propiedad 🤳
+Gracias! 🙏
+''',
+    'ru': '''
+Супер. Ты молодец 😀 Мы прошли все этапы 🔡
+Твое объявление отправится на модерацию в службу поддержки 🧑‍🔧 и совсем скоро я расскажу о твоей недвижимости всем мои друзьям 🤳
+Спасибо! 🙏
+'''
 }

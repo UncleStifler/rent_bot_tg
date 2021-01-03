@@ -73,6 +73,7 @@ async def empty_result(args=None, lang='en'):
 
 
 async def f_view(args=None, lang='en'):
+    await args.state.change_state(args.user_id, None)
     filter = args.state.filters[args.user_id]
     current_filter = filter['id']
     run_filter = filter['f_filter']['city'] or filter['f_filter']['min_price'] or filter['f_filter']['max_price']
@@ -194,7 +195,7 @@ async def f_name_type(args=None, lang='en'):
     if args.error:
         text += mockups.direct_answer_err(lang)
     return [text,
-            None]
+            mockups.back_to_f_view(lang)]
 async def f_rooms_type(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'f_rooms_type')
     text = mockups.f_rooms_type(lang)

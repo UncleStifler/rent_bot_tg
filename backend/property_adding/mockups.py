@@ -1,132 +1,129 @@
 
 
+import ui.lang_lines as ll
+import ui.lang_buttons as lb
+
 def start_property_text(lang='en'):
-	return 'Here you can add your ad for renting real estate. Adding built on dialogue, where you have to answer questions. After that, your ad will be reviewed by the administrator and added to the database and will be active for 30 days.'
+	return ll.ad_start[lang]
 def start_property_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Back', 'callback_data': 'main_menu-'},
-	 {'text': 'Continue', 'callback_data': 'u_start-'}]
+	[{'text': lb.back[lang], 'callback_data': 'main_menu-'},
+	 {'text': lb.yes[lang], 'callback_data': 'u_start-'}]
 	]}
 
 # description
 
 def u_title_text(lang='en'):
-	return 'Type in the title of your ad'
+	return ll.ad_title[lang]
 def u_title_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Back', 'callback_data': 'main_menu-'}]
+	[{'text': lb.back[lang], 'callback_data': 'main_menu-'}]
 	]}
 
 def u_description_text(lang='en'):
-	return 'Type in the description of your ad'
+	return ll.ad_description[lang]
 def u_description_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Back', 'callback_data': 'u_start-'}]
+	[{'text': lb.back[lang], 'callback_data': 'u_start-'}]
 	]}
 
 def u_contact_text(lang='en'):
-	return 'Type in your name to contact you'
+	return ll.ad_contact_name[lang]
 def u_contact_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Back', 'callback_data': 'u_title-'}]
+	[{'text': lb.back[lang], 'callback_data': 'u_title-'}]
 	]}
 
 def u_phone_text(lang='en'):
-	return 'Type in the phone number to contact you'
+	return ll.ad_contact_phone[lang]
 def u_phone_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Back', 'callback_data': 'u_desc-'}]
+	[{'text': lb.back[lang], 'callback_data': 'u_desc-'}]
 	]}
 
 def u_photo_text(lang='en'):
-	return 'Send one good photo of your property'
+	return ll.ad_photo[lang]
 def u_photo_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Back', 'callback_data': 'u_contact-'}]
+	[{'text': lb.back[lang], 'callback_data': 'u_contact-'}]
 	]}
 
 # to filter
 
 def u_type_text(lang='en'):
-	return 'Choose the type of property you rent'
+	return ll.ad_type[lang]
 def u_type_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Flat', 'callback_data': 'u_type-0'},
-	 {'text': 'Room', 'callback_data': 'u_type-1'}],
-	[{'text': 'Back', 'callback_data': 'u_phone-'}]
+	[{'text': lb.flat[lang], 'callback_data': 'u_type-0'},
+	 {'text': lb.room[lang], 'callback_data': 'u_type-1'}],
+	[{'text': lb.back[lang], 'callback_data': 'u_phone-'}]
 	]}
 ###########################################################
 def u_rooms_text(lang='en'):
-	return 'Type in the number of rooms number your property have'
+	return ll.ad_rooms[lang]
 def u_rooms_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Back', 'callback_data': 'u_photo-'}]
+	[{'text': lb.back[lang], 'callback_data': 'u_photo-'}]
 	]}
 ###########################################################
 def u_geo_text(lang='en'):
-	return 'Send me coordinates'
+	return ll.ad_geo[lang]
 def u_geo_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Back', 'callback_data': 'u_type-'}]
+	[{'text': lb.back[lang], 'callback_data': 'u_type-'}]
 	]}
 ###########################################################
-def u_city_text(lang='en'):
-	return 'Choose the city where is your property located'
-###########################################################
-def u_district_text(lang='en'):
-	return 'Choose the district where is your property located'
-# back - u_type
-###########################################################
 def u_price_text(lang='en'):
-	return 'Type in the price'
+	return ll.ad_price[lang]
 def u_price_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Back', 'callback_data': 'u_rooms-'}]
+	[{'text': lb.back[lang], 'callback_data': 'u_rooms-'}]
 	]}
 ###########################################################
 def u_sex_text(lang='en'):
-	return 'To what gender do you rent?'
+	return ll.ad_sex[lang]
 def u_sex_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Male', 'callback_data': 'u_sex-1'},
-	 {'text': 'Female', 'callback_data': 'u_sex-2'}],
-	[{'text': 'Both', 'callback_data': 'u_sex-0'}],
-	[{'text': 'Back', 'callback_data': 'u_district-'}]
+	[{'text': lb.male[lang], 'callback_data': 'u_sex-1'},
+	 {'text': lb.female[lang], 'callback_data': 'u_sex-2'}],
+	[{'text': lb.both[lang], 'callback_data': 'u_sex-0'}],
+	[{'text': lb.couple[lang], 'callback_data': 'u_sex-3'}],
+	[{'text': lb.back[lang], 'callback_data': 'u_district-'}]
 	]}
 ###########################################################
 def u_pets_text(lang='en'):
-	return 'Do you allow pets?'
+	return ll.ad_pets[lang]
 def u_pets_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'No', 'callback_data': 'u_pets-0'},
-	 {'text': 'Yes', 'callback_data': 'u_pets-1'}],
-	[{'text': 'Back', 'callback_data': 'u_price-'}]
+	[{'text': lb.no[lang], 'callback_data': 'u_pets-0'},
+	 {'text': lb.yes[lang], 'callback_data': 'u_pets-1'}],
+	[{'text': lb.back[lang], 'callback_data': 'u_price-'}]
 	]}
 ###########################################################
 def u_smoke_text(lang='en'):
-	return 'Do you allow smoke?'
+	return ll.ad_smoke[lang]
 def u_smoke_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'No', 'callback_data': 'u_smoke-0'},
-	 {'text': 'Yes', 'callback_data': 'u_smoke-1'}],
-	[{'text': 'Back', 'callback_data': 'u_sex-'}]
+	[{'text': lb.no[lang], 'callback_data': 'u_smoke-0'},
+	 {'text': lb.yes[lang], 'callback_data': 'u_smoke-1'}],
+	[{'text': lb.back[lang], 'callback_data': 'u_sex-'}]
 	]}
 ###########################################################
 def u_owner_text(lang='en'):
-	return 'Do you own the property you rent?'
+	return ll.ad_owner[lang]
 def u_owner_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'No', 'callback_data': 'u_owner-0'},
-	 {'text': 'Yes', 'callback_data': 'u_owner-1'}],
-	[{'text': 'Back', 'callback_data': 'u_pets-'}]
+	[{'text': lb.no[lang], 'callback_data': 'u_owner-0'},
+	 {'text': lb.yes[lang], 'callback_data': 'u_owner-1'}],
+	[{'text': lb.back[lang], 'callback_data': 'u_pets-'}]
 	]}
 ###########################################################
 def u_end_text(lang='en'):
-	return 'The ad is ready for publication. Click continue and the ad will be sent to the moderators for review, and you will be returned to the main menu.'
+	return ll.ad_end[lang]
 def u_end_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': 'Back', 'callback_data': 'u_smoke-'},
-	 {'text': 'Continue', 'callback_data': 'u_end-'}]
+	[{'text': lb.back[lang], 'callback_data': 'u_smoke-'},
+	 {'text': lb.next_[lang], 'callback_data': 'u_end-'}]
 	]}
 ###########################################################
 

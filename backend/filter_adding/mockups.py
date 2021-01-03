@@ -220,4 +220,9 @@ def back_menu_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': lb.main_menu[lang], 'callback_data': 'main_menu-'}]
 	]}
+def back_to_f_view(lang='en'):
+	return {'inline_keyboard': [
+	[{'text': lb.back[lang], 'callback_data': 'f_view-'}]
+	]}
+
 

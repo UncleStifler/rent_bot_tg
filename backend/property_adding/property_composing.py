@@ -46,10 +46,13 @@ async def rooms(user_state, user_id, data):
     user_state.filters[user_id]['property']['rooms_number'] = data
 
 async def geo(user_state, user_id, data):
-    assert len(data) == 2, f'geo {data = } >> float'
-    assert isinstance(data[0], float) and isinstance(data[1], float), f'geo {data = } >> float'
-    user_state.filters[user_id]['property']['latitude'] = data[0]
-    user_state.filters[user_id]['property']['longitude'] = data[1]
+    assert len(data) == 4, f'geo {data = } >> float'
+    assert isinstance(data[2], float) and isinstance(data[3], float), f'geo {data = } >> float'
+    assert isinstance(data[0], int) and isinstance(data[1], int), f'geo {data = } >> int'
+    user_state.filters[user_id]['property']['city'] = data[0]
+    user_state.filters[user_id]['property']['district'] = data[1]
+    user_state.filters[user_id]['property']['latitude'] = data[2]
+    user_state.filters[user_id]['property']['longitude'] = data[3]
 
 async def price(user_state, user_id, data):
     if isinstance(data, str):
