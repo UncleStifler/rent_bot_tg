@@ -69,7 +69,7 @@ def item_to_ui(db, item, lang, fresh=False):
     text = f'''
 {photo}{fresh} by filter "*{item['name']}*"
 *{district}*, *{city}*
-*{type}*, *{item['price']} €\\{lb.month[lang]}*, *{item['rooms_number']} {lb.rooms[lang]}*
+*{type}*, *{item['price']} €\\{lb.month[lang]}*, *{item['rooms']} {lb.rooms[lang]}*
 {demands}{owner}{contacts}
 {amenities}{url}
 
