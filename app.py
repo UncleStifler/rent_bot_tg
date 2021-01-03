@@ -122,12 +122,15 @@ async def tg_handler(request):
             return response
 
         elif 'message' in data:
-            user_id, message, message_id, file_id = get_message(data)
+            user_id, message, message_id, file_id, location = get_message(data)
             args = get_args(user_state, db_data, pool, user_id)
             lang = await user_state.get_lang(user_id)
             # print(f'{message = }')
 
             await delete_message(user_id, message_id)
+
+            if location:
+                message = location
 
             if file_id:
                 if user_state.get_state(user_id) == 'u_photo':
@@ -138,6 +141,9 @@ async def tg_handler(request):
 
             if not lang:
                 message = '/select_lang'
+
+            if user_state.get_state(user_id):
+                return await process_answer(user_id, message, pool, lang=lang)
 
             try:
                 text, keyboard = await scheme.process_command(message,
@@ -151,8 +157,9 @@ async def tg_handler(request):
                 await user_state.change_message_id(user_id, message_id)
                 return response
             except KeyError:
-                if user_state.get_state(user_id):
-                    return await process_answer(user_id, message, pool, lang=lang)
+                return web.Response(status=200)
+
+
 
     except Exception as err:
         log_err(err)

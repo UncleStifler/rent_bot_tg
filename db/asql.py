@@ -52,3 +52,12 @@ async def get_property_item(pool, filter_id, property_id):
 async def insert_user_ad(pool, property):
 	return await pool_req(pool, q.insert_user_ad(property))
 
+async def get_last_user_ad(pool):
+	return await pool_req(pool, q.get_last_user_ad())
+
+async def delete_user_ad(pool, ad_id):
+	return await pool_req(pool, q.delete_user_ad(ad_id))
+
+async def insert_user_ad_to_db(pool, ad_id):
+	timestamp = int(time.time())
+	return await pool_req(pool, q.insert_ad_in_db(ad_id, timestamp))

@@ -20,7 +20,7 @@ async def add_filter(user_state, user_id, data=None):
                 'pets': data['pets'],
                 'smoke': data['smoke'],
                 'owner': data['owner'],
-                'rooms': data['rooms'],
+                'rooms_number': data['rooms_number'],
                 'min_price': data['min_price'],
                 'max_price': data['max_price']
             },
@@ -42,7 +42,7 @@ async def add_filter(user_state, user_id, data=None):
                 'pets': None,
                 'smoke': None,
                 'owner': None,
-                'rooms': None,
+                'rooms_number': None,
                 'min_price': None,
                 'max_price': None
             },
@@ -69,10 +69,10 @@ async def type_(user_state, user_id, data):
 async def rooms(user_state, user_id, data):
     if isinstance(data, str):
         data = to_int(data)
-    assert isinstance(data, int), f'rooms {data = } >> int'
+    assert isinstance(data, int), f'rooms_number {data = } >> int'
     if data == 0:
         data = None
-    user_state.filters[user_id]['f_filter']['rooms'] = data
+    user_state.filters[user_id]['f_filter']['rooms_number'] = data
 
 async def price(user_state, user_id, data):
     if isinstance(data, str):

@@ -2,7 +2,7 @@
 
 import backend.property_adding.mockups as mockups
 from ui.utils import build_page_keyboard
-from backend.filter_adding.mockups import direct_answer_err
+from backend.filter_adding.mockups import direct_answer_err, geo_err
 
 async def start_page(args=None, lang='en'):
     return [mockups.start_property_text(lang),
@@ -69,6 +69,14 @@ async def district(args=None, lang='en'):
                                'u_city',
                                 back_callback='u_rooms',
                                 lang=lang)]
+async def geo(args=None, lang='en'):
+    await args.state.change_state(args.user_id, 'u_geo')
+    text = mockups.u_geo_text(lang)
+    if args.error:
+        text += geo_err(lang)
+    return [text,
+            mockups.u_geo_keyboard(lang)]
+
 async def price(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'u_price')
     text = mockups.u_price_text(lang)

@@ -17,8 +17,10 @@ async def add_property(user_state, user_id, data=None):
             'pets': None,
             'smoke': None,
             'owner': None,
-            'rooms': None,
-            'price': None
+            'rooms_number': None,
+            'price': None,
+            'latitude': None,
+            'longitude': None
         },
         'description': {
             'title': None,
@@ -38,10 +40,16 @@ async def type_(user_state, user_id, data):
 async def rooms(user_state, user_id, data):
     if isinstance(data, str):
         data = to_int(data)
-    assert isinstance(data, int), f'rooms {data = } >> int'
+    assert isinstance(data, int), f'rooms_number {data = } >> int'
     if data == 0:
         data = None
-    user_state.filters[user_id]['property']['rooms'] = data
+    user_state.filters[user_id]['property']['rooms_number'] = data
+
+async def geo(user_state, user_id, data):
+    assert len(data) == 2, f'geo {data = } >> float'
+    assert isinstance(data[0], float) and isinstance(data[1], float), f'geo {data = } >> float'
+    user_state.filters[user_id]['property']['latitude'] = data[0]
+    user_state.filters[user_id]['property']['longitude'] = data[1]
 
 async def price(user_state, user_id, data):
     if isinstance(data, str):
@@ -66,7 +74,7 @@ async def district(user_state, user_id, data):
 
 async def sex(user_state, user_id, data):
     data = int(data)
-    assert data in [0, 1, 2], f'sex {data = } // [0, 1, 2]'
+    assert data in [0, 1, 2, 3], f'sex {data = } // [0, 1, 2, 3]'
     user_state.filters[user_id]['property']['sex'] = data
 
 async def pets(user_state, user_id, data):

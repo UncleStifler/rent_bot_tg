@@ -6,12 +6,8 @@ import config
 from utils.tg_api import get_file_path
 from utils.tg_api import download_file
 
-# todo if file deleted invalid name
-def get_filename():
-    return len(os.listdir(f'{config.IMAGE_FOLDER}/')) + 1
 
 async def photos_handler(request):
-    print(request)
     photo_id = request.match_info['photo_id']
     try:
         with open(f'{config.IMAGE_FOLDER}/{photo_id}.jpg', 'rb') as f:
@@ -33,3 +29,9 @@ async def process_file(file_id):
     except Exception as err:
         print(err)
         return False
+
+def get_filename():
+    return int(os.listdir(f'{config.IMAGE_FOLDER}/')[-1].replace('.jpg', '')) + 1
+
+def get_photo_url(photo_id):
+    return f'https://{config.WEBHOOK_LISTEN}:{config.WEBHOOK_PORT}/photos/{photo_id}'

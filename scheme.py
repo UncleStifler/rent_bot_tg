@@ -40,8 +40,7 @@ filter_scheme = {
 	'u_photo': p_comp.photo,
 	'u_type': p_comp.type_,
 	'u_rooms': p_comp.rooms,
-	'u_city': p_comp.city,
-	'u_district': p_comp.district,
+	'u_geo': p_comp.geo,
 	'u_price': p_comp.price,
 	'u_sex': p_comp.sex,
 	'u_pets': p_comp.pets,
@@ -89,8 +88,11 @@ direct_answers = {
 				'next_func': p_funcs.type_,
 				'core_func': p_funcs.photo},
 	'u_rooms': {'type_func': mp.to_int,
-				'next_func': p_funcs.city,
+				'next_func': p_funcs.geo,
 				'core_func': p_funcs.rooms},
+	'u_geo': {'type_func': mp.valid_geo,
+			  'next_func': p_funcs.price,
+			  'core_func': p_funcs.geo},
 	'u_price': {'type_func': mp.price_to_int,
 				'next_func': p_funcs.sex,
 				'core_func': p_funcs.price},
@@ -181,9 +183,10 @@ scheme = {
 		'u_phone': p_funcs.photo,
 		'u_photo': p_funcs.type_,
 		'u_type': p_funcs.rooms,
-		'u_rooms': p_funcs.city,
-		'u_city': p_funcs.district,
-		'u_district': p_funcs.price,
+		'u_rooms': p_funcs.geo,
+		'u_geo': p_funcs.price,
+		# 'u_city': p_funcs.district,
+		# 'u_district': p_funcs.price,
 		'u_price': p_funcs.sex,
 		'u_sex': p_funcs.pets,
 		'u_pets': p_funcs.smoke,
@@ -191,7 +194,10 @@ scheme = {
 		'u_owner': p_funcs.end,
 		'u_end': funcs.main_menu,
 
-		'a_show': funcs.main_menu
+		'a_main': adm.admin,
+		'a_show': adm.show_last_ad,
+		'a_decline': adm.decline_ad,
+		'a_accept': adm.accept_ad
 	}
 }
 

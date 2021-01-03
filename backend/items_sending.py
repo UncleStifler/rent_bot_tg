@@ -20,7 +20,7 @@ async def _get_item_from_db(data, pool, db, lang):
     url = item[0]['url']
     lat, lon = item[0]['latitude'], item[0]['longitude']
     lat_lon = f'map-{lat}|{lon}'
-    text = item_to_ui(db, item[0], fresh=data['fresh'])
+    text = item_to_ui(db, item[0], lang, fresh=data['fresh'])
     buttons = [[lb.main_menu[lang], 'main_menu-'],
                [lb.show_more_results[lang], f'show_more-{filter_id}']]
     keyboard = build_common_keyboard(None,

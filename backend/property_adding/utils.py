@@ -20,7 +20,7 @@ class Property:
             self.data['property']['pets'],
             self.data['property']['smoke'],
             self.data['property']['owner'],
-            self.data['property']['rooms'],
+            self.data['property']['rooms_number'],
             self.data['property']['price'],
             42.3525,
             2.4353

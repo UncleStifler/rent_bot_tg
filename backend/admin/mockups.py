@@ -11,6 +11,19 @@ def admin_keyboard(lang='en'):
 		[{'text': 'Main menu', 'callback_data': 'main_menu-'}]
 	]}
 
+def no_ads_text(lang='en'):
+	return 'No ads in database'
+def no_ads_keyboard(lang='en'):
+	return {'inline_keyboard': [
+		[{'text': 'Back', 'callback_data': 'a_main-'}],
+		[{'text': 'Main menu', 'callback_data': 'main_menu-'}]
+	]}
+def ad_keyboard(ad_id, lang='en'):
+	return {'inline_keyboard': [
+		[{'text': 'Decline', 'callback_data': f'a_decline-{ad_id}'},
+		 {'text': 'Accept', 'callback_data': f'a_accept-{ad_id}'}],
+		[{'text': 'Back', 'callback_data': 'a_main-'}]
+	]}
 
 def auth_text(lang='en'):
 	return 'Type in the password'

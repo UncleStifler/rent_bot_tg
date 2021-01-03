@@ -72,9 +72,9 @@ trains = {
     'ru': 'Поезда'
 }
 type_in = {
-    'en': 'Type in',
-    'es': 'Introducir',
-    'ru': 'Ввести'
+    'en': '✏ Type in',
+    'es': '✏ Introducir',
+    'ru': '✏ Ввести'
 }
 doesnt_matter = {
     'en': "Doesn't matter",
@@ -176,7 +176,7 @@ type_ = {
     'es': '🚪 Casa, apartamento o habitación',
     'ru': '🚪 Дом/квартира/комната'
 }
-rooms = {
+rooms_number = {
     'en': '🔢 Number of rooms',
     'es': '🔢 Número de habitaciones',
     'ru': '🔢 Количество комнат'
@@ -252,7 +252,7 @@ flats_constr = {
     'ru': 'Только для квартир'
 }
 rooms_constr = {
-    'en': 'Only for rooms',
+    'en': 'Only for rooms_number',
     'es': 'Solo para habitaciones',
     'ru': 'Только для комнат'
 }
@@ -276,3 +276,30 @@ run_search_constr = {
     'es': 'Para *realizar una búsqueda* seleccione una *ciudad* o un *precio*',
     'ru': 'Чтобы *запустить поиск*, выберете *город* или укажите *цену*'
 }
+
+amenities = {
+    'en': 'Amenities',
+    'es': 'Hecho',
+    'ru': 'Удобства'
+}
+contacts = {
+    'en': 'Contacts',
+    'es': 'Hecho',
+    'ru': 'Контакты'
+}
+LINK = {
+    'en': 'LINK',
+    'es': 'Hecho',
+    'ru': 'ССЫЛКА'
+}
+month = {
+    'en': 'month',
+    'es': 'Hecho',
+    'ru': 'месяц'
+}
+rooms = {
+    'en': 'rooms',
+    'es': '',
+    'ru': 'комнат'
+}
+

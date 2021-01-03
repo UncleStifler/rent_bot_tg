@@ -57,10 +57,17 @@ def u_type_keyboard(lang='en'):
 	]}
 ###########################################################
 def u_rooms_text(lang='en'):
-	return 'Type in the number of rooms your property have'
+	return 'Type in the number of rooms number your property have'
 def u_rooms_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': 'Back', 'callback_data': 'u_photo-'}]
+	]}
+###########################################################
+def u_geo_text(lang='en'):
+	return 'Send me coordinates'
+def u_geo_keyboard(lang='en'):
+	return {'inline_keyboard': [
+	[{'text': 'Back', 'callback_data': 'u_type-'}]
 	]}
 ###########################################################
 def u_city_text(lang='en'):

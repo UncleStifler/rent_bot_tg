@@ -24,6 +24,12 @@ async def send_show_more(filter_id):
     url = ENDPOINT + '/show_more/'
     return await _post_req(url, data)
 
+#[[<Record property_id=7603>], ..., [<Record property_id=7626>]]
+async def send_new_ids(ids):
+    data = {'ids': [x['id'] for x in ids]}
+    url = ENDPOINT + '/new_ids/'
+    return await _post_req(url, data)
+
 async def _post_req(url, data):
     async with aiohttp.ClientSession() as session:
         async with session.post(url,

@@ -97,3 +97,43 @@ def insert_user_ad(property):
     values
         {property.get_tuple()}
     '''
+
+def get_last_user_ad():
+    return '''
+    select * from user_ads
+    order by id desc
+    limit 1
+    '''
+
+def delete_user_ad(ad_id):
+    return f'delete from user_ads where id = {ad_id}'
+
+def insert_ad_in_db(ad_id, timestamp):
+    return f'''
+with ad as (
+    select * from user_ads
+    where id = {ad_id}
+),
+ins_d as (
+    insert into description (
+        title, description, url, photo, contact_name, contact_phone, amenities, demands
+    )
+    select title, description, url, photo, contact_name, contact_phone, amenities, demands
+    from ad
+    returning id as d_id
+),
+ins_p as (
+    insert into property (
+        type, city, district, sex, pets, smoke, owner, rooms, price, latitude, longitude, description_id
+    )
+    select type, city, district, sex, pets, smoke, owner, rooms, price, latitude, longitude, d_id
+    from ad, ins_d
+    returning id as p_id
+)
+insert into items (
+    site, item_id, added, property_id
+)
+select 0, 0, {timestamp}, p_id
+from ins_p
+returning id
+'''

@@ -63,6 +63,19 @@ def to_int(message):
     except (ValueError, AssertionError) as err:
         print(f'error: rooms_to_int, {err}')
 
+def valid_geo(message):
+    try:
+        if isinstance(message, dict):
+            return [message['latitude'], message['longitude']]
+        else:
+            message = message.replace(' ', '').split('-')
+            assert len(message) == 2, f'geo wrong {message = }'
+            lat = float(message[0])
+            lon = float(message[1])
+            return [lat, lon]
+    except (ValueError, AssertionError) as err:
+        print(f'error: valid_geo, {err}')
+
 def price_to_int(message):
     try:
         assert len(message) < 7, f'len {message = }'

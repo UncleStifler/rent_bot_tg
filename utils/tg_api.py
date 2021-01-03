@@ -79,6 +79,7 @@ async def _post_req(url, data, headers, json_loads=False):
 				return [web.Response(status=200), response]
 			except Exception as err:
 				message = await resp.read()
+				print(data)
 				log_err(err, message)
 				return [web.Response(status=500), None]
 

@@ -43,7 +43,7 @@ def price_view(min_price, max_price, lang):
 def rooms_view(filter, lang):
     if filter['f_filter']['type'] == 1:
         return lb.flats_constr[lang]
-    rooms = filter['f_filter']['rooms']
+    rooms = filter['f_filter']['rooms_number']
     if rooms:
         return str(rooms)
     else:
@@ -104,7 +104,7 @@ def filter_from_memory(filter, db, run_filter, lang):
 {lb.filter[lang]} - "*{filter['name']}*"
 {f_type_from_memory(filter, lang, main_view=True)}
 
-*{lb.price[lang]}:*
+*{lb.price[lang]}*:
 {price_view(filter['f_filter']['min_price'],
              filter['f_filter']['max_price'], lang)}
 
@@ -114,7 +114,7 @@ def filter_from_memory(filter, db, run_filter, lang):
 
 def f_loc_from_memory(filter, db, lang, main_view=False):
     up = '' if main_view else f'{lb.current_settings[lang]}\n'
-    return f'''{up}*{lb.location[lang]}:*
+    return f'''{up}*{lb.location[lang]}*:
 {lb.city[lang]} - *{city_view(filter['f_filter']['city'],
                    db, lang)}*
 {lb.district[lang]} - *{district_view(filter['f_filter'],
@@ -127,11 +127,11 @@ def f_type_from_memory(filter, lang, main_view=False):
     up = '' if main_view else f'{lb.current_settings[lang]}\n'
     return f'''{up}*{lb.property_type[lang]}:*
 {lb.type_[lang]} - *{type_view(filter['f_filter']['type'], lang)}*
-{lb.rooms[lang]} - *{rooms_view(filter, lang)}*'''
+{lb.rooms_number[lang]} - *{rooms_view(filter, lang)}*'''
 
 def f_other_from_memory(filter, lang, main_view=False):
     up = '' if main_view else f'{lb.current_settings[lang]}\n'
-    return f'''{up}*{lb.other[lang]}:*
+    return f'''{up}*{lb.other[lang]}*:
 {lb.gender[lang]} - *{sex_view(filter, lang)}*
 {lb.pets[lang]} - *{pets_view(filter, lang)}*
 {lb.smoking[lang]} - *{smoke_view(filter, lang)}*

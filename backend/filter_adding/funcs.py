@@ -156,7 +156,7 @@ async def f_routes_bus(args, lang='en'):
                                 lang=lang)]
 
 async def f_routes_trains(args, lang='en'):
-    return [mockups.f_routes_bus(lang),
+    return [mockups.f_routes_train(lang),
             build_page_keyboard(args.db.trains,
                                 args.page,
                                'f_route',

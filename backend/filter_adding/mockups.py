@@ -66,7 +66,7 @@ def f_type_m_keyboard(rooms, lang='en'):
 			[{'text': lb.done[lang], 'callback_data': 'f_view-'}]
 	]}
 	if rooms:
-		keyboard['inline_keyboard'].insert(1, [{'text': lb.rooms[lang], 'callback_data': 'f_rooms-'}])
+		keyboard['inline_keyboard'].insert(1, [{'text': lb.rooms_number[lang], 'callback_data': 'f_rooms-'}])
 	return keyboard
 def f_other_m_keyboard(rooms=True, lang='en'):
 	if rooms:
@@ -142,6 +142,9 @@ def f_route_type_keyboard(lang='en'):
 def f_routes_bus(lang='en'):
 	return ll.f_routes_bus[lang]
 ###########################################################
+def f_routes_train(lang='en'):
+	return ll.f_routes_train[lang]
+###########################################################
 def f_routes_metro(lang='en'):
 	return ll.f_routes_metro[lang]
 ###########################################################
@@ -208,6 +211,8 @@ def f_end_text(lang='en'):
 	return ll.f_end_text[lang]
 
 def direct_answer_err(lang='en'):
+	return f'\n{ll.direct_answer_err[lang]} ({get_last_sec()})'
+def geo_err(lang='en'):
 	return f'\n{ll.direct_answer_err[lang]} ({get_last_sec()})'
 def f_error_text(lang='en'):
 	return ll.f_error_text[lang]

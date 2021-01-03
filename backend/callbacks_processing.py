@@ -60,12 +60,16 @@ def get_callback(data, state, db, pool):
 def get_message(data):
     user_id = data['message']['chat']['id']
     message_id = data['message']['message_id']
+    if 'location' in data['message']:
+        location = data['message']['location']
+    else:
+        location = None
     if 'photo' in data['message']:
         file_id = data['message']['photo'][1]['file_id']
-        return user_id, None, message_id, file_id
     else:
-        try:
-            message = data['message']['text']
-            return user_id, message, message_id, None
-        except KeyError:
-            return user_id, None, message_id, None
+        file_id = None
+    try:
+        message = data['message']['text']
+        return user_id, message, message_id, file_id, location
+    except KeyError:
+        return user_id, None, message_id, file_id, location
