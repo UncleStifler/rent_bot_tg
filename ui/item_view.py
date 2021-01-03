@@ -54,7 +54,7 @@ def item_to_ui(db, item, lang, fresh=False):
     city = search_bd(item['city'], db.cities)
     district = search_bd(item['district'], db.districts)
     if item['url']:
-        url = f'\n  [{lb.LINK}]({item["url"]})'
+        url = f'\n  [{lb.LINK[lang]}]({item["url"]})'
     else:
         url = ''
     if item['photo']:
