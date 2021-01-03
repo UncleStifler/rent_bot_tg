@@ -145,9 +145,6 @@ async def tg_handler(request):
             if not lang:
                 message = '/select_lang'
 
-            if user_state.get_state(user_id):
-                return await process_answer(user_id, message, pool, lang=lang)
-
             try:
                 text, keyboard = await scheme.process_command(message,
                                                               args,
@@ -160,7 +157,9 @@ async def tg_handler(request):
                 await user_state.change_message_id(user_id, message_id)
                 return response
             except KeyError:
-                return web.Response(status=200)
+                if user_state.get_state(user_id):
+                    return await process_answer(user_id, message, pool, lang=lang)
+
 
 
 

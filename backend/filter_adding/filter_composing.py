@@ -69,10 +69,10 @@ async def type_(user_state, user_id, data):
 async def rooms(user_state, user_id, data):
     if isinstance(data, str):
         data = to_int(data)
-    assert isinstance(data, int), f'rooms_number {data = } >> int'
+    assert isinstance(data, int), f'rooms {data = } >> int'
     if data == 0:
         data = None
-    user_state.filters[user_id]['f_filter']['rooms_number'] = data
+    user_state.filters[user_id]['f_filter']['rooms'] = data
 
 async def price(user_state, user_id, data):
     if isinstance(data, str):

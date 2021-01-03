@@ -17,7 +17,6 @@ async def photos_handler(request):
         return web.Response(status=404)
 
 async def process_file(file_id):
-    print(file_id)
     data = await get_file_path(file_id)
     try:
         file_path = data['result']['file_path']
@@ -28,7 +27,7 @@ async def process_file(file_id):
         return f'local/{id_}'
     except Exception as err:
         print(err)
-        return False
+        return 'error'
 
 def get_filename():
     return int(os.listdir(f'{config.IMAGE_FOLDER}/')[-1].replace('.jpg', '')) + 1

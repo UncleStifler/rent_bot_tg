@@ -52,23 +52,23 @@ async def rooms(args=None, lang='en'):
         text += direct_answer_err(lang)
     return [text,
             mockups.u_rooms_keyboard(lang)]
-async def city(args=None, lang='en'):
-    return [mockups.u_city_text(lang),
-            build_page_keyboard(args.db.cities,
-                                args.page,
-                               'u_city',
-                               'u_rooms',
-                                back_callback='u_type',
-                                lang=lang)]
-async def district(args=None, lang='en'):
-    city = args.state.filters[args.user_id]['property']['city']
-    return [mockups.u_district_text(lang),
-            build_page_keyboard(args.db.get_districts(city),
-                                args.page,
-                               'u_district',
-                               'u_city',
-                                back_callback='u_rooms',
-                                lang=lang)]
+# async def city(args=None, lang='en'):
+#     return [mockups.u_city_text(lang),
+#             build_page_keyboard(args.db.cities,
+#                                 args.page,
+#                                'u_city',
+#                                'u_rooms',
+#                                 back_callback='u_type',
+#                                 lang=lang)]
+# async def district(args=None, lang='en'):
+#     city = args.state.filters[args.user_id]['property']['city']
+#     return [mockups.u_district_text(lang),
+#             build_page_keyboard(args.db.get_districts(city),
+#                                 args.page,
+#                                'u_district',
+#                                'u_city',
+#                                 back_callback='u_rooms',
+#                                 lang=lang)]
 async def geo(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'u_geo')
     text = mockups.u_geo_text(lang)
