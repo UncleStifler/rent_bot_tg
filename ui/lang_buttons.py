@@ -202,9 +202,9 @@ landlord = {
     'ru': '🧑‍💼 Комиссия'
 }
 both = {
-    'en': '⚖️ Looking for everything',
-    'es': '⚖️ Buscando todo',
-    'ru': '⚖️ Ищу всё'
+    'en': '✌🏽 Both',
+    'es': '✌🏽 Ambos',
+    'ru': '✌🏽 Оба пола'
 }
 more = {
     'en': '👆 More',

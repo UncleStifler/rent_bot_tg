@@ -76,3 +76,7 @@ def search_bd(q, data):
         for i in data:
             if i[1] == q:
                 return i[0]
+
+def normalize_text(input_string):
+    if isinstance(input_string, str):
+        return input_string.replace('\\n', '\n').replace('`', '')

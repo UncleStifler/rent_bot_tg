@@ -471,6 +471,8 @@ ad_geo = {
 Great, now let's pinpoint the location 📍  of your property!
 To do this, share the geolocation of the property with me.
 Example in the photo above 👆
+You can also type in coordinates manually
+Example: *41.3814/2.1679*
 ''',
     'es': '''
 ¡Genial 😀, ahora vamos a señalar la ubicación 📍 de tu propiedad!
@@ -481,6 +483,8 @@ Ejemplo en la foto de arriba 👆
 Отлично😀, давай теперь укажем место 📍 нахождения твоей недвижимости!
 Для этого поделись со мной геолокацией недвижимости📲
 Пример на фото выше 👆
+Вы также можете ввести координаты вручную
+Пример: *41.3814/2.1679*
 '''
 }
 ad_price = {

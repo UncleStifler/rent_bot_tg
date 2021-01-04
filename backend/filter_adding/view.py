@@ -55,10 +55,13 @@ def radius_view(radius, lang):
     else:
         return lb.none_[lang]
 
-def sex_view(filter, lang):
-    if filter['f_filter']['type'] == 0:
-        return lb.rooms_constr[lang]
-    sex = filter['f_filter']['sex']
+def sex_view(filter, lang, direct=False):
+    if direct:
+        sex = filter
+    else:
+        if filter['f_filter']['type'] == 0:
+            return lb.rooms_constr[lang]
+        sex = filter['f_filter']['sex']
     if sex == 0:
         return lb.both[lang]
     elif sex == 1:
@@ -70,19 +73,25 @@ def sex_view(filter, lang):
     else:
         return lb.none_[lang]
 
-def pets_view(filter, lang):
-    if filter['f_filter']['type'] == 0:
-        return lb.rooms_constr[lang]
-    pets = filter['f_filter']['pets']
+def pets_view(filter, lang, direct=False):
+    if direct:
+        pets = filter
+    else:
+        if filter['f_filter']['type'] == 0:
+            return lb.rooms_constr[lang]
+        pets = filter['f_filter']['pets']
     if pets:
         return lb.yes[lang]
     else:
         return lb.no[lang]
 
-def smoke_view(filter, lang):
-    if filter['f_filter']['type'] == 0:
-        return lb.rooms_constr[lang]
-    smoke = filter['f_filter']['smoke']
+def smoke_view(filter, lang, direct=False):
+    if direct:
+        smoke = filter
+    else:
+        if filter['f_filter']['type'] == 0:
+            return lb.rooms_constr[lang]
+        smoke = filter['f_filter']['smoke']
     if smoke:
         return lb.yes[lang]
     else:

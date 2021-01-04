@@ -10,10 +10,10 @@ async def valid_geo(message, args):
         if isinstance(message, dict):
             lat, lon = message['latitude'], message['longitude']
         else:
-            message = message.replace(' ', '').split('-')
+            message = message.replace(' ', '').split('/')
             assert len(message) == 2, f'geo wrong {message = }'
-            lat = float(message[0])
-            lon = float(message[1])
+            lat = float(message[0].replace(',', '.'))
+            lon = float(message[1].replace(',', '.'))
         db_geo = await get_geo(args.pool, lat, lon)
         try:
             city_id = db_geo[0]['city_id']
