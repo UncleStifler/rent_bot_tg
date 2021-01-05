@@ -68,8 +68,12 @@ def get_message(data):
         file_id = data['message']['photo'][1]['file_id']
     else:
         file_id = None
-    try:
+    if 'successful_payment' in data['message']:
+        payment = True
+    else:
+        payment = None
+    if 'text' in data['message']:
         message = data['message']['text']
-        return user_id, message, message_id, file_id, location
-    except KeyError:
-        return user_id, None, message_id, file_id, location
+    else:
+        message = None
+    return user_id, message, message_id, file_id, location, payment

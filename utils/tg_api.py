@@ -57,6 +57,39 @@ async def send_location(chat_id, lat_lon):
 	}
 	return (await _post_req(url, message, HEADERS))[0]
 
+async def send_invoice(chat_id, amount):
+	url = API_URL+'sendInvoice'
+	prices = [
+		{
+			'label': 'Dollars',
+			'amount': 100
+		}
+	]
+	message = {
+		'chat_id': chat_id,
+		'title': f'Donation {amount}',
+		'description': 'description',
+		'payload': 'test',
+		'provider_token': config.PAY_TOKEN,
+		'start_parameter': 'start',
+		'currency': 'USD',
+		'prices': prices
+	}
+	return (await _post_req(url, message, HEADERS))[0]
+
+async def pre_checkout(update_id, pre_checkout_query_id):
+	url = API_URL+'answerPreCheckoutQuery'
+	answerPreCheckoutQuery = {
+		'pre_checkout_query_id': pre_checkout_query_id,
+		'ok': True,
+		'error_message': 'error'
+	}
+	message = {
+		'update_id': update_id,
+		'pre_checkout_query': answerPreCheckoutQuery
+	}
+	return (await _post_req(url, answerPreCheckoutQuery, HEADERS))[0]
+
 async def get_file_path(file_id):
 	url = f'{API_URL}getFile?file_id={file_id}'
 	return (await _post_req(url, None, HEADERS, json_loads=True))[1]

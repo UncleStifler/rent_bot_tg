@@ -147,3 +147,9 @@ where (point(longitude,latitude) <@> point({lon},{lat}) < {radius}*0.621371)
 group by p.district, d.city_id
 order by count desc
 limit 1'''
+
+def get_users(lang=None):
+    q = 'select id from users'
+    if lang:
+        q += f'where lang = {lang}'
+    return q

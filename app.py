@@ -17,7 +17,9 @@ from backend.callbacks_processing import get_message
 from backend.callbacks_processing import read_request
 from backend.items_sending import process_from_filter_app
 from utils.filters_api import send_show_more
-from utils.tg_api import send_location
+from utils.tg_api import (send_location,
+                          send_invoice,
+                          pre_checkout)
 from utils.utils import log_err
 
 
@@ -75,8 +77,14 @@ async def delete_bot_message(user_id):
 
 async def tg_handler(request):
     pool, data = await read_request(request)
-    # print(data)
+    print(data)
     try:
+        if 'pre_checkout_query' in data:
+            update_id = data['update_id']
+            pre_checkout_id = data['pre_checkout_query']['id']
+            await pre_checkout(update_id, pre_checkout_id)
+            return web.Response(status=200)
+
         if 'callback_query' in data:
             user_id, callback, callback_data, args = get_callback(data,
                                                                   user_state,
@@ -84,6 +92,10 @@ async def tg_handler(request):
                                                                   pool)
             lang = await user_state.get_lang(args.user_id)
             # print(f'{callback = }')
+
+            if callback == 'donation':
+                await send_invoice(user_id, callback_data)
+                return web.Response(status=200)
 
             if callback == 'show_more':
                 await send_show_more(callback_data)
@@ -125,12 +137,15 @@ async def tg_handler(request):
             return response
 
         elif 'message' in data:
-            user_id, message, message_id, file_id, location = get_message(data)
+            user_id, message, message_id, file_id, location, payment = get_message(data)
             args = get_args(user_state, db_data, pool, user_id)
             lang = await user_state.get_lang(user_id)
             # print(f'{message = }')
 
             await delete_message(user_id, message_id)
+
+            if payment:
+                message = '/start'
 
             if location:
                 message = location

@@ -5,7 +5,7 @@ from db.asql import get_property_item
 from ui.item_view import item_to_ui
 from ui.utils import build_common_keyboard
 from utils.tg_api import send_message
-from backend.filter_adding.funcs import empty_result
+from backend.general.funcs import empty_result
 
 async def _get_item_from_db(data, pool, db, user_state):
     filter_id = data['filter_id']

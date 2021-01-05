@@ -4,33 +4,15 @@ import ui.lang_buttons as lb
 from utils.utils import get_last_sec
 # main menu
 
-def main_menu_text(lang='en'):
-	return ll.main_menu_text[lang]
 
-def main_menu_keyboard(lang='en'):
-	return {'inline_keyboard': [
-		[{'text': lb.add_filter[lang], 'callback_data': 'f_start-'}],
-		[{'text': lb.my_filters[lang], 'callback_data': 'user_filters-'}],
-		[{'text': lb.add_property[lang], 'callback_data': 'u_start_page-'}],
-		[{'text': lb.select_lang[lang], 'callback_data': 'select_lang-'}]
-	]}
 
-def empty_result(lang='en'):
-	return ll.empty_results[lang]
 
 def user_filters_text_filled(lang='en'):
 	return ll.user_filters_text_filled[lang]
 def user_filters_text_none(lang='en'):
 	return ll.user_filters_text_none[lang]
 
-def lang_select_text(lang='en'):
-	return ll.lang_select[lang]
-def lang_select_keyboard(lang='en'):
-	return {'inline_keyboard': [
-		[{'text': 'English', 'callback_data': 'lang-en'}],
-		[{'text': 'Español', 'callback_data': 'lang-es'}],
-		[{'text': 'Русский', 'callback_data': 'lang-ru'}]
-	]}
+
 ###########################################################
 def f_view_keyboard(current_filter=None, run_filter=False, lang='en'):
 	if current_filter:

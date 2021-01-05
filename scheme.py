@@ -1,9 +1,10 @@
 
 import backend.message_processing as mp
-import backend.filter_adding.filter_composing as comp
+import backend.filter_adding.filter_composing as f_comp
 import backend.property_adding.property_composing as p_comp
 import backend.property_adding.funcs as p_funcs
-import backend.filter_adding.funcs as funcs
+import backend.filter_adding.funcs as f_funcs
+import backend.general.funcs as funcs
 import backend.admin.funcs as adm
 
 from utils.utils import log_err
@@ -12,24 +13,24 @@ from utils.utils import log_err
 
 
 filter_scheme = {
-	'f_start': comp.add_filter,
-	'f_type': comp.type_,
-	'f_rooms': comp.rooms,
-	'f_rooms_type': comp.rooms,
-	'f_price': comp.price,
-	'f_price_type': comp.price,
-	'f_city': comp.city,
-	'f_district': comp.district,
-	'f_route': comp.route,
-	'f_radius': comp.radius,
-	'f_sex': comp.sex,
-	'f_pets': comp.pets,
-	'f_smoke': comp.smoke,
-	'f_owner': comp.owner,
-	'f_name_type': comp.name,
-	'f_end': comp.end_filter,
-	'f_end_change': comp.change_filter,
-	'f_error': comp.delete_filter,
+	'f_start': f_comp.add_filter,
+	'f_type': f_comp.type_,
+	'f_rooms': f_comp.rooms,
+	'f_rooms_type': f_comp.rooms,
+	'f_price': f_comp.price,
+	'f_price_type': f_comp.price,
+	'f_city': f_comp.city,
+	'f_district': f_comp.district,
+	'f_route': f_comp.route,
+	'f_radius': f_comp.radius,
+	'f_sex': f_comp.sex,
+	'f_pets': f_comp.pets,
+	'f_smoke': f_comp.smoke,
+	'f_owner': f_comp.owner,
+	'f_name_type': f_comp.name,
+	'f_end': f_comp.end_filter,
+	'f_end_change': f_comp.change_filter,
+	'f_error': f_comp.delete_filter,
 
 
 	'u_start': p_comp.add_property,
@@ -64,14 +65,14 @@ no_data_callbacks = [
 
 direct_answers = {
 	'f_rooms_type': {'type_func': mp.to_int,
-					'next_func': funcs.f_type_m,
-					 'core_func': funcs.f_rooms_type},
+					'next_func': f_funcs.f_type_m,
+					 'core_func': f_funcs.f_rooms_type},
 	'f_price_type': {'type_func': mp.price_to_dict,
-					 'next_func': funcs.f_view,
-					 'core_func': funcs.f_price_type},
+					 'next_func': f_funcs.f_view,
+					 'core_func': f_funcs.f_price_type},
 	'f_name_type': {'type_func': mp.limit_string_100,
-					'next_func': funcs.f_view,
-					'core_func': funcs.f_name_type},
+					'next_func': f_funcs.f_view,
+					'core_func': f_funcs.f_name_type},
 	'u_title': {'type_func': mp.limit_string,
 				'next_func': p_funcs.description,
 				'core_func': p_funcs.title},
@@ -104,23 +105,23 @@ direct_answers = {
 back_scheme = {
 
 	# type
-	'f_type': funcs.f_type_m,
-	'f_rooms': funcs.f_type_m,
+	'f_type': f_funcs.f_type_m,
+	'f_rooms': f_funcs.f_type_m,
 
 	# price to view
-	'f_price': funcs.f_view,
+	'f_price': f_funcs.f_view,
 
 	# loc
-	'f_city': funcs.f_loc_m,
-	'f_district': funcs.f_loc_m,
-	'f_route': funcs.f_loc_m,
-	'f_radius': funcs.f_loc_m,
+	'f_city': f_funcs.f_loc_m,
+	'f_district': f_funcs.f_loc_m,
+	'f_route': f_funcs.f_loc_m,
+	'f_radius': f_funcs.f_loc_m,
 
 	# other
-	'f_sex': funcs.f_other_m,
-	'f_pets': funcs.f_other_m,
-	'f_smoke': funcs.f_other_m,
-	'f_owner': funcs.f_other_m,
+	'f_sex': f_funcs.f_other_m,
+	'f_pets': f_funcs.f_other_m,
+	'f_smoke': f_funcs.f_other_m,
+	'f_owner': f_funcs.f_other_m,
 
 	'lang': funcs.main_menu
 }
@@ -134,30 +135,31 @@ scheme = {
 	'callbacks': {
 		'select_lang': funcs.lang_select,
 		'lang': funcs.main_menu,
-		'f_view': funcs.f_view,
-		'f_start': funcs.f_view,
+		'donation_menu': funcs.donation,
+		'f_view': f_funcs.f_view,
+		'f_start': f_funcs.f_view,
 
-		'f_loc_m': funcs.f_loc_m,
-		'f_type_m': funcs.f_type_m,
-		'f_other_m': funcs.f_other_m,
+		'f_loc_m': f_funcs.f_loc_m,
+		'f_type_m': f_funcs.f_type_m,
+		'f_other_m': f_funcs.f_other_m,
 
-		'f_type': funcs.f_type,
-		'f_rooms': funcs.f_rooms,
-		'f_price': funcs.f_price,
-		'f_city': funcs.f_city,
-		'f_district': funcs.f_district,
+		'f_type': f_funcs.f_type,
+		'f_rooms': f_funcs.f_rooms,
+		'f_price': f_funcs.f_price,
+		'f_city': f_funcs.f_city,
+		'f_district': f_funcs.f_district,
 
-		'f_route_type': funcs.f_route_type,
-		'f_routes_metro': funcs.f_routes_metro,
-		'f_routes_bus': funcs.f_routes_bus,
-		'f_routes_trains': funcs.f_routes_trains,
-		'f_radius': funcs.f_radius,
+		'f_route_type': f_funcs.f_route_type,
+		'f_routes_metro': f_funcs.f_routes_metro,
+		'f_routes_bus': f_funcs.f_routes_bus,
+		'f_routes_trains': f_funcs.f_routes_trains,
+		'f_radius': f_funcs.f_radius,
 		
 		
-		'f_sex': funcs.f_sex,
-		'f_pets': funcs.f_pets,
-		'f_smoke': funcs.f_smoke,
-		'f_owner': funcs.f_owner,
+		'f_sex': f_funcs.f_sex,
+		'f_pets': f_funcs.f_pets,
+		'f_smoke': f_funcs.f_smoke,
+		'f_owner': f_funcs.f_owner,
 		'f_end': funcs.main_menu,
 		'f_end_change': funcs.main_menu,
 
@@ -166,14 +168,14 @@ scheme = {
 		'f_error': funcs.f_error,
 
 
-		'user_filters': funcs.user_filters,
-		'u_select': funcs.select_filter,
-		'change_filter': funcs.change_user_filter,
-		'del_filter': funcs.delete_user_filter,
+		'user_filters': f_funcs.user_filters,
+		'u_select': f_funcs.select_filter,
+		'change_filter': f_funcs.change_user_filter,
+		'del_filter': f_funcs.delete_user_filter,
 
-		'f_name_type': funcs.f_name_type,
-		'f_rooms_type': funcs.f_rooms_type,
-		'f_price_type': funcs.f_price_type,
+		'f_name_type': f_funcs.f_name_type,
+		'f_rooms_type': f_funcs.f_rooms_type,
+		'f_price_type': f_funcs.f_price_type,
 
 		'u_start_page': p_funcs.start_page,
 		'u_start': p_funcs.title,

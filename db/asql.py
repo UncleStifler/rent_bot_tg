@@ -4,11 +4,11 @@ import time
 import config
 import db.queries as q
 
-async def get_pool():
+async def get_pool(host=config.DB_HOST):
 	return await asyncpg.create_pool(user=config.DB_USER,
                                      password=config.DB_PASSWORD,
                                      database=config.DB_DATABASE,
-                                     host=config.DB_HOST,)
+                                     host=host)
 
 # conn.execute or fetch
 async def pool_req(pool, q):
@@ -64,3 +64,6 @@ async def insert_user_ad_to_db(pool, ad_id):
 
 async def get_geo(pool, lat, lon):
 	return await pool_req(pool, q.get_city_and_district_by_geo(lat, lon))
+
+async def get_users(pool, lang=None):
+	return await pool_req(pool, q.get_users(lang))
