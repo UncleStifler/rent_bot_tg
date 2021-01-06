@@ -33,4 +33,4 @@ def get_filename():
     return int(os.listdir(f'{config.IMAGE_FOLDER}/')[-1].replace('.jpg', '')) + 1
 
 def get_photo_url(photo_id):
-    return f'https://{config.URL}:8443/photos/{photo_id}'
+    return f'https://{config.URL}:8443/photos/{photo_id}.jpg'
