@@ -174,8 +174,8 @@ def f_owner_text(lang='en'):
 	return ll.f_owner_text[lang]
 def f_owner_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': lb.yes[lang], 'callback_data': 'f_owner-1'},
-	 {'text': lb.no[lang], 'callback_data': 'f_owner-0'}],
+	[{'text': lb.landlord_botton[lang], 'callback_data': 'f_owner-1'},
+	 {'text': lb.agent_botton[lang], 'callback_data': 'f_owner-0'}],
 	[{'text': lb.back[lang], 'callback_data': 'f_other_m-'}]
 	]}
 ###########################################################

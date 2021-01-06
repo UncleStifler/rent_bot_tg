@@ -77,7 +77,7 @@ async def delete_bot_message(user_id):
 
 async def tg_handler(request):
     pool, data = await read_request(request)
-    print(data)
+    # print(data)
     try:
         if 'pre_checkout_query' in data:
             update_id = data['update_id']

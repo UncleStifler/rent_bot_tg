@@ -12,9 +12,9 @@ my_filters = {
 }
 # ----------------------------------------
 main_menu = {
-    'en': '🔝 Main menu',
-    'es': '🔝 Menú principal',
-    'ru': '🔝 Главное меню'
+    'en': '☀️ Main menu',
+    'es': '☀️ Menú principal',
+    'ru': '☀️ Главное меню'
 }
 select_lang = {
     'en': '😉 Choose the language of our friendship',
@@ -27,9 +27,9 @@ delete_filter = {
     'ru': '❌ Удалить поиск'
 }
 show_more_results = {
-    'en': '🏘 Show results',
-    'es': '🏘 Mostrar resultados',
-    'ru': '🏘 Показать результаты'
+    'en': '🏘 Show more',
+    'es': '🏘 MMostrar más',
+    'ru': '🏘 Показать больше'
 }
 add_property = {
     'en': '📢 Add my ad',
@@ -47,9 +47,9 @@ see_map = {
     'ru': '🗺 Показать на карте'
 }
 flat = {
-    'en': '🚪🚪 Flat',
-    'es': '🚪🚪 Piso',
-    'ru': '🚪🚪 Квартира'
+    'en': '🏢 Flat',
+    'es': '🏢 Piso',
+    'ru': '🏢 Квартира'
 }
 room = {
     'en': '🚪 Room',
@@ -107,14 +107,14 @@ leave_default = {
     'ru': '🔏 Оставить по умолчанию'
 }
 yes = {
-    'en': '✅ Yes',
-    'es': '✅ Si',
-    'ru': '✅ Да'
+    'en': 'Yes',
+    'es': 'Si',
+    'ru': 'Да'
 }
 no = {
-    'en': '❎ No',
-    'es': '❎ No',
-    'ru': '❎ Нет'
+    'en': 'No',
+    'es': 'No',
+    'ru': 'Нет'
 }
 next_ = {
     'en': '➡️ Next',
@@ -127,9 +127,9 @@ back = {
     'ru': '⬅️ Назад'
 }
 change_filter_name = {
-    'en': '📝 Change filter name',
-    'es': '📝 Cambiar el nombre del filtro',
-    'ru': '📝 Изменить название фильтра'
+    'en': '📝 Change the search name',
+    'es': '📝 Cambiar el nombre de la búsqueda',
+    'ru': '📝 Изменить название поиска'
 }
 property_type = {
     'en': '🏠 Property type',
@@ -204,7 +204,7 @@ landlord = {
 both = {
     'en': '✌🏽 Both',
     'es': '✌🏽 Ambos',
-    'ru': '✌🏽 Оба пола'
+    'ru': '✌🏽 И то и другое'
 }
 more = {
     'en': '👆 More',
@@ -217,14 +217,14 @@ less = {
     'ru': '👇 Меньше'
 }
 from_ = {
-    'en': '📍 From',
-    'es': '📍 Desde',
-    'ru': '📍 От'
+    'en': 'From',
+    'es': 'Desde',
+    'ru': 'От'
 }
 to_ = {
-    'en': '🏁 To',
-    'es': '🏁 Hasta',
-    'ru': '🏁 До'
+    'en': 'to',
+    'es': 'hasta',
+    'ru': 'до'
 }
 couple = {
     'en': '👯 Couples',
@@ -237,14 +237,14 @@ change_filter = {
     'ru': '⚙️ Изменить поиск'
 }
 none_ = {
-    'en': '🗯 Not specified',
-    'es': '🗯 No especificado',
-    'ru': '🗯 Не указано'
+    'en': 'Not specified',
+    'es': 'No especificado',
+    'ru': 'Не указано'
 }
 district_constr = {
-    'en': 'Please select a city 🏙 to select an area 🏘',
-    'es': 'Por favor, selecciona una ciudad 🏙 para seleccionar un área 🏘',
-    'ru': 'Пожалуйста выбери город 🏙 чтобы выбрать район 🏘'
+    'en': 'Select a city to select an area',
+    'es': 'Selecciona una ciudad para seleccionar un área',
+    'ru': 'Выбери город чтобы выбрать район'
 }
 flats_constr = {
     'en': 'Only for flats',
@@ -310,4 +310,14 @@ room_ = {
     'en': 'room',
     'es': 'habitacione',
     'ru': 'комната'
+}
+agent_botton = {
+    'en': '🧑‍💼 Agent',
+    'es': '🧑‍💼 Comisión',
+    'ru': '🧑‍💼 Агент'
+}
+landlord_botton = {
+    'en': '🧑‍🌾 Private person',
+    'es': '🧑‍🌾 Particular',
+    'ru': '🧑‍🌾 Частное лицо'
 }

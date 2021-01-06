@@ -99,9 +99,9 @@ def smoke_view(filter, lang, direct=False):
 
 def owner_view(owner, lang):
     if owner:
-        return lb.yes[lang]
+        return lb.landlord_botton[lang]
     else:
-        return lb.no[lang]
+        return lb.agent_botton[lang]
 
 def filter_from_memory(filter, db, run_filter, lang):
     if run_filter:

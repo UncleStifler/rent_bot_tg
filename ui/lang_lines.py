@@ -408,27 +408,15 @@ Ejemplo de la descripción está arriba 👆
 }
 # limit 200
 ad_contact_name = {
-    'en': '''
-Type in your name to contact you
-''',
-    'es': '''
-Type in your name to contact you
-''',
-    'ru': '''
-Type in your name to contact you
-'''
+    'en': "Now let's get to know each other 🤝 text me your name (Note: name will be in the ad)",
+    'es': 'Ahora vamos a familiarizarnos 🤝 envíame un mensaje de texto con tu nombre (Nota: el nombre estará en el anuncio)',
+    'ru': 'Теперь давай познакомимся 🤝 напиши мне как тебя зовут (Примечание: имя будет указано в объявлении)'
 }
 # limit 200
 ad_contact_phone = {
-    'en': '''
-Type in the phone number to contact you
-''',
-    'es': '''
-Type in the phone number to contact you
-''',
-    'ru': '''
-Type in the phone number to contact you
-'''
+    'en': 'Now send the phone number 📱 for the ad (Note: the phone number will be listed in the ad)',
+    'es': 'Ahora envíame el número de teléfono 📱 para el anuncio (Nota: el número de teléfono aparecerá en el anuncio)',
+    'ru': 'Теперь отправь номер телефона 📱 для объявления  (Примечание: номер телефона будет указан в объявлении)'
 }
 ad_photo = {
     'en': '''

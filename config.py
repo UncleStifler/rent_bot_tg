@@ -1,5 +1,5 @@
 
-branch = 'main'
+branch = 'dev'
 
 
 EXT_IP = '34.90.19.13'
@@ -36,8 +36,8 @@ PAY_TOKEN = '284685063:TEST:MDhlYzJiNDIxNmJj'
 WEBHOOK_LISTEN = webhook_hosts[branch]
 WEBHOOK_PORT = webhook_ports[branch]
 
-WEBHOOK_SSL_CERT = "/home/rent_b/ssl/ssl.pem"
-WEBHOOK_SSL_PRIV = "/home/rent_b/ssl/ssl_priv.pem"
+WEBHOOK_SSL_CERT = "/etc/letsencrypt/live/pisotio.com/fullchain.pem"
+WEBHOOK_SSL_PRIV = "/etc/letsencrypt/live/pisotio.com/privkey.pem"
 
 IMAGE_FOLDER = 'photos'
 ADMIN_PASSWORD = 'admin'
