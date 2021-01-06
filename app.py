@@ -196,7 +196,7 @@ async def init_app():
     app['pool'] = await asql.get_pool()
     app.router.add_post('/rent_bot/', tg_handler)
     app.router.add_post('/send_results/', send_results_handler)
-    app.router.add_get('/photos/{photo_id}', photos_handler)
+    app.router.add_get('/photos/{photo_id}.jpg', photos_handler)
     return app
 
 @logger.catch

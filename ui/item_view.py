@@ -28,7 +28,7 @@ def item_to_ui(db, item, lang, fresh=False):
     if item['smoke']:
         smoke = ll.smoke_allowed[lang]
     else:
-        smoke = ll.no_smoke_allowed
+        smoke = ll.no_smoke_allowed[lang]
     demands = f'{sex}\n{pets}\n{smoke}\n' if item['type'] == 1 else ''
     if item['owner']:
         owner = ll.owner[lang]
@@ -63,7 +63,7 @@ def item_to_ui(db, item, lang, fresh=False):
             photo_id = photo.split('/')[1]
             photo = get_photo_url(photo_id)
         # text += f'\n<a href="{item["photo"]}">&#8205;</a>'
-        photo = f'[\u200B]({item["photo"]})'
+        photo = f'[\u200B]({item["photo"]})\n'
     else:
         photo = ''
     text = f'''
