@@ -1,9 +1,10 @@
 
-branch = 'dev'
+branch = 'main'
 
 
 EXT_IP = '34.90.19.13'
 INT_IP = '10.164.0.2'
+URL = 'pisotio.com'
 
 tg_tokens = {
     'dev': '1042488699:AAFEsvgJXyEIR3REXrSAMZjQB-HClDnNE0U',
