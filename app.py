@@ -6,6 +6,7 @@ from loguru import logger
 import config
 import scheme
 import db.asql as asql
+from googletrans.client import Translator
 from utils.tg_api import send_message, delete_message
 from backend.photos import photos_handler
 from backend.photos import process_file
@@ -161,6 +162,9 @@ async def tg_handler(request):
                 message = '/select_lang'
 
             try:
+                if isinstance(message, dict):
+                    raise KeyError
+
                 text, keyboard = await scheme.process_command(message,
                                                               args,
                                                               lang)
@@ -188,7 +192,7 @@ async def tg_handler(request):
 
 async def send_results_handler(request):
     pool, data = await read_request(request)
-    await process_from_filter_app(data, pool, db_data, user_state)
+    await process_from_filter_app(data, pool, db_data, user_state, translator)
     return web.Response(status=200)
 
 async def init_app():
@@ -208,6 +212,10 @@ def main():
         db_data = DataUpdater(app['pool'])
         global user_state
         user_state = UserState(app['pool'])
+        global translator
+        translator = Translator(service_urls=[
+            'translate.google.com'
+        ])
 
 
         if config.branch == 'dev':

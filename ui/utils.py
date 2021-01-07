@@ -1,5 +1,6 @@
 
 import ui.lang_buttons as lb
+from utils.utils import log_err
 
 def _get_slice(data, page, slice=8):
     start = page*slice
@@ -80,3 +81,14 @@ def search_bd(q, data):
 def normalize_text(input_string):
     if isinstance(input_string, str):
         return input_string.replace('\\n', '\n').replace('`', '')
+
+async def translate_item(translator, lang, title, description):
+    if title and description:
+        text = f'{title} // {description}'
+        try:
+            translated = await translator.translate(text, dest=lang)
+            title, description = str(translated.text).split('//')
+            return title, description
+        except Exception as err:
+            log_err(err)
+            return title, description

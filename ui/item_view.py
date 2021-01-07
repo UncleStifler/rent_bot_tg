@@ -5,9 +5,11 @@ import ujson
 import ui.lang_lines as ll
 import ui.lang_buttons as lb
 from ui.utils import search_bd
+from ui.utils import translate_item
 from backend.photos import get_photo_url
 
-def item_to_ui(db, item, lang, fresh=False):
+
+async def item_to_ui(db, item, lang, translator, fresh=False):
     if fresh:
         fresh = ll.fresh[lang]
     else:
@@ -47,8 +49,14 @@ def item_to_ui(db, item, lang, fresh=False):
     else:
         contacts = ''
 
-    title = item['title'].replace('/', '\\')
-    description = item['description'].replace('\\n', '\n').replace('/m', '').replace('/', '\\')
+    title = item['title'].replace('/', ' ')
+    description = item['description'].replace('\\n', '\n').replace('/m', '').replace('/', ' ')
+
+    if lang != 'es':
+        title, description = await translate_item(translator,
+                                                  lang,
+                                                  title,
+                                                  description)
 
     type = lb.flat[lang] if item['type'] == 0 else lb.room[lang]
     city = search_bd(item['city'], db.cities)

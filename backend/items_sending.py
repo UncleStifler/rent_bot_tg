@@ -7,7 +7,7 @@ from ui.utils import build_common_keyboard
 from utils.tg_api import send_message
 from backend.general.funcs import empty_result
 
-async def _get_item_from_db(data, pool, db, user_state):
+async def _get_item_from_db(data, pool, db, user_state, translator):
     filter_id = data['filter_id']
     property_id = data['property_id']
     item = await get_property_item(pool, filter_id, property_id)
@@ -21,7 +21,7 @@ async def _get_item_from_db(data, pool, db, user_state):
     url = item[0]['url']
     lat, lon = item[0]['latitude'], item[0]['longitude']
     lat_lon = f'map-{lat}|{lon}'
-    text = item_to_ui(db, item[0], lang, fresh=data['fresh'])
+    text = await item_to_ui(db, item[0], lang, translator, fresh=data['fresh'])
     buttons = [[lb.main_menu[lang], 'main_menu-'],
                [lb.show_more_results[lang], f'show_more-{filter_id}']]
     keyboard = build_common_keyboard(None,
@@ -34,8 +34,8 @@ async def _get_item_from_db(data, pool, db, user_state):
                                          'callback_data': lat_lon}])
     return [user_id, text, keyboard]
 
-async def process_from_filter_app(data, pool, db, user_state):
-    user_id, text, keyboard = await _get_item_from_db(data, pool, db, user_state)
+async def process_from_filter_app(data, pool, db, user_state, translator):
+    user_id, text, keyboard = await _get_item_from_db(data, pool, db, user_state, translator)
     if user_id:
         await user_state.change_message_id(user_id, None)
         await send_message(user_id,
