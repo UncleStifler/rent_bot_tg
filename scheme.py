@@ -233,7 +233,7 @@ async def process_filter(callback, user_state, user_id, callback_data, from_dire
 	try:
 		if callback_data or callback in no_data_callbacks:
 			if callback in filter_scheme:
-				if not from_direct_answer and callback in direct_answers:
+				if not from_direct_answer and callback in direct_answers and callback not in ['u_photo']:
 					return False
 				await filter_scheme[callback](user_state, user_id, callback_data)
 	except AssertionError as err:

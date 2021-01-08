@@ -45,7 +45,8 @@ def u_photo_text(lang='en'):
 	return ll.ad_photo[lang]
 def u_photo_keyboard(lang='en'):
 	return {'inline_keyboard': [
-	[{'text': lb.back[lang], 'callback_data': 'u_contact-'}]
+	[{'text': lb.back[lang], 'callback_data': 'u_contact-'},
+	 {'text': lb.skip[lang], 'callback_data': 'u_photo-0'}]
 	]}
 
 # to filter

@@ -24,6 +24,11 @@ async def send_show_more(filter_id):
     url = ENDPOINT + '/show_more/'
     return await _post_req(url, data)
 
+async def delete_user(user_id):
+    data = {'user_id': user_id}
+    url = ENDPOINT + '/delete_user/'
+    return await _post_req(url, data)
+
 #[[<Record property_id=7603>], ..., [<Record property_id=7626>]]
 async def send_new_ids(ids):
     data = {'ids': [x['id'] for x in ids]}

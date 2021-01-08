@@ -10,11 +10,12 @@ from utils.tg_api import send_message
 
 # markdown True
 
-photo = '[\u200B](https://www.vippng.com/png/detail/101-1019439_maintenance-repair-24-appliance-repair-logo-png.png)'
+url = 'https://www.vippng.com/png/detail/101-1019439_maintenance-repair-24-appliance-repair-logo-png.png'
+photo = f'[\u200B]({url})'
 
 text = f'''
 Dear users
-The server is undergoing technical work until 01:00 UTC. The bot may not work correctly. We ask you to refrain from actively interacting with the search.
+We have some technical server side works.
 Thank you for your patience
 {photo}'''
 

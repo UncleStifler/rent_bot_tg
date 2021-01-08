@@ -4,6 +4,8 @@ from aiohttp import web
 
 import config
 from utils.utils import log_err
+from utils.tg_exceptions import (read_exception,
+								 BotBlocked)
 
 API_URL = f'https://api.telegram.org/bot{config.TOKEN}/'
 HEADERS = {'Content-Type': 'application/json'}
@@ -38,6 +40,9 @@ async def send_message(chat_id, text, keyboard=None, update=None):
 	if update:
 		url = API_URL+'editMessageText'
 	status, response = await _post_req(url, message, HEADERS, json_loads=True)
+	if isinstance(response, BotBlocked):
+		await response.process(chat_id)
+		return status, None
 	if response:
 		response = response['result']['message_id']
 	return status, response
@@ -112,8 +117,10 @@ async def _post_req(url, data, headers, json_loads=False):
 				return [web.Response(status=200), response]
 			except Exception as err:
 				message = await resp.read()
-				print(data)
 				log_err(err, message)
+				exc = read_exception(message)
+				if exc:
+					return [web.Response(status=400), exc]
 				return [web.Response(status=500), None]
 
 async def _get_req(url, headers, json_loads=False):

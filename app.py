@@ -92,7 +92,8 @@ async def tg_handler(request):
                                                                   db_data,
                                                                   pool)
             lang = await user_state.get_lang(args.user_id)
-            # print(f'{callback = }')
+            print(f'{callback = }')
+            print(callback_data)
 
             if callback == 'donation':
                 await send_invoice(user_id, callback_data)

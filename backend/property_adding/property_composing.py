@@ -108,4 +108,6 @@ async def contact_phone(user_state, user_id, data):
     user_state.filters[user_id]['description']['contact_phone'] = data
 
 async def photo(user_state, user_id, data):
+    if data == '0':
+        data = None
     user_state.filters[user_id]['description']['photo'] = data
