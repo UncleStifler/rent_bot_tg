@@ -31,7 +31,7 @@ async def process_file(file_id):
         return 'error'
 
 def get_filename():
-    return int(os.listdir(f'{config.IMAGE_FOLDER}')[-1].replace('.jpg', '')) + 1
+    return max([int(x.replace('.jpg', '')) for x in os.listdir(f'{config.IMAGE_FOLDER}')]) + 1
 
 def get_photo_url(photo_id):
     if photo_id:
