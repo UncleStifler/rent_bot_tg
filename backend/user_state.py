@@ -88,6 +88,12 @@ class UserState:
         except KeyError:
             return None
 
+    def get_filter(self, user_id):
+        try:
+            return self.filters[user_id]
+        except KeyError:
+            return None
+
     # --------------------------------------------------------------------------
 
     def add_user_filter(self, user_id):

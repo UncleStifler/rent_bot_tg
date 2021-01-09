@@ -4,6 +4,7 @@ import unicodedata
 
 import config
 from db.asql import get_geo
+from utils.utils import log_err
 
 async def valid_geo(message, args):
     try:
@@ -20,9 +21,11 @@ async def valid_geo(message, args):
             district_id = db_geo[0]['district']
             return [city_id, district_id, lat, lon]
         except IndexError:
-            print(f'error: valid_geo - no match {message = }')
+            # print(f'error: valid_geo - no match {message = }')
+            pass
     except (ValueError, AssertionError) as err:
-        print(f'error: valid_geo, {err}')
+        # print(f'error: valid_geo, {err}')
+        pass
 
 def _isascii(input_string):
     try:
@@ -33,9 +36,13 @@ def _isascii(input_string):
 
 def toascii(input_string):
     try:
-        return unicodedata.normalize('NFD', input_string).encode('ascii', 'ignore').decode('utf8')
+        ascii_string = unicodedata.normalize('NFD', input_string).encode('ascii', 'ignore').decode('utf8')
+        if len(ascii_string) < len(input_string):
+            return input_string
+        else:
+            return ascii_string
     except Exception as err:
-        print(err)
+        log_err(err, f'toascii error: {input_string = }')
         return input_string
 
 def photo_check(message):
@@ -48,11 +55,14 @@ def photo_check(message):
 def limit_string(message, limit=190):
     try:
         assert len(message) < limit, f'message is out of limit {message = }'
+        print('len')
         message = toascii(message)
+        print('toascii')
         assert _isascii(message), f'message is not ascii {message = }'
         return message
     except AssertionError as err:
-        print(f'error: limit_string, {err}')
+        pass
+        # print(f'error: limit_string, {err}')
 
 def limit_string_2000(message):
     return limit_string(message, limit=1900)
@@ -90,7 +100,8 @@ def price_to_dict(message):
             raise ValueError
         return data
     except (ValueError, AssertionError) as err:
-        print(f'error: price_to_dict, {err}')
+        pass
+        # print(f'error: price_to_dict, {err}')
 
 def to_int(message):
     try:
@@ -98,7 +109,8 @@ def to_int(message):
         assert message.isdigit(), f'digits {message = }'
         return int(message)
     except (ValueError, AssertionError) as err:
-        print(f'error: rooms_to_int, {err}')
+        pass
+        # print(f'error: rooms_to_int, {err}')
 
 def price_to_int(message):
     try:
@@ -106,11 +118,13 @@ def price_to_int(message):
         assert message.isdigit(), f'digits {message = }'
         return int(message)
     except (ValueError, AssertionError) as err:
-        print(f'error: price_to_int, {err}')
+        pass
+        # print(f'error: price_to_int, {err}')
 
 def auth_(message):
     try:
         assert message == config.ADMIN_PASSWORD, f'password invalid {message = }'
         return True
     except AssertionError as err:
-        print(f'error: auth_, {err}')
+        pass
+        # print(f'error: auth_, {err}')

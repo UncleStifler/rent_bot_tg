@@ -116,7 +116,7 @@ f_routes_bus = {
     'ru': 'Выбери *маршрут автобуса*🚍'
 }
 f_routes_metro = {
-    'en': 'Choose the *metro line*🚇*',
+    'en': 'Choose the *metro line*🚇',
     'es': 'Elige *la línea de metro* 🚇',
     'ru': 'Выбери *линию метро*🚇'
 }
@@ -377,17 +377,14 @@ Tu anuncio estará activo durante 30 días.
 ad_title = {
     'en': '''
 Name your ad 📣
-
 Example: Flat for rent in La Pineda
 ''',
     'es': '''
 Nombre su anuncio 📣
-
 Ejemplo: Apartamento de alquiler en La Pineda
 ''',
     'ru': '''
 Назови свое объявление 📣
-
 Пример: Flat for rent in La Pineda
 '''
 }

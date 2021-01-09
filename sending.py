@@ -6,7 +6,8 @@ from db.asql import (get_pool,
                      get_users)
 from utils.tg_api import send_message
 
-
+if config.branch != 'main':
+    raise ValueError
 
 # markdown True
 

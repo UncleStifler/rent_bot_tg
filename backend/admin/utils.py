@@ -11,10 +11,11 @@ from backend.filter_adding.view import (sex_view,
 
 def get_ad_text(ad, db, lang='en'):
     id_ = ad['id']
-    photo_url = get_photo_url(ad['photo'].split('/')[1])
-    photo = f'[\u200B]({photo_url})'
-    # todo title descr
-    print(photo)
+    if ad['photo']:
+        photo_url = get_photo_url(ad['photo'].split('/')[1])
+        photo = f'[\u200B]({photo_url})'
+    else:
+        photo = ''
     print(ad)
     text = f'''
 {photo}

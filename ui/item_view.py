@@ -38,6 +38,8 @@ async def item_to_ui(db, item, lang, translator, fresh=False):
         owner = ll.not_owner[lang]
 
     try:
+        if not item['amenities']:
+            raise KeyError
         data = ujson.loads(item['amenities'])['amenities']
         amenities = f"{lb.amenities[lang]}: {', '.join([f'*{x}*' for x in data])}".replace('/', '\\')
     except KeyError:

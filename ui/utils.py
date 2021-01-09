@@ -82,6 +82,12 @@ def normalize_text(input_string):
     if isinstance(input_string, str):
         return input_string.replace('\\n', '\n').replace('`', '')
 
+def get_parameter(text : str, parameter):
+    if parameter:
+        return text % parameter
+    else:
+        return ''
+
 async def translate_item(translator, lang, title, description):
     if title and description:
         text = f'{title} // {description}'

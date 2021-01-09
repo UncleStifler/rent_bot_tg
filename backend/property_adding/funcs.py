@@ -1,7 +1,7 @@
 
 
 import backend.property_adding.mockups as mockups
-from ui.utils import build_page_keyboard
+from backend.property_adding.view import ad_view
 from backend.filter_adding.mockups import direct_answer_err, geo_err
 
 async def start_page(args=None, lang='en'):
@@ -12,45 +12,46 @@ async def title(args=None, lang='en'):
     text = mockups.u_title_text(lang)
     if args.error:
         text += direct_answer_err(lang)
-    return [text,
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_title_keyboard(lang)]
 async def description(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'u_desc')
     text = mockups.u_description_text(lang)
     if args.error:
         text += direct_answer_err(lang)
-    return [text,
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_description_keyboard(lang)]
 async def contact_name(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'u_contact')
     text = mockups.u_contact_text(lang)
     if args.error:
         text += direct_answer_err(lang)
-    return [text,
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_contact_keyboard(lang)]
 async def contact_phone(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'u_phone')
     text = mockups.u_phone_text(lang)
     if args.error:
         text += direct_answer_err(lang)
-    return [text,
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_phone_keyboard(lang)]
 async def photo(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'u_photo')
     text = mockups.u_photo_text(lang)
     if args.error:
         text += direct_answer_err(lang)
-    return [text,
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_photo_keyboard(lang)]
 async def type_(args=None, lang='en'):
-    return [mockups.u_type_text(lang),
+    text = mockups.u_type_text(lang)
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_type_keyboard(lang)]
 async def rooms(args=None, lang='en'):
     await args.state.change_state(args.user_id, 'u_rooms')
     text = mockups.u_rooms_text(lang)
     if args.error:
         text += direct_answer_err(lang)
-    return [text,
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_rooms_keyboard(lang)]
 # async def city(args=None, lang='en'):
 #     return [mockups.u_city_text(lang),
@@ -74,7 +75,7 @@ async def geo(args=None, lang='en'):
     text = mockups.u_geo_text(lang)
     if args.error:
         text += geo_err(lang)
-    return [text,
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_geo_keyboard(lang)]
 
 async def price(args=None, lang='en'):
@@ -82,21 +83,26 @@ async def price(args=None, lang='en'):
     text = mockups.u_price_text(lang)
     if args.error:
         text += direct_answer_err(lang)
-    return [text,
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_price_keyboard(lang)]
 async def sex(args=None, lang='en'):
-    return [mockups.u_sex_text(lang),
+    text = mockups.u_sex_text(lang)
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_sex_keyboard(lang)]
 async def pets(args=None, lang='en'):
-    return [mockups.u_pets_text(lang),
+    text = mockups.u_pets_text(lang)
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_pets_keyboard(lang)]
 async def smoke(args=None, lang='en'):
-    return [mockups.u_smoke_text(lang),
+    text = mockups.u_smoke_text(lang)
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_smoke_keyboard(lang)]
 async def owner(args=None, lang='en'):
-    return [mockups.u_owner_text(lang),
+    text = mockups.u_owner_text(lang)
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_owner_keyboard(lang)]
 
 async def end(args=None, lang='en'):
-    return [mockups.u_end_text(lang),
+    text = mockups.u_end_text(lang)
+    return [ad_view(args.state.get_filter(args.user_id), args.db, text, lang),
             mockups.u_end_keyboard(lang)]

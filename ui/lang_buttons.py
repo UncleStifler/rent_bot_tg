@@ -321,3 +321,45 @@ landlord_botton = {
     'es': '🧑‍🌾 Particular',
     'ru': '🧑‍🌾 Частное лицо'
 }
+
+
+title = {
+    'en': 'Title',
+    'es': '',
+    'ru': ''
+}
+description = {
+    'en': 'Description',
+    'es': '',
+    'ru': ''
+}
+name = {
+    'en': 'Name',
+    'es': '',
+    'ru': ''
+}
+phone = {
+    'en': 'Phone',
+    'es': '',
+    'ru': ''
+}
+photo = {
+    'en': 'Photo',
+    'es': '',
+    'ru': ''
+}
+type_one_word = {
+    'en': 'Type',
+    'es': '',
+    'ru': ''
+}
+gender = {
+    'en': 'Title',
+    'es': '',
+    'ru': ''
+}
+title = {
+    'en': 'Title',
+    'es': '',
+    'ru': ''
+}

@@ -27,11 +27,10 @@ async def _get_item_from_db(data, pool, db, user_state, translator):
     keyboard = build_common_keyboard(None,
                                      None,
                                      buttons)
-    keyboard['inline_keyboard'].insert(0,
-                                       [{'text': lb.see_website[lang],
-                                         'url': url},
-                                        {'text': lb.see_map[lang],
-                                         'callback_data': lat_lon}])
+    add_buttons = [{'text': lb.see_map[lang], 'callback_data': lat_lon}]
+    if url:
+        add_buttons.insert(0, {'text': lb.see_website[lang], 'url': url})
+    keyboard['inline_keyboard'].insert(0, add_buttons)
     return [user_id, text, keyboard]
 
 async def process_from_filter_app(data, pool, db, user_state, translator):
