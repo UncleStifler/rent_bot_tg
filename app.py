@@ -8,7 +8,6 @@ import scheme
 import db.asql as asql
 from googletrans.client import Translator
 from utils.tg_api import send_message, delete_message
-from backend.photos import photos_handler
 from backend.photos import process_file
 from backend.user_state import UserState
 from backend.data_updater import DataUpdater
