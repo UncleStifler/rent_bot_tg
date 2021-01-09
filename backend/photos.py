@@ -36,7 +36,7 @@ def get_filename():
 def get_photo_url(photo_id):
     if photo_id:
         if isinstance(photo_id, int):
-            return f'https://{config.URL}/static/photos/{photo_id}.jpg'
+            return f'https://{config.URL}/photos/{photo_id}.jpg'
         elif isinstance(photo_id, str):
             try:
                 return get_photo_url(int(photo_id.split('/')[1]))
