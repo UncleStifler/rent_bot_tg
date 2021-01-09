@@ -40,7 +40,7 @@ WEBHOOK_PORT = webhook_ports[branch]
 WEBHOOK_SSL_CERT = "/etc/letsencrypt/live/pisotio.com/fullchain.pem"
 WEBHOOK_SSL_PRIV = "/etc/letsencrypt/live/pisotio.com/privkey.pem"
 
-IMAGE_FOLDER = 'photos'
+IMAGE_FOLDER = '/home/rent_b/static/photos/'
 ADMIN_PASSWORD = 'admin'
 
 DATA_UPDATE_TIME = 600 # sec

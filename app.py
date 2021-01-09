@@ -180,9 +180,6 @@ async def tg_handler(request):
                 if user_state.get_state(user_id):
                     return await process_answer(user_id, message, pool, lang=lang)
 
-
-
-
     except Exception as err:
         log_err(err)
     finally:
@@ -201,7 +198,6 @@ async def init_app():
     app['pool'] = await asql.get_pool()
     app.router.add_post('/rent_bot/', tg_handler)
     app.router.add_post('/send_results/', send_results_handler)
-    app.router.add_static('/photos', 'photos/')
     return app
 
 @logger.catch
