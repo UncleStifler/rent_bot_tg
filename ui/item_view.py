@@ -70,10 +70,10 @@ async def item_to_ui(db, item, lang, translator, fresh=False):
     if item['photo']:
         photo = item['photo']
         if photo.startswith('local/'):
-            photo_id = photo.split('/')[1]
+            photo_id = int(photo.split('/')[1])
             photo = get_photo_url(photo_id)
         # text += f'\n<a href="{item["photo"]}">&#8205;</a>'
-        photo = f'[\u200B]({item["photo"]})\n'
+        photo = f'[\u200B]({photo})\n'
     else:
         photo = ''
     text = f'''
