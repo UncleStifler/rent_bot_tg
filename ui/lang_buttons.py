@@ -28,7 +28,7 @@ delete_filter = {
 }
 show_more_results = {
     'en': '🏘 Show more',
-    'es': '🏘 MMostrar más',
+    'es': '🏘 Mostrar más',
     'ru': '🏘 Показать больше'
 }
 add_property = {
@@ -168,7 +168,7 @@ public_transport = {
 }
 distance_to_stop = {
     'en': '📏 Distance to stop',
-    'es': '📏 Distancia de parada',
+    'es': '📏 Distancia a la parada',
     'ru': '📏 Расстояние до остановки'
 }
 type_ = {
@@ -193,7 +193,7 @@ pets = {
 }
 smoking = {
     'en': '🚬 Smoking',
-    'es': '🚬 De fumar',
+    'es': '🚬 Fumar',
     'ru': '🚬 Курение'
 }
 landlord = {
@@ -208,7 +208,7 @@ both = {
 }
 more = {
     'en': '👆 More',
-    'es': '👆 Más',
+    'es': '👆 Más de',
     'ru': '👆 Больше'
 }
 less = {

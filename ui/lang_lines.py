@@ -15,8 +15,8 @@ Puedo ayudarte a encontrar una vivienda en la provincia de Barcelona.
 Haré una búsqueda en los sitios web de alquiler 🔎 y tan pronto como encuentro una vivienda adecuada, te enviaré un mensaje 📬
 Para empezar, configura tu búsqueda a continuación 👇 
 Puede haber varias opciones de búsqueda 🔢 
-Puedes personalizar cada opción de búsqueda individualmente ⚙️
-Los mejores deseos para que encuentres un lugar bonito 🏡''',
+Puedes personalizar cada opción de búsqueda en concreto ⚙️
+Los mejores deseos para que encuentres un hogar bonito 🏡''',
 
     'ru': '''
 Привет!👋
@@ -69,7 +69,7 @@ Ejemplo: *3*
 }
 f_price_text = {
     'en': 'You can select the *price* range 💰 or enter your range',
-    'es': 'Puedes seleccionar el rango de *precio* 💰 o introducir tu rango',
+    'es': 'Selecciona o introduce el *rango de precio* 💰',
     'ru': 'Можешь выбрать диапазон *стоимости* 💰 или ввести свою'
 }
 f_price_type = {
@@ -186,8 +186,8 @@ The name of the filter must be in *Latin characters*.
 Example: *Rooms for less than 500 euros*
 ''',
     'es': '''
-El nombre de la búsqueda debe ser *en caracteres latinos*
-Ejemplo: *Habitacion Cartagena hasta 500 euros*
+El nombre de la búsqueda debe *escrito con letra latina*
+Ejemplo: *Habitación Cartagena hasta 500 euros*
 ''',
     'ru': '''
 Название поиска должно быть *на латинице* 
