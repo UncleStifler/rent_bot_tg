@@ -77,7 +77,7 @@ async def delete_bot_message(user_id):
 
 async def tg_handler(request):
     pool, data = await read_request(request)
-    # print(data)
+    print(data)
     try:
         if 'pre_checkout_query' in data:
             update_id = data['update_id']
@@ -95,7 +95,7 @@ async def tg_handler(request):
             print(callback_data)
 
             if callback == 'donation':
-                await send_invoice(user_id, callback_data)
+                await send_invoice(user_id, callback_data, lang)
                 return web.Response(status=200)
 
             if callback == 'show_more':

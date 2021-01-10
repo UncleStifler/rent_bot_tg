@@ -6,7 +6,7 @@ import config
 from utils.utils import log_err
 from utils.tg_exceptions import (read_exception,
 								 BotBlocked)
-
+from ui.lang_buttons import donation
 API_URL = f'https://api.telegram.org/bot{config.TOKEN}/'
 HEADERS = {'Content-Type': 'application/json'}
 
@@ -62,7 +62,7 @@ async def send_location(chat_id, lat_lon):
 	}
 	return (await _post_req(url, message, HEADERS))[0]
 
-async def send_invoice(chat_id, amount):
+async def send_invoice(chat_id, amount, lang='en'):
 	amount_int = int(amount)*100
 	url = API_URL+'sendInvoice'
 	prices = [
@@ -73,8 +73,8 @@ async def send_invoice(chat_id, amount):
 	]
 	message = {
 		'chat_id': chat_id,
-		'title': f'Donation {amount} €',
-		'description': 'Donation for PisoTio Bot',
+		'title': f'{donation[lang]} {amount} €',
+		'description': '',
 		'payload': 'donation',
 		'provider_token': config.PAY_TOKEN,
 		'start_parameter': 'start',

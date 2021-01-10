@@ -353,8 +353,6 @@ type_one_word = {
     'es': '',
     'ru': ''
 }
-
-
 donation_button = {
     'en': '''
 🚀 Donate to PisoTio
@@ -365,4 +363,9 @@ donation_button = {
     'ru': '''
 🚀 Поблагодарить PisoTio
 '''
+}
+donation = {
+    'en': 'Donation',
+    'es': 'Donación',
+    'ru': 'Пожертвование'
 }
