@@ -32,7 +32,7 @@ filter_ports = {
 }
 
 TOKEN = tg_tokens[branch]
-PAY_TOKEN = '284685063:TEST:MDhlYzJiNDIxNmJj'
+PAY_TOKEN = '350862534:LIVE:MmEyZTc4Y2Y2ODNm'
 
 WEBHOOK_LISTEN = webhook_hosts[branch]
 WEBHOOK_PORT = webhook_ports[branch]

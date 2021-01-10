@@ -381,7 +381,7 @@ Name your ad 📣
 Example: Flat for rent in La Pineda
 ''',
     'es': '''
-Nombre su anuncio 📣
+Nombre tu anuncio 📣
 
 Ejemplo: Apartamento de alquiler en La Pineda
 ''',
