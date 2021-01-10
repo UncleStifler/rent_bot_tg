@@ -353,13 +353,16 @@ type_one_word = {
     'es': '',
     'ru': ''
 }
-gender = {
-    'en': 'Title',
-    'es': '',
-    'ru': ''
-}
-title = {
-    'en': 'Title',
-    'es': '',
-    'ru': ''
+
+
+donation_button = {
+    'en': '''
+🚀 Donate to PisoTio
+''',
+    'es': '''
+🚀 Donar a PisoTio
+''',
+    'ru': '''
+🚀 Поблагодарить PisoTio
+'''
 }

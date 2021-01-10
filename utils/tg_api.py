@@ -63,21 +63,22 @@ async def send_location(chat_id, lat_lon):
 	return (await _post_req(url, message, HEADERS))[0]
 
 async def send_invoice(chat_id, amount):
+	amount_int = int(amount)*100
 	url = API_URL+'sendInvoice'
 	prices = [
 		{
-			'label': 'Dollars',
-			'amount': 100
+			'label': 'Euro',
+			'amount': amount_int
 		}
 	]
 	message = {
 		'chat_id': chat_id,
-		'title': f'Donation {amount}',
-		'description': 'description',
-		'payload': 'test',
+		'title': f'Donation {amount} €',
+		'description': 'Donation for PisoTio Bot',
+		'payload': 'donation',
 		'provider_token': config.PAY_TOKEN,
 		'start_parameter': 'start',
-		'currency': 'USD',
+		'currency': 'EUR',
 		'prices': prices
 	}
 	return (await _post_req(url, message, HEADERS))[0]
@@ -88,10 +89,6 @@ async def pre_checkout(update_id, pre_checkout_query_id):
 		'pre_checkout_query_id': pre_checkout_query_id,
 		'ok': True,
 		'error_message': 'error'
-	}
-	message = {
-		'update_id': update_id,
-		'pre_checkout_query': answerPreCheckoutQuery
 	}
 	return (await _post_req(url, answerPreCheckoutQuery, HEADERS))[0]
 

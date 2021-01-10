@@ -3,16 +3,19 @@
 import ui.lang_lines as ll
 import ui.lang_buttons as lb
 
-def donation_text(lang='en'):
-    return 'Donation Text'
+def donation_start(lang='en'):
+    return ll.donation_start[lang]
 
 def donation_keyboard(lang='en', return_button=None):
     keyboard = {'inline_keyboard': [
-    [{'text': 'Donation 5$', 'callback_data': 'donation-5'}]
+    [{'text': '1€', 'callback_data': 'donation-1'},
+     {'text': '2€', 'callback_data': 'donation-2'}],
+    [{'text': '5€', 'callback_data': 'donation-5'},
+     {'text': '10€', 'callback_data': 'donation-10'}]
     ]}
     if return_button:
         keyboard['inline_keyboard'].append(
-            [{'text': 'Back', 'callback_data': return_button}]
+            [{'text': lb.back[lang], 'callback_data': return_button}]
         )
     return keyboard
 
@@ -24,7 +27,7 @@ def main_menu_keyboard(lang='en'):
         [{'text': lb.my_filters[lang], 'callback_data': 'user_filters-'}],
         [{'text': lb.add_property[lang], 'callback_data': 'u_start_page-'}],
         [{'text': lb.select_lang[lang], 'callback_data': 'select_lang-'}],
-        [{'text': 'Donation', 'callback_data': 'donation_menu-'}]
+        [{'text': lb.donation_button[lang], 'callback_data': 'donation_menu-'}]
     ]}
 
 def lang_select_text(lang='en'):

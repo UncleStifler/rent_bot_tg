@@ -2,10 +2,10 @@
 import backend.general.mockups as mockups
 
 async def donation(args=None, lang='en'):
-    return [mockups.donation_text(lang),
-            mockups.donation_keyboard(lang)]
+    return [mockups.donation_start(lang),
+            mockups.donation_keyboard(lang, 'main_menu-')]
 
-# todo move
+
 async def lang_select(args=None, lang='en'):
     return [mockups.lang_select_text(lang),
             mockups.lang_select_keyboard(lang)]

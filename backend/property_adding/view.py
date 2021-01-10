@@ -19,7 +19,7 @@ def ad_view(ad, db, text, lang):
     description = get_parameter(f'{lb.description[lang]} - *%s*\n', ad['description']['description'])
     name = get_parameter(f'{lb.name[lang]} - *%s*\n', ad['description']['contact_name'])
     phone = get_parameter(f'{lb.phone[lang]} - *%s*\n', ad['description']['contact_phone'])
-    photo = get_parameter(f'{lb.photo[lang]} - *%s*\n', get_photo_url(ad['description']['photo']))
+    # photo = get_parameter(f'{lb.photo[lang]} - *%s*\n', get_photo_url(ad['description']['photo']))
     type_ = get_parameter(f'{lb.type_one_word[lang]} - *%s*\n', type_view(ad['property']['type'], lang))
     rooms = get_parameter(f'{lb.rooms_number[lang]} - *%s*\n', ad['property']['rooms'])
     city = get_parameter(f'{lb.city[lang]} - *%s*\n', city_view(ad['property']['city'], db, lang))
@@ -30,5 +30,5 @@ def ad_view(ad, db, text, lang):
     smoke = get_parameter(f'{lb.smoking[lang]} - *%s*\n', yes_or_no(ad['property']['smoke'], lang))
     owner = get_parameter(f'{lb.landlord[lang]} - *%s*\n', owner_view(ad['property']['owner'], lang))
 
-    ad_preview = f'{title}{description}{name}{phone}{photo}{type_}{rooms}{city}{district}{price}{sex}{pets}{smoke}{owner}'
+    ad_preview = f'{title}{description}{name}{phone}{type_}{rooms}{city}{district}{price}{sex}{pets}{smoke}{owner}'
     return f'{ad_preview}\n{text}'

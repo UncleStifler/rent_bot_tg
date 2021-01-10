@@ -377,14 +377,17 @@ Tu anuncio estará activo durante 30 días.
 ad_title = {
     'en': '''
 Name your ad 📣
+
 Example: Flat for rent in La Pineda
 ''',
     'es': '''
 Nombre su anuncio 📣
+
 Ejemplo: Apartamento de alquiler en La Pineda
 ''',
     'ru': '''
 Назови свое объявление 📣
+
 Пример: Flat for rent in La Pineda
 '''
 }
@@ -406,7 +409,7 @@ Ejemplo de la descripción está arriba 👆
 # limit 200
 ad_contact_name = {
     'en': "Now let's get to know each other 🤝 text me your name (Note: name will be in the ad)",
-    'es': 'Ahora vamos a familiarizarnos 🤝 envíame un mensaje de texto con tu nombre (Nota: el nombre estará en el anuncio)',
+    'es': 'Ahora vamos a conocernos 🤝 envíame tu nombre (Nota: el nombre estará en el anuncio)',
     'ru': 'Теперь давай познакомимся 🤝 напиши мне как тебя зовут (Примечание: имя будет указано в объявлении)'
 }
 # limit 200
@@ -416,17 +419,17 @@ ad_contact_phone = {
     'ru': 'Теперь отправь номер телефона 📱 для объявления  (Примечание: номер телефона будет указан в объявлении)'
 }
 ad_photo = {
-    'en': '''
-There's not much left 🤏! You're doing great 😀
-Send me some cool real estate photos 📷
+'en': '''
+Not much left now 🤏! You're doing great 😀
+Send *ONE cool photo* of real estate 📷
 ''',
-    'es': '''
+'es': '''
 ¡No queda mucho 🤏! Lo estás haciendo muy bien 😀
-Envíame algunas fotos geniales de vivienda 📷
+Envía *UNA foto genial* de tu vivienda 📷
 ''',
-    'ru': '''
+'ru': '''
 Уже осталось немного 🤏! У тебя все получается 😀
-Отправь мне классные фото недвижимости 📷
+Отправь *ОДНО классное фото* недвижимости 📷
 '''
 }
 ad_type = {
@@ -442,13 +445,16 @@ What will you rent out?
 }
 ad_rooms = {
     'en': '''
-Type in the number of rooms number your property have
+Write to me how many rooms there are in your home 🏠
+If you only rent rooms 🚪, write me how many rooms you plan to rent.
 ''',
     'es': '''
-Type in the number of rooms number your property have
+Escríbeme cuántas habitaciones hay en tu vivienda 🏠
+Si sólo alquilas habitaciones 🚪, escríbeme cuántas habitaciones piensas alquilar.
 ''',
     'ru': '''
-Type in the number of rooms number your property have
+Напиши мне сколько комнат в твоем жилье 🏠
+Если ты сдаешь только комнаты 🚪, то напиши мне 📝 какое количество комнат ты планируешь сдавать.
 '''
 }
 ad_geo = {
@@ -473,15 +479,9 @@ Ejemplo en la foto de arriba 👆
 '''
 }
 ad_price = {
-    'en': '''
-💰 What is the price?
-''',
-    'es': '''
-💰 Envíame un mensaje de texto con el precio?
-''',
-    'ru': '''
-💰 Напиши мне цену 
-'''
+    'en': 'Now text me the price 💰 of your accommodation 👇🏼',
+    'es': 'Ahora envíame un mensaje de texto con el precio 💰 de tu vivienda 👇🏼',
+    'ru': 'А теперь отправь мне сообщением цену 💰 твоего жилья 👇🏼'
 }
 ad_sex = {
     'en': '''
@@ -496,35 +496,35 @@ Elige a quién quieres alquilar
 }
 ad_pets = {
     'en': '''
-Do you allow pets?
+Do you allow living with pets 🦆?
 ''',
     'es': '''
-Do you allow pets?
+¿Permites vivir con mascotas 🦆?
 ''',
     'ru': '''
-Do you allow pets?
+Ты разрешаешь проживать с домашними животными 🦆?
 '''
 }
 ad_smoke = {
     'en': '''
-Do you allow smoke?
+Do you allow smoking 🚬 in your accommodation?
 ''',
     'es': '''
-Do you allow smoke?
+¿Permites fumar 🚬 en tu vivienda?
 ''',
     'ru': '''
-Do you allow smoke?
+Можно ли курить 🚬 в твоем жилье? 
 '''
 }
 ad_owner = {
     'en': '''
-Do you own the property you rent?
+Will you rent as a private person 🧑🌾 or as an agent 🧑💼?
 ''',
     'es': '''
-Do you own the property you rent?
+¿Alquilarás como particular 🧑‍🌾 o como agente 🧑‍💼? 
 ''',
     'ru': '''
-Do you own the property you rent?
+Ты будешь сдавать жилье как частное лицо 🧑‍🌾 или как агент 🧑‍💼?
 '''
 }
 ad_end = {
@@ -534,13 +534,62 @@ Your listing will go to the moderation 🧑‍🔧 desk and very soon I will tel
 Thank you! 🙏
 ''',
     'es': '''
-Eso es genial. Lo hiciste muy bien 😀Hemos pasado por todos los pasos 🔡
-Su anuncio irá al servicio de moderación 🧑‍🔧 y muy pronto diré a todos mis amigos sobre tu propiedad 🤳
+Eso es genial. Lo hiciste muy bien 😀 Hemos pasado por todos los pasos 🔡
+Tu anuncio irá al servicio de moderación 🧑‍🔧 y muy pronto diré a todos mis amigos sobre tu propiedad 🤳
 Gracias! 🙏
 ''',
     'ru': '''
 Супер. Ты молодец 😀 Мы прошли все этапы 🔡
-Твое объявление отправится на модерацию в службу поддержки 🧑‍🔧 и совсем скоро я расскажу о твоей недвижимости всем мои друзьям 🤳
+Твое объявление отправится на модерацию в службу поддержки 🧑‍🔧 и  совсем скоро я расскажу о твоей недвижимости всем мои друзьям 🤳
 Спасибо! 🙏
+'''
+}
+
+
+donation_start = {
+    'en': '''
+I help for free and am constantly learning new things 🤓
+That being said, I have servers running 24/7 behind me 🖥 and my creators are constantly coming up with new functionality 💡
+
+If you like what I do, you can support me simply by clicking one of the buttons below 👇🏼
+
+The payment will be processed through stripe.com service
+
+Wish you 🤞 find a cool place to live 🏡
+''',
+    'es': '''
+Ayudo gratuitamente y estoy constantemente aprendiendo cosas nuevas 🤓
+Dicho esto, tengo servidores funcionando 24/7 detrás de mí 🖥 y mis creadores están constantemente ideando nuevas funciones 💡
+
+Si te gusta lo que hago, puedes apoyarme con sólo pulsar uno de los botones de abajo 👇🏼
+
+El pago se procesará a través del servicio de stripe.com
+
+Los mejores deseos 🤞 para que encuentres un hogar bonito 🏡
+''',
+    'ru': '''
+Я помогаю бесплатно и постоянно учусь новому 🤓
+При этом за спиной у меня 24/7 работают сервера 🖥 и мои создатели постоянно придумывают новый функционал 💡
+
+Если тебе нравится то, что я делаю, ты можешь поддержать меня просто нажав на одну из кнопок ниже 👇🏼
+
+Платеж будет обработан через сервис stripe.com
+
+Желаю тебе 🤞 найти классное жильё 🏡
+'''
+}
+# Buttons - 3, 5, 10, 15 euro, main menu
+donation_end = {
+    'en': '''
+Thank you so much for your help 🤝
+Now get on with your human business 🤙🏼 and I'll keep looking for your dream home 🏡
+''',
+    'es': '''
+Muchas gracias por tu ayuda 🤝
+Ahora sigue con tus asuntos humanos 🤙🏼 y yo seguiré buscando la casa de tus sueños 🏡
+''',
+    'ru': '''
+Большое спасибо за твою помощь 🤝
+Теперь продолжай заниматься своими человеческими делами 🤙🏼 а буду дальше искать жилье твоей мечты 🏡
 '''
 }
