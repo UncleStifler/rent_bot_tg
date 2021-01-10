@@ -41,7 +41,7 @@ WEBHOOK_SSL_CERT = "/etc/letsencrypt/live/pisotio.com/fullchain.pem"
 WEBHOOK_SSL_PRIV = "/etc/letsencrypt/live/pisotio.com/privkey.pem"
 
 IMAGE_FOLDER = '/home/rent_b/static/photos/'
-ADMIN_PASSWORD = 'admin'
+ADMIN_PASSWORD = 'kde092'
 
 DATA_UPDATE_TIME = 600 # sec
 USER_DATA_UPDATE_TIME = 30 # sec

@@ -146,7 +146,7 @@ async def tg_handler(request):
             await delete_message(user_id, message_id)
 
             if payment:
-                message = '/start'
+                message = '/donation_end'
 
             if location:
                 message = location

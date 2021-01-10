@@ -6,6 +6,9 @@ import ui.lang_buttons as lb
 def donation_start(lang='en'):
     return ll.donation_start[lang]
 
+def donation_end(lang='en'):
+    return ll.donation_end[lang]
+
 def donation_keyboard(lang='en', return_button=None):
     keyboard = {'inline_keyboard': [
     [{'text': '1€', 'callback_data': 'donation-1'},

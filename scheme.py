@@ -130,7 +130,8 @@ scheme = {
 	'commands': {
 		'/start': funcs.main_menu,
 		'/select_lang': funcs.lang_select,
-		'/admin': adm.admin_auth
+		'/admin': adm.admin_auth,
+		'/donation_end': funcs.donation_end
 	},
 	'callbacks': {
 		'select_lang': funcs.lang_select,

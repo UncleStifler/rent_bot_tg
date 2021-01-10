@@ -5,6 +5,10 @@ async def donation(args=None, lang='en'):
     return [mockups.donation_start(lang),
             mockups.donation_keyboard(lang, 'main_menu-')]
 
+async def donation_end(args=None, lang='en'):
+    return [mockups.donation_end(lang),
+            mockups.back_menu_keyboard(lang)]
+
 
 async def lang_select(args=None, lang='en'):
     return [mockups.lang_select_text(lang),

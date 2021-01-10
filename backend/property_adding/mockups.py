@@ -21,7 +21,9 @@ def u_title_keyboard(lang='en'):
 	]}
 
 def u_description_text(lang='en'):
-	return ll.ad_description[lang]
+	location_url = f'[\u200B](https://pisotio.com/examples/description_example.jpg)\n'
+	text = f'{location_url}{ll.ad_description[lang]}'
+	return text
 def u_description_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': lb.back[lang], 'callback_data': 'u_start-'}]
@@ -68,7 +70,9 @@ def u_rooms_keyboard(lang='en'):
 	]}
 ###########################################################
 def u_geo_text(lang='en'):
-	return ll.ad_geo[lang]
+	location_url = f'[\u200B](https://pisotio.com/examples/location.jpg)\n'
+	text = f'{location_url}{ll.ad_geo[lang]}'
+	return text
 def u_geo_keyboard(lang='en'):
 	return {'inline_keyboard': [
 	[{'text': lb.back[lang], 'callback_data': 'u_type-'}]
