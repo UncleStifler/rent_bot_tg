@@ -74,7 +74,7 @@ async def send_invoice(chat_id, amount, lang='en'):
 	message = {
 		'chat_id': chat_id,
 		'title': f'{donation[lang]} {amount} €',
-		'description': '',
+		'description': donation[lang],
 		'payload': 'donation',
 		'provider_token': config.PAY_TOKEN,
 		'start_parameter': 'start',
