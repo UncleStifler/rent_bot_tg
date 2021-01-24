@@ -7,7 +7,9 @@ from utils.utils import log_err
 def read_exception(data):
     try:
         message = ujson.loads(data)
+        print(message)
         if message["description"] == 'Forbidden: bot was blocked by the user':
+            print('returning instance')
             return BotBlocked()
         else:
             raise NotImplementedError

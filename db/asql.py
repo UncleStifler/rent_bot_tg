@@ -67,3 +67,11 @@ async def get_geo(pool, lat, lon):
 
 async def get_users(pool, lang=None):
 	return await pool_req(pool, q.get_users(lang))
+
+async def count_users(pool):
+	return await pool_req(pool,
+						  'select count(id) from users')
+
+async def insert_statistic_record(pool, amount: int, type_: int):
+	timestamp = int(time.time())
+	return await pool_req(pool, q.insert_statistic_record(timestamp, amount, type_))

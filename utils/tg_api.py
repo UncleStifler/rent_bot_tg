@@ -41,6 +41,7 @@ async def send_message(chat_id, text, keyboard=None, update=None):
 		url = API_URL+'editMessageText'
 	status, response = await _post_req(url, message, HEADERS, json_loads=True)
 	if isinstance(response, BotBlocked):
+		print('bot blocked exc')
 		await response.process(chat_id)
 		return status, None
 	if response:

@@ -153,3 +153,10 @@ def get_users(lang=None):
     if lang:
         q += f'where lang = {lang}'
     return q
+
+def insert_statistic_record(timestamp: int, amount: int, type_: int) -> str:
+    return f'''
+insert into users_statistics (
+    timestamp, amount, type
+)
+values ({timestamp}, {amount}, {type_})'''
