@@ -19,6 +19,7 @@ class UserState:
         self.filters = {}
         self.active_users = set()
         asyncio.ensure_future(self.init_cycle())
+        asyncio.ensure_future(self.recording_statistics())
 
     async def recording_statistics(self):
         while True:
