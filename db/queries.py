@@ -1,6 +1,5 @@
 
 
-
 def _insert_user(user_id, message_id=None, lang=None):
     columns = '(id, message_id'
     if not message_id:
@@ -39,6 +38,8 @@ def get_user(user_id):
     return f'select * from users where id = {user_id}'
 
 # --------------------------------------------------------------------------
+def get_users_count():
+    return f'select count(*) from users;'
 
 def cities():
     return 'select * from cities'
@@ -151,8 +152,25 @@ limit 1'''
 def get_users(lang=None):
     q = 'select id from users'
     if lang:
-        q += f'where lang = {lang}'
+        q += f" where lang = '{lang}'"
     return q
+
+
+def get_a_user_ads_count(date):
+    return f"select count(*) from user_ads where published>='{date}'"
+
+
+def get_filter_count():
+    return 'select count(*) from user_filters'
+
+
+def get_active_users(date):
+    return f"select count(*) from users where last_activity>='{date}'"
+
+
+def set_active_day(date, user_id):
+    return f"update users set last_activity='{date}' where id='{user_id}'"
+
 
 def insert_statistic_record(timestamp: int, amount: int, type_: int) -> str:
     return f'''
@@ -160,3 +178,13 @@ insert into users_statistics (
     timestamp, amount, type
 )
 values ({timestamp}, {amount}, {type_})'''
+
+
+def q_insert_post(data, lang):
+    return f"insert into posts (post_text, id, lang) values('{data}', '1', '{lang}')"
+
+def q_get_post():
+    return "select * from posts"
+
+def q_delete_post():
+    return "delete from posts"

@@ -99,7 +99,11 @@ direct_answers = {
 				'core_func': p_funcs.price},
 	'a_auth': {'type_func': mp.auth_,
 				'next_func': adm.admin,
-				'core_func': adm.admin_auth}
+				'core_func': adm.admin_auth},
+	'a_mailing': {'type_func': adm.mailing_,
+				  'next_func': adm.admin_mailing_step2,
+				  'core_func': adm.admin_mailing
+	},
 }
 
 back_scheme = {
@@ -200,7 +204,14 @@ scheme = {
 		'a_main': adm.admin,
 		'a_show': adm.show_last_ad,
 		'a_decline': adm.decline_ad,
-		'a_accept': adm.accept_ad
+		'a_accept': adm.accept_ad,
+		'a_stats': adm.admin_statistics,
+		'a_mailing': adm.admin_mailing,
+		'a_mailing_step3': adm.admin_mailing_step3,
+		'a_mailing_rus': adm.admin_mailing_step4_ru,
+		'a_mailing_en': adm.admin_mailing_step4_en,
+		'a_mailing_es': adm.admin_mailing_step4_es,
+		'a_mailing_publish': adm.admin_post_publish
 	}
 }
 

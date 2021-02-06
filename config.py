@@ -7,7 +7,7 @@ INT_IP = '10.164.0.2'
 URL = 'pisotio.com'
 
 tg_tokens = {
-    'dev': '1042488699:AAFEsvgJXyEIR3REXrSAMZjQB-HClDnNE0U',
+    'dev': '1684036818:AAEi2WyLSxlRTZoAexdH5zEeG9JeoeI3lKQ',
     'main': '1490631920:AAHCSpYQ_DjzqnbgpmcJiM2eZIBMLi-wSDk'
 }
 webhook_hosts = {

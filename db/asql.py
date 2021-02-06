@@ -1,6 +1,6 @@
 import asyncpg
 import time
-
+from datetime import datetime, timedelta
 import config
 import db.queries as q
 
@@ -75,3 +75,34 @@ async def count_users(pool):
 async def insert_statistic_record(pool, amount: int, type_: int):
 	timestamp = int(time.time())
 	return await pool_req(pool, q.insert_statistic_record(timestamp, amount, type_))
+
+
+async def get_a_users_ads_count(pool):
+	date = str(datetime.now() - timedelta(days=7))[:10]
+	return await pool_req(pool, q.get_a_user_ads_count(date))
+
+
+async def get_a_filter_count(pool):
+	return await pool_req(pool, q.get_filter_count())
+
+
+async def get_a_active_users(pool):
+	date = str(datetime.now() - timedelta(days=7))[:10]
+	return await pool_req(pool, q.get_active_users(date))
+
+
+async def set_active_day(pool, id):
+	date = str(datetime.now())[:10]
+	return await pool_req(pool, q.set_active_day(date, id))
+
+
+async def insert_post(pool, data, lang):
+	return await pool_req(pool, q.q_insert_post(data, lang))
+
+
+async def get_post(pool):
+	return await pool_req(pool, q.q_get_post())
+
+
+async def delete_post(pool):
+	return await pool_req(pool, q.q_delete_post())
