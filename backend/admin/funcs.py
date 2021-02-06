@@ -71,13 +71,14 @@ async def admin_mailing_step4_ru(args=None, lang='ru'):
     await insert_post(args.pool, post_text, 'ru')
     return [text, mockups.admin_mailing_step4_keyboard(lang)]
 
-async def admin_mailing_step4_en(args=None, lang='ru'):
+async def admin_mailing_step4_en(args=None, lang='en'):
     text = "Ваше сообщение: \n" + post_text + "\nАудитория: 🇺🇸"
     await insert_post(args.pool, post_text, 'en')
     return [text, mockups.admin_mailing_step4_keyboard(lang)]
 
 async def admin_mailing_step4_es(args=None, lang='es'):
     text = "Ваше сообщение: \n" + post_text + "\nАудитория: 🇪🇸"
+    await insert_post(args.pool, post_text, 'es')
     return [text, mockups.admin_mailing_step4_keyboard(lang)]
 
 async def admin_post_publish(args=None, lang='ru'):
