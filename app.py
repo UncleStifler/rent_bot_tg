@@ -91,6 +91,7 @@ async def tg_handler(request):
                                                                   db_data,
                                                                   pool)
             lang = await user_state.get_lang(args.user_id)
+            await asql.set_active_day(args.pool, user_id)
             print(f'{callback = }')
             print(callback_data)
 
