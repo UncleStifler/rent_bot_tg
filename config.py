@@ -15,7 +15,7 @@ webhook_hosts = {
     'main': INT_IP
 }
 webhook_ports = {
-    'dev': 80,
+    'dev': 8443,
     'main': 8443
 }
 db_hosts = {
