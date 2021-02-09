@@ -181,7 +181,8 @@ values ({timestamp}, {amount}, {type_})'''
 
 
 def q_insert_post(data, lang):
-    return f'''insert into posts (post_text, id, lang) values('{str(data)}', 1, '{lang}')'''
+    data = data.replace("'", "\'")
+    return f'''insert into posts (post_text, id, lang) values('{data}', 1, '{lang}')'''
 
 def q_get_post():
     return "select * from posts"
