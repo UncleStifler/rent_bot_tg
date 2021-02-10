@@ -41,7 +41,7 @@ async def admin_statistics(args=None, lang='ru'):
 def mailing_(message):
     # insert_post_firstly(data=message)
     global post_text
-    post_text = message.replace("'", "\'")
+    post_text = message
     return message
 
 
@@ -72,14 +72,13 @@ async def admin_mailing_step4_ru(args=None, lang='ru'):
     return [text, mockups.admin_mailing_step4_keyboard(lang)]
 
 async def admin_mailing_step4_en(args=None, lang='en'):
-    data = post_text.replace("'", "\'")
-    text = "Ваше сообщение: \n" + data + "\nАудитория: 🇺🇸"
-    await insert_post(args.pool, data, 'en')
+    text = "Ваше сообщение: \n" + post_text + "\nАудитория: 🇺🇸"
+    await insert_post(args.pool, post_text.replace("'", "''"), 'en')
     return [text, mockups.admin_mailing_step4_keyboard(lang)]
 
 async def admin_mailing_step4_es(args=None, lang='es'):
     text = "Ваше сообщение: \n" + post_text + "\nАудитория: 🇪🇸"
-    await insert_post(args.pool, post_text, 'es')
+    await insert_post(args.pool, post_text.replace("'", "''"), 'es')
     return [text, mockups.admin_mailing_step4_keyboard(lang)]
 
 async def admin_post_publish(args=None, lang='ru'):
