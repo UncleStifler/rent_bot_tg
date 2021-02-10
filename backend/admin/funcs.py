@@ -41,7 +41,7 @@ async def admin_statistics(args=None, lang='ru'):
 def mailing_(message):
     # insert_post_firstly(data=message)
     global post_text
-    post_text = message
+    post_text = message.replace("'", "\'")
     return message
 
 
