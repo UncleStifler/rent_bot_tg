@@ -73,7 +73,7 @@ async def admin_mailing_step4_ru(args=None, lang='ru'):
 
 async def admin_mailing_step4_en(args=None, lang='en'):
     text = "Ваше сообщение: \n" + post_text + "\nАудитория: 🇺🇸"
-    data = post_text.replace("'", "\'")
+    data = post_text.encode('string_escape')
     await insert_post(args.pool, data, 'en')
     return [text, mockups.admin_mailing_step4_keyboard(lang)]
 
