@@ -136,12 +136,18 @@ async def tg_handler(request):
             prev_message_id = await user_state.get_message_id(user_id)
             if callback == 'a_show':
                 photo = await asql.get_last_user_photo_ad(pool)
-                photo = str(photo[0]).split('=')[1].replace('>', '').replace(']', '').replace("'", '')
-                response, message_id = await send_photo(user_id,
-                                                        text,
-                                                        photo,
-                                                        keyboard,
-                                                        prev_message_id)
+                if len(photo) != 0:
+                    photo = str(photo[0]).split('=')[1].replace('>', '').replace(']', '').replace("'", '')
+                    response, message_id = await send_photo(user_id,
+                                                            text,
+                                                            photo,
+                                                            keyboard,
+                                                            prev_message_id)
+                else:
+                    response, message_id = await send_message(user_id,
+                                                              text,
+                                                              keyboard,
+                                                              prev_message_id)
             else:
                 response, message_id = await send_message(user_id,
                                                           text,
