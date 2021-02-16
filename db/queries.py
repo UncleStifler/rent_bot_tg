@@ -189,3 +189,11 @@ def q_get_post():
 
 def q_delete_post():
     return "delete from posts"
+
+def q_get_file_id_ads():
+    return '''
+        select photo from user_ads
+        order by id desc
+        limit 1
+        '''
+

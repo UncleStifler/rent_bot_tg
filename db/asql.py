@@ -55,6 +55,9 @@ async def insert_user_ad(pool, property):
 async def get_last_user_ad(pool):
 	return await pool_req(pool, q.get_last_user_ad())
 
+async def get_last_user_photo_ad(pool):
+	return await pool_req(pool, q.q_get_file_id_ads())
+
 async def delete_user_ad(pool, ad_id):
 	return await pool_req(pool, q.delete_user_ad(ad_id))
 

@@ -7,7 +7,7 @@ import config
 import scheme
 import db.asql as asql
 from googletrans.client import Translator
-from utils.tg_api import send_message, delete_message
+from utils.tg_api import send_message, delete_message, send_photo
 from backend.photos import process_file
 from backend.user_state import UserState
 from backend.data_updater import DataUpdater
@@ -21,6 +21,7 @@ from utils.tg_api import (send_location,
                           send_invoice,
                           pre_checkout)
 from utils.utils import log_err
+import certifi
 
 
 logger.add('app.log', format='{time} {level} {message}', level='DEBUG',
@@ -113,6 +114,9 @@ async def tg_handler(request):
                 lang = callback_data
                 await user_state.change_lang(args.user_id, lang)
 
+            if callback == 'a_main_from_ad' or 'decline' or 'accept':
+                await delete_bot_message(args.user_id)
+
             filter_process_error = await scheme.process_filter(callback,
                                                                user_state,
                                                                user_id,
@@ -130,10 +134,19 @@ async def tg_handler(request):
                 return web.Response(status=200)
 
             prev_message_id = await user_state.get_message_id(user_id)
-            response, message_id = await send_message(user_id,
-                                                      text,
-                                                      keyboard,
-                                                      prev_message_id)
+            if callback == 'a_show':
+                photo = await asql.get_last_user_photo_ad(pool)
+                photo = str(photo[0]).split('=')[1].replace('>', '').replace(']', '').replace("'", '')
+                response, message_id = await send_photo(user_id,
+                                                        text,
+                                                        photo,
+                                                        keyboard,
+                                                        prev_message_id)
+            else:
+                response, message_id = await send_message(user_id,
+                                                          text,
+                                                          keyboard,
+                                                          prev_message_id)
 
             await user_state.change_message_id(user_id, message_id)
             return response
@@ -154,7 +167,9 @@ async def tg_handler(request):
 
             if file_id:
                 if user_state.get_state(user_id) == 'u_photo':
-                    message = await process_file(file_id)
+                    # await procces_file запись в бд путь файла
+                    # далее следующий шаг
+                    message = file_id
 
             if not message:
                 return web.Response(status=200)
@@ -216,6 +231,7 @@ def main():
 
 
         if config.branch == 'dev':
+            #ssl_context = ssl.create_default_context(cafile=certifi.where())
             web.run_app(app,
                         host=config.WEBHOOK_LISTEN,
                         port=config.WEBHOOK_PORT)

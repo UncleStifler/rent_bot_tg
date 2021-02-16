@@ -202,6 +202,7 @@ scheme = {
 		'u_end': funcs.main_menu,
 
 		'a_main': adm.admin,
+		'a_main_from_ad': adm.admin,
 		'a_show': adm.show_last_ad,
 		'a_decline': adm.decline_ad,
 		'a_accept': adm.accept_ad,

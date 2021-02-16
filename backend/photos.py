@@ -3,7 +3,7 @@ import os
 from aiohttp import web
 
 import config
-from utils.tg_api import get_file_path
+from utils.tg_api import get_file_path, FILE_URL
 from utils.tg_api import download_file
 from utils.utils import log_err
 
@@ -19,16 +19,21 @@ from utils.utils import log_err
 
 async def process_file(file_id):
     data = await get_file_path(file_id)
-    try:
-        file_path = data['result']['file_path']
-        data = await download_file(file_path)
-        id_ = get_filename()
-        with open(f'{config.IMAGE_FOLDER}{id_}.jpg', 'wb') as f:
-            f.write(data)
-        return f'local/{id_}'
-    except Exception as err:
-        log_err(err, data)
-        return 'error'
+    return file_id
+    #№print('data', data)
+    #try:
+    #    file_path = data['result']['file_path']
+    #    file_url = FILE_URL + file_path
+    #    print(file_url)
+        #data = await download_file(file_path)
+        #id_ = get_filename()
+        #print(id_)
+        #with open(f'{config.IMAGE_FOLDER}{id_}.jpg', 'wb') as f:
+            #f.write(data)
+    #    return file_url
+    #except Exception as err:
+    #    log_err(err, data)
+    #    return 'error'
 
 def get_filename():
     return max([int(x.replace('.jpg', '')) for x in os.listdir(f'{config.IMAGE_FOLDER}')]) + 1

@@ -47,7 +47,7 @@ def toascii(input_string):
 
 def photo_check(message):
     try:
-        assert message.startswith('local/'), f'message is not photo {message = }'
+        assert len(message) > 20, f'message is not photo {message = }'
         return message
     except AssertionError as err:
         print(f'error: photo, {err}')

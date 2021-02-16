@@ -80,7 +80,7 @@ def ad_keyboard(ad_id, lang='en'):
 	return {'inline_keyboard': [
 		[{'text': 'Decline', 'callback_data': f'a_decline-{ad_id}'},
 		 {'text': 'Accept', 'callback_data': f'a_accept-{ad_id}'}],
-		[{'text': 'Back', 'callback_data': 'a_main-'}]
+		[{'text': 'Back', 'callback_data': 'a_main_from_ad-'}]
 	]}
 
 

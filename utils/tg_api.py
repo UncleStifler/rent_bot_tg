@@ -8,6 +8,7 @@ from utils.tg_exceptions import (read_exception,
 								 BotBlocked)
 from ui.lang_buttons import donation
 API_URL = f'https://api.telegram.org/bot{config.TOKEN}/'
+FILE_URL = f'https://api.telegram.org/file/bot{config.TOKEN}/' # +file_path
 HEADERS = {'Content-Type': 'application/json'}
 
 def _get_message_for_sent(chat_id,
@@ -18,6 +19,26 @@ def _get_message_for_sent(chat_id,
 	message = {
 		'chat_id': chat_id,
 		'text': text
+	}
+	if keyboard:
+		message.update({'reply_markup': keyboard})
+	if update:
+		message.update({'message_id': update})
+	if markdown:
+		message.update({'parse_mode': 'markdown'})
+		message.update({'disable_web_page_preview': False})
+	return message
+
+def _get_photo_for_sent(chat_id,
+						text,
+						photo,
+						keyboard,
+						update,
+						markdown=True):
+	message = {
+		'chat_id': chat_id,
+		'photo': photo,
+		'caption': text
 	}
 	if keyboard:
 		message.update({'reply_markup': keyboard})
@@ -47,6 +68,19 @@ async def send_message(chat_id, text, keyboard=None, update=None):
 	if response:
 		response = response['result']['message_id']
 	return status, response
+
+async def send_photo(chat_id, text, photo, keyboard=None, update=None):
+	message = _get_photo_for_sent(chat_id, text, photo, keyboard, update)
+	url = API_URL + 'sendPhoto'
+	status, response = await _post_req(url, message, HEADERS, json_loads=True)
+	if isinstance(response, BotBlocked):
+		print('bot blocked exc')
+		await response.process(chat_id)
+		return status, None
+	if response:
+		response = response['result']['message_id']
+	return status, response
+
 
 async def delete_message(chat_id, message_id):
 	message = _get_message_for_delete(chat_id, message_id)

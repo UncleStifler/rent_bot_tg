@@ -8,17 +8,20 @@ from backend.filter_adding.view import (sex_view,
                                         pets_view,
                                         smoke_view,
                                         owner_view)
-
+#https://api.telegram.org/bot1684036818:AAEi2WyLSxlRTZoAexdH5zEeG9JeoeI3lKQ/sendphoto?chat_id=@testdjeziklog&photo="@api.telegram.org/file/bot1684036818:AAEi2WyLSxlRTZoAexdH5zEeG9JeoeI3lKQ/photos/file_11.jpg"
 def get_ad_text(ad, db, lang='en'):
     id_ = ad['id']
-    if ad['photo']:
-        photo_url = get_photo_url(int(ad['photo'].split('/')[1]))
-        photo = f'[\u200B]({photo_url})'
-    else:
-        photo = ''
+    #if ad['photo']:
+        #photo_url = ad['photo'].split('/')[1]#get_photo_url(int(ad['photo'].split('/')[1]))
+        #print(photo_url)
+        # должны получить file_id
+        #photo_url = 'AgACAgIAAxkBAAIBCGAqbAF2vBVR1TudNM6VnT9i6-GxAALMsjEbDn9RSQo6E2_4EdH1WFQumy4AAwEAAwIAA3gAA-OiAgABHgQ'
+        #photo = f'[\u200B]({photo_url})'
+    #else:
+        #photo = ''
     print(ad)
     text = f'''
-{photo}
+
 Title: *{normalize_text(ad['title'])}*
 Contact Name: *{normalize_text(ad['contact_name'])}*
 Contact Phone: *{normalize_text(ad['contact_phone'])}*
